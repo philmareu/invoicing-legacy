@@ -16,10 +16,13 @@ class ClientsTableSeeder extends Seeder
         });
     }
 
-    private function addInvoice($member, $quantity = 100)
+    private function addInvoice($client, $quantity = 100)
     {
         foreach(range(1, $quantity) as $row) {
-            $member->invoices()->save(factory(Invoicing\Models\Invoice::class)->make());
+            $invoice = $client->invoices()->save(factory(Invoicing\Models\Invoice::class)->make());
+            foreach(range(1, rand(1, 2)) as $row) {
+                $invoice->workOrders()->save(factory(Invoicing\Models\WorkOrder::class)->make());
+            }
         }
     }
 }

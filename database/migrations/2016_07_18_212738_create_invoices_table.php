@@ -20,10 +20,10 @@ class CreateInvoicesTable extends Migration
             $table->text('description');
             $table->date('due');
             $table->boolean('paid');
+            $table->timestamps();
 
             $table->index(['unique_id', 'client_id']);
             $table->foreign('client_id')->references('id')->on('clients')->onUpdate('cascade')->onDelete('restrict');
-            $table->timestamps();
         });
     }
 

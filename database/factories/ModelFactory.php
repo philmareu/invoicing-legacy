@@ -42,3 +42,12 @@ $factory->define(Invoicing\Models\Invoice::class, function (Faker\Generator $fak
         'paid' => $faker->numberBetween(0, 1)
     ];
 });
+
+$factory->define(Invoicing\Models\WorkOrder::class, function (Faker\Generator $faker) {
+    return [
+        'scheduled' => $faker->date(),
+        'description' => $faker->paragraph(),
+        'rate' => $faker->numberBetween(30, 55),
+        'completed' => $faker->numberBetween(0, 1)
+    ];
+});
