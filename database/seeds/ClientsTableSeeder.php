@@ -12,17 +12,30 @@ class ClientsTableSeeder extends Seeder
     public function run()
     {
         factory(Invoicing\Models\Client::class, 10)->create()->each(function($m) {
-            $this->addInvoice($m, rand(2, 5));
+            $this->addInvoices($m, rand(2, 5));
         });
     }
 
-    private function addInvoice($client, $quantity = 100)
+    private function addInvoices($client, $quantity = 100)
     {
         foreach(range(1, $quantity) as $row) {
             $invoice = $client->invoices()->save(factory(Invoicing\Models\Invoice::class)->make());
-            foreach(range(1, rand(1, 2)) as $row) {
-                $invoice->workOrders()->save(factory(Invoicing\Models\WorkOrder::class)->make());
-            }
+            $this->addWorkOrders($invoice, rand(1, 2));
+        }
+    }
+
+    private function addWorkOrders($invoice, $quantity = 100)
+    {
+        foreach(range(1, $quantity) as $row) {
+            $workOrder = $invoice->workOrders()->save(factory(Invoicing\Models\WorkOrder::class)->make());
+            $this->addTasksToWorkOrders($workOrder, rand(3, 5));
+        }
+    }
+
+    private function addTasksToWorkOrders($workOrder, $quantity = 100)
+    {
+        foreach(range(1, $quantity) as $row) {
+            $workOrder->tasks()->save(factory(Invoicing\Models\Task::class)->make());
         }
     }
 }

@@ -51,3 +51,10 @@ $factory->define(Invoicing\Models\WorkOrder::class, function (Faker\Generator $f
         'completed' => $faker->numberBetween(0, 1)
     ];
 });
+
+$factory->define(Invoicing\Models\Task::class, function (Faker\Generator $faker) {
+    return [
+        'task' => $faker->paragraph(),
+        'completed_at' => $faker->randomElement([null, $faker->date()])
+    ];
+});

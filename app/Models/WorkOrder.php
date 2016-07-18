@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class WorkOrder extends Model
 {
-    //
+    public function tasks()
+    {
+        return $this->hasMany('Invoicing\Models\Task');
+    }
 }
