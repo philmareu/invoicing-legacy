@@ -10,4 +10,9 @@ class WorkOrder extends Model
     {
         return $this->hasMany('Invoicing\Models\Task');
     }
+
+    public function times()
+    {
+        return $this->hasMany('Invoicing\Models\Time');
+    }
 }

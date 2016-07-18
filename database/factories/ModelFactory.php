@@ -58,3 +58,10 @@ $factory->define(Invoicing\Models\Task::class, function (Faker\Generator $faker)
         'completed_at' => $faker->randomElement([null, $faker->date()])
     ];
 });
+
+$factory->define(Invoicing\Models\Time::class, function (Faker\Generator $faker) {
+    return [
+        'note' => $faker->paragraph(),
+        'time' => $faker->numberBetween(10, 400)
+    ];
+});

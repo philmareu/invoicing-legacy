@@ -29,6 +29,7 @@ class ClientsTableSeeder extends Seeder
         foreach(range(1, $quantity) as $row) {
             $workOrder = $invoice->workOrders()->save(factory(Invoicing\Models\WorkOrder::class)->make());
             $this->addTasksToWorkOrders($workOrder, rand(3, 5));
+            $this->addTimesToWorkOrders($workOrder, rand(1, 3));
         }
     }
 
@@ -36,6 +37,13 @@ class ClientsTableSeeder extends Seeder
     {
         foreach(range(1, $quantity) as $row) {
             $workOrder->tasks()->save(factory(Invoicing\Models\Task::class)->make());
+        }
+    }
+
+    private function addTimesToWorkOrders($workOrder, $quantity = 100)
+    {
+        foreach(range(1, $quantity) as $row) {
+            $workOrder->times()->save(factory(Invoicing\Models\Time::class)->make());
         }
     }
 }

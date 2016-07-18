@@ -14,7 +14,13 @@ class CreateTimesTable extends Migration
     {
         Schema::create('times', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('work_order_id');
+            $table->string('note');
+            $table->unsignedMediumInteger('time');
             $table->timestamps();
+
+            $table->index(['work_order_id']);
+            $table->foreign('work_order_id')->references('id')->on('work_orders')->onUpdate('cascade')->onDelete('restrict');
         });
     }
 
