@@ -11,6 +11,15 @@ class ClientsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Invoicing\Models\Client::class, 10)->create();
+        factory(Invoicing\Models\Client::class, 10)->create()->each(function($m) {
+            $this->addInvoice($m, rand(2, 5));
+        });
+    }
+
+    private function addInvoice($member, $quantity = 100)
+    {
+        foreach(range(1, $quantity) as $row) {
+            $member->invoices()->save(factory(Invoicing\Models\Invoice::class)->make());
+        }
     }
 }
