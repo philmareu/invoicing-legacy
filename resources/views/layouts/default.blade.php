@@ -5,11 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<link href="{{ asset('css/styles.css') }}" rel="stylesheet" media="screen">
-
-	<!-- Typekit fonts -->
-	<script type="text/javascript" src="//use.typekit.net/qux8web.js"></script>
-	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-	
+    
 	@yield('head')
 </head>
 <body>
