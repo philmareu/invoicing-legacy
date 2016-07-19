@@ -11,7 +11,7 @@
 |
 */
 
-$factory->define(Invoicing\User::class, function (Faker\Generator $faker) {
+$factory->define(Invoicing\Models\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->safeEmail,
