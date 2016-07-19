@@ -59,35 +59,26 @@ $(function(){
 	});
 	
 	// Update task
-	$('#modal').on("click", 'button#update-task', function( e ) {
+	$('#modal').on("click", 'button#update-task', function( event ) {
 	    
-	    e.preventDefault();
-		
-		button = $( this );
-		
-		button.html('Updating <i class="uk-icon-refresh uk-icon-spin"></i>').prop('disabled', true);
-	    
+	    event.preventDefault();
+        var button = $( this );
         var modal = $.UIkit.modal("#modal");
-        
-        taskId = $('input#task-id').val();
-	    
-	    uri = SITE_URL + "/tasks/" + taskId;
-	    data = $("form#edit-task").serialize();
-        
+        var form = button.parents('form');
+        var action = form.attr('action');
+
+		button.html('Updating <i class="uk-icon-refresh uk-icon-spin"></i>').prop('disabled', true);
+
         $.ajax({
-    		type: "PATCH",
-    		url: uri,
-    		data: data
+    		type: "PUT",
+    		url: action,
+    		data: form.serialize()
     	})
-    	.done( function( data ) {
-
-            var results = $.parseJSON(data);
-
-            if(results.status == 'saved')
+    	.done( function( response ) {
+                
+            if(response.status == 'saved')
     		{
-    		    var html = $.parseJSON(data).html;
-
-                $('table.tasks tr#row-' + taskId).replaceWith( html );
+                $('table.tasks tr#row-' + response.task.id).replaceWith( response.html );
 
     			modal._hide();
     		}

@@ -3,6 +3,7 @@
 namespace Invoicing\Http\Controllers;
 
 use Invoicing\Http\Requests\CreateTaskRequest;
+use Invoicing\Http\Requests\UpdateTaskRequest;
 use Invoicing\Models\Task;
 use Invoicing\Models\WorkOrder;
 
@@ -49,29 +50,16 @@ class TasksController extends Controller {
 	}
 
 	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-        return View::make('tasks.show');
-	}
-
-	/**
 	 * Show the form for editing the specified resource.
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(Task $task)
 	{
-        $task = Task::restrict()->find($id);
+        $output['html'] = view('tasks.edit')->with('task', $task)->render();
 		
-        $output['html'] = View::make('tasks.edit', compact('task'))->render();
-		
-		echo json_encode($output);
+		return response()->json($output);
 	}
 
 	/**
@@ -80,41 +68,17 @@ class TasksController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(UpdateTaskRequest $request, Task $task)
 	{
-		if (Session::token() != Input::get('_token'))
-		{
-			throw new Illuminate\Session\TokenMismatchException;
-		}
-		
-		$rules = array(
-			'title' => ''
-		);
-		
-		$validator = Validator::make(Input::all(), $rules);
-		
-		if ($validator->fails())
-		{
-			// Input::flash();
-			// return Redirect::back()->withErrors($validator);
-			echo 'validation_errors';
-		}
-		
-		$task = Task::restrict()->find($id);
-		$task->update(Input::only('task'));
-		
-		if($task->taskable_type == 'Workorder')
-		{
-			$output['html'] = View::make('tasks.partials.row', compact('task'))->render();
-		}
-		else
-		{
-			$output['html'] = View::make('tasks.partials.row_view_only', compact('task'))->render();
-		}
-		
-		$output['status'] = 'saved';
-		
-		echo json_encode($output);
+		$task->update($request->all());
+
+        $output = [
+            'task' => $task,
+            'html' => view('tasks.partials.row')->with('task', $task)->render(),
+            'status' => 'saved'
+        ];
+
+		return response()->json($output);
 	}
 
 	/**
