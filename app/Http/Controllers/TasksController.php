@@ -87,14 +87,11 @@ class TasksController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy(Task $task)
 	{
-		$task = Task::restrict()->find($id);
 		$task->delete();
-		
-		$output['status'] = 'success';
-		
-		echo json_encode($output);
+
+        return response()->json(['status' => 'success']);
 	}
 	
 	public function toggle($id)

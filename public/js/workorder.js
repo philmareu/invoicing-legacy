@@ -119,7 +119,7 @@ $(function(){
     		data: form.serialize()
     	})
     	.done( function( response ) {
-                
+
             if(response.status == 'saved')
     		{
                 $('table.tasks tr#row-' + response.task.id).replaceWith( response.html );
@@ -132,9 +132,9 @@ $(function(){
 	});
 
     // Delete task
-    $('.uncompleted-tasks, .completed-tasks').on('click', 'a.delete-task', function(e){
+    $('.uncompleted-tasks, .completed-tasks').on('click', 'a.delete-task', function(event){
         
-        e.preventDefault();
+        event.preventDefault();
 
         taskId = $( this ).attr('id');
         
@@ -142,13 +142,12 @@ $(function(){
 		{
 		    $.ajax({
                 type: "DELETE",
-                url: SITE_URL + "/tasks/" + taskId
+                url: SITE_URL + "/tasks/" + taskId,
+                data: {_token: csrf}
             })
-            .done( function( data ) {
+            .done( function( response ) {
 
-                var status = $.parseJSON(data).status;
-
-                if(status == 'success')
+                if(response.status == 'success')
                 {
                     $('tr#row-' + taskId).remove();
                 }			
