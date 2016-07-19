@@ -147,37 +147,4 @@ class TasksController extends Controller {
 			echo json_encode($output);
 		}
 	}
-	
-	public function move_task($ids)
-	{
-		list($workorder_id, $task_id) = explode('-', $ids);
-		
-		$task = Task::restrict()->findOrFail($task_id);
-		
-		$task->taskable_id = $workorder_id;
-		$task->taskable_type = 'Workorder';
-		$task->save();
-		
-		$output['status'] = 'success';
-		
-		echo json_encode($output);
-	}
-	
-	public function addToWorkorder()
-	{
-		$taskId = Input::get('task_id');
-		$workorderId = Input::get('workorder_id');
-		
-		$task = Task::restrict()->find($taskId);
-		
-		$task->taskable_type = 'Workorder';
-		$task->taskable_id = $workorderId;
-		$task->save();
-		
-		$output['status'] = 'success';
-		$output['taskId'] = $taskId;
-		
-		echo json_encode($output);
-	}
-
 }
