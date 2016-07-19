@@ -87,3 +87,18 @@ $factory->define(Invoicing\Models\ClientContact::class, function (Faker\Generato
         'note' => $faker->paragraph()
     ];
 });
+
+$factory->define(Invoicing\Models\PaymentType::class, function (Faker\Generator $faker) {
+    return [
+        'title' => $faker->word
+    ];
+});
+
+$factory->define(Invoicing\Models\Payment::class, function (Faker\Generator $faker) {
+    return [
+        'payment_type_id' => $faker->numberBetween(1, 6),
+        'date' => $faker->date(),
+        'note' => $faker->sentence(),
+        'amount' => $faker->numberBetween(2000, 35000)
+    ];
+});

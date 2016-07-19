@@ -20,4 +20,9 @@ class Invoice extends Model
     {
         return $this->hasMany('Invoicing\Models\InvoiceItem');
     }
+
+    public function payments()
+    {
+        return $this->hasMany('Invoicing\Models\Payment');
+    }
 }
