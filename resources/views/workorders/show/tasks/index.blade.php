@@ -1,8 +1,7 @@
 <h3 class="tasks uk-panel-title">
-	{{ icon('tasks') }}
 	Tasks
-	<a href="#" id="add-task" class="workorder-{{ $workorder->id }}" data-uk-modal>
-		{{ icon('add') }}
+	<a href="#" id="add-task" class="workorder-{{ $workOrder->id }}" data-uk-modal>
+		+
 	</a>
 </h3>
 
@@ -10,8 +9,8 @@
 	<div class="uk-width-1-1">
 		
 		<ul class="uk-tab uk-margin-bottom" data-uk-tab={connect:'#panes'}>
-			<li class="active"><a href="">{{ icon('uncompleted_task') }} Uncompleted</a></li>
-			<li><a href="">{{ icon('completed_task') }} Completed</a></li>
+			<li class="active"><a href="">Uncompleted</a></li>
+			<li><a href="">Completed</a></li>
 		</ul>
 		
 		<ul id="panes" class="uk-switcher">

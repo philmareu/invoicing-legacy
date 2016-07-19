@@ -2,15 +2,22 @@
 
 namespace Invoicing\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Invoicing\Http\Requests\CreateWorkOrderRequest;
+use Invoicing\Http\Requests\UpdateWorkOrderRequest;
+use Invoicing\Models\Invoice;
 use Invoicing\Models\WorkOrder;
 
 class WorkOrdersController extends Controller {
 	
-	protected $workorder;
+	protected $workOrder;
+
+    protected $invoice;
 	
-	public function __construct(WorkOrder $workorder)
+	public function __construct(WorkOrder $workOrder, Invoice $invoice)
 	{
-		$this->workorder = $workorder;
+		$this->workOrder = $workOrder;
+        $this->invoice = $invoice;
 	}
 
 	/**
@@ -20,7 +27,7 @@ class WorkOrdersController extends Controller {
 	 */
 	public function index()
 	{
-        $workOrders = $this->workorder->whereCompleted(0)->get();
+        $workOrders = $this->workOrder->whereCompleted(0)->get();
 
         return view('workorders.index.index')->with('workOrders', $workOrders);
 	}
@@ -30,47 +37,11 @@ class WorkOrdersController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create(Request $request)
 	{
-		$referenceDropdown = array();
-		$reference = 0;
-		$clientId = Input::get('client_id');
-		$projectId = Input::get('project_id');
-		$proposalId = Input::get('proposal_id');
-		$account = $this->account->get();
-		
-		if($clientId)
-		{
-			$referenceDropdown = $this->workorder->referenceDropdown($clientId);
-			$reference = 1;
-		}
-		
-		elseif($projectId)
-		{
-			$project = $this->project->get($projectId);
-			$clientId = $project->client_id;
-			$reference = 'project-' . $projectId;
-		}
-		
-		elseif($proposalId)
-		{
-			$proposal = $this->proposal->get($proposalId);
-			$clientId = $proposal->client_id;
-			$reference = 'proposal-' . $proposalId;
-		}
-		
-		$data = array(
-			'types' => $this->workorder->typeDropdown(),
-			'clientsDropdown' => $this->client->dropdown(),
-			'users' => $this->user->getTeamDropdown(),
-			'defaultRate' => $account->default_rate,
-			'defaultWorkorderTypeId' => $account->default_workorder_type_id,
-			'clientId' => $clientId,
-			'referenceDropdown' => $clientId ? $this->workorder->referenceDropdown($clientId) : array(),
-			'reference' => $reference
-		);
-		
-        return View::make('workorders.create.index', $data);
+        $invoice = $this->invoice->findOrFail($request->invoice_id);
+
+        return view('workorders.create')->with('invoice', $invoice);
 	}
 
 	/**
@@ -78,26 +49,12 @@ class WorkOrdersController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(CreateWorkOrderRequest $request)
 	{
-		if (Session::token() != Input::get('_token'))
-		{
-			throw new Illuminate\Session\TokenMismatchException;
-		}
-		
-		$inputs = Input::all();
-		
-		$validator = Validator::make($inputs, Config::get('validation.workorder'));
-		
-		if ($validator->fails())
-		{
-			Input::flash();
-			return Redirect::back()->withErrors($validator);
-		}
-		
-		$workorder = $this->workorder->create($inputs);
-		
-		return Redirect::to('workorders/' . $workorder->id);
+        $invoice = $this->invoice->findOrFail($request->invoice_id);
+        $invoice->workOrders()->create($request->all());
+
+        return redirect(route('invoices.show', $invoice->id))->with('success', 'Work order added.');
 	}
 
 	/**
@@ -106,12 +63,9 @@ class WorkOrdersController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show(WorkOrder $workOrder)
 	{
-		$workorder = $this->workorder->get($id, true);
-		$timer = $this->workorder->getFormatedTimeSpan($id);
-		
-        return View::make('workorders.show.index', compact('workorder', 'timer'));
+		return view('workorders.show.index')->with('workOrder', $workOrder);
 	}
 
 	/**
@@ -120,30 +74,9 @@ class WorkOrdersController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(WorkOrder $workOrder)
 	{
-		$isEditable = $this->workorder->isEditable($id);
-		
-		if($isEditable !== true)
-		{
-			Session::flash('flash_message', $isEditable['message']);
-			
-			return Redirect::to('workorders/' . $id);
-		}
-			
-		$workorder = $this->workorder->get($id);
-		$workorder = $this->workorder->setReferenceForEdit($workorder);
-		
-		$data = array(
-			'types' => $this->workorder->typeDropdown(),
-			'clientsDropdown' => $this->client->dropdown(),
-			'workorder' => $workorder,
-			'referenceDropdown' => $this->workorder->referenceDropdown($workorder->client_id),
-			'users' => $this->user->getTeamDropdown(),
-			'isEditable' => $isEditable
-		);
-		
-        return View::make('workorders.edit.index', $data);
+        return view('invoice_items.edit')->with('workOrder', $workOrder);
 	}
 
 	/**
@@ -152,26 +85,11 @@ class WorkOrdersController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(UpdateWorkOrderRequest $request, WorkOrder $workOrder)
 	{
-		if (Session::token() != Input::get('_token'))
-		{
-			throw new Illuminate\Session\TokenMismatchException;
-		}
-		
-		$inputs = Input::all();
-		
-		$validator = Validator::make($inputs, Config::get('validation.workorder'));
-		
-		if ($validator->fails())
-		{
-			Input::flash();
-			return Redirect::back()->withErrors($validator);
-		}
-		
-		$workorder = $this->workorder->update($id, $inputs);
-		
-		return Redirect::to('workorders/' . $workorder->id);
+        $workOrder->update($request->all());
+
+        return redirect(route('invoices.show', $workOrder->invoice->id))->with('success', 'Item updated.');
 	}
 
 	/**
@@ -184,12 +102,4 @@ class WorkOrdersController extends Controller {
 	{
 		//
 	}
-	
-	public function completed()
-	{
-		$workorders = $this->workorder->getCompleted();
-		
-        return View::make('workorders.completed', compact('workorders'));
-	}
-
 }

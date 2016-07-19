@@ -1,11 +1,11 @@
-@if(count($workorder->completedTasks))
+@if(count($workOrder->completedTasks))
 
 <div class="uk-overflow-container">
 <table class="uk-table uk-table-striped uk-table-condensed tasks completed">
 	<caption class="uk-margin-bottom">These are completed tasks assigned to this work order.</caption>
 	
 	<tbody>
-	@foreach($workorder->completedTasks as $task)
+	@foreach($workOrder->completedTasks as $task)
 	
 		@include('tasks.partials.row')
 		

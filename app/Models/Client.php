@@ -31,4 +31,9 @@ class Client extends Model
     {
         return $this->hasMany('Invoicing\Models\ClientContact');
     }
+
+    public function workOrders()
+    {
+        return $this->hasManyThrough('Invoicing\Models\WorkOrder', 'Invoicing\Models\Invoice');
+    }
 }

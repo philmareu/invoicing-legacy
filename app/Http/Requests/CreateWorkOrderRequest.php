@@ -13,7 +13,7 @@ class CreateWorkOrderRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class CreateWorkOrderRequest extends Request
     public function rules()
     {
         return [
-            //
+            'scheduled' => 'date_format:Y-m-d',
+            'description' => '',
+            'rate' => 'required|integer',
+            'completed' => 'boolean'
         ];
     }
 }

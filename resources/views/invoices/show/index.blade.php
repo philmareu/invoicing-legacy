@@ -36,7 +36,7 @@
                 @each('invoices.show.workorder', $invoice->workOrders, 'workOrder')
             </tbody>
         </table>
-        <a href="{{ route('work-orders.create', $invoice->id) }}" class="uk-button">Add</a>
+        <a href="{{ route('invoices.work-orders.create', ['invoice_id' => $invoice->id]) }}" class="uk-button">Add</a>
     </div>
 
     <div class="payments">

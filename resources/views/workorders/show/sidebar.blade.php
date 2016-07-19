@@ -1,25 +1,24 @@
 <div class="uk-button-group uk-margin-bottom">
-	<a href="{{ url('workorders/' . $workorder->id . '/edit') }}" class="uk-button">
-		{{ icon('edit') }} Edit
+	<a href="{{ url('workorders/' . $workOrder->id . '/edit') }}" class="uk-button">
+		Edit
 	</a>
 	
-	@if( ! $workorder->invoice_id && is_null($workorder->completed))
+	@if( ! $workOrder->invoice_id && is_null($workOrder->completed))
 	@if($timer)
-	<button type="button" class="uk-button toggle-time uk-text-danger" id="{{ $workorder->id }}">
-		{{ icon('timer', 'spin') }}
-		{{ icon('stop') }}
-		<span class="{{ $workorder->id }}-elapsed">{{ $timer }}</span>
+	<button type="button" class="uk-button toggle-time uk-text-danger" id="{{ $workOrder->id }}">
+		<i class="uk-icon-clock-o uk-icon-spin"></i>
+		Stop
+		<span class="{{ $workOrder->id }}-elapsed">{{ $timer }}</span>
 	</button>
 	@else
-	<button type="button" class="uk-button toggle-time uk-text-success" id="{{ $workorder->id }}">
-		{{ icon('timer') }}
-		{{ icon('play') }}
-		<span class="{{ $workorder->id }}-elapsed"></span>
+	<button type="button" class="uk-button toggle-time uk-text-success" id="{{ $workOrder->id }}">
+		Timer |
+		Play
+		<span class="{{ $workOrder->id }}-elapsed"></span>
 	</button>
 	@endif
 
-	<a href="#" class="workorder-completed uk-button" id="{{ $workorder->id}}">
-		{{ icon('workorder_completed') }}
+	<a href="#" class="workorder-completed uk-button" id="{{ $workOrder->id}}">
 		Mark Completed
 	</a>
 

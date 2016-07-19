@@ -180,8 +180,9 @@ Route::group(['middleware' => 'auth'], function()
     Route::resource('invoices/invoice-items', 'InvoiceItemsController', ['except' => ['index', 'show'], 'parameters' => [
         'invoice-items' => 'invoiceItem']]);
     Route::resource('invoices/payments', 'PaymentsController', ['except' => ['index', 'show']]);
+    Route::resource('invoices/work-orders', 'WorkOrdersController', ['parameters' => [
+        'work-orders' => 'workOrder']]);
     Route::resource('invoices', 'InvoicesController');
-    Route::resource('work-orders', 'WorkordersController');
 
 //
 //

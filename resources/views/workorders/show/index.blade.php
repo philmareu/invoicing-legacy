@@ -3,8 +3,7 @@
 @section('content')
 
 <h1>
-	{{ icon('workorders') }}
-	WO# {{ $workorder->id }}
+	WO# {{ $workOrder->id }}
 </h1>
 	
 <div class="uk-grid">
@@ -21,15 +20,6 @@
 		<div class="uk-panel uk-panel-box">
 			@include('workorders.show.notes')
 		</div>
-			
-		<h3>Recent Activity</h3>
-        	
-		<ul class="uk-list">
-			@foreach($workorder->activities as $activity)
-			<li>{{ displayActivity($activity)}}</li>
-			@endforeach
-		</ul>
-			
 	</div>
 		
 	<div class="uk-width-medium-4-10">

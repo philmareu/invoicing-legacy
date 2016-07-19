@@ -1,8 +1,7 @@
 <h3 class="notes uk-panel-title">
-	{{ icon('notes') }}
 	Notes
-	<a href="#" id="add-note" class="workorder-{{ $workorder->id }}" data-uk-modal>
-		{{ icon('add') }}
+	<a href="#" id="add-note" class="workorder-{{ $workOrder->id }}" data-uk-modal>
+		+
 	</a>
 </h3>
 
@@ -11,9 +10,9 @@
 
 		<div class="notes">
 
-			@if(count($workorder->notes))
+			@if(count($workOrder->notes))
 	
-				@foreach($workorder->notes as $note)
+				@foreach($workOrder->notes as $note)
 		    	
 					@include('notes.partials.row')
 		    	
