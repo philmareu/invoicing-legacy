@@ -176,7 +176,7 @@ Route::group(['middleware' => 'auth'], function()
 //        return Redirect::to(url('invoice/view/' . $inv->client_id . '/' . $inv->unique_id));
 //    })->where('id', '[0-9]+');
 //
-//    Route::resource('invoices', 'InvoicesController');
+    Route::resource('invoices', 'InvoicesController');
 //
 //
 //    Route::get('invoice_item', 'AjaxViewController@invoice_item');

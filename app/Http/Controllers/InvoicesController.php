@@ -7,28 +7,15 @@ use App\Repositories\ActivityRepository;
 use App\Repositories\ClientRepository;
 use App\Repositories\AccountRepository;
 use App\Repositories\BillingRepository;
+use Invoicing\Models\Invoice;
 
 class InvoicesController extends Controller {
 	
 	protected $invoice;
-	protected $activity;
-	protected $client;
-	protected $account;
-	protected $billing;
 	
-	public function __construct(
-		InvoiceRepository $invoice,
-		ActivityRepository $activity,
-		ClientRepository $client,
-		AccountRepository $account,
-		BillingRepository $billing
-	)
+	public function __construct(Invoice $invoice)
 	{
 		$this->invoice = $invoice;
-		$this->activity = $activity;
-		$this->client = $client;
-		$this->account = $account;
-		$this->billing = $billing;
 	}
 
 	/**
@@ -36,19 +23,11 @@ class InvoicesController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function overview()
+	public function index()
 	{
-		$data = array(
-			'salesData' => $this->invoice->getSalesData(),
-			'activities' => $this->activity->getRecent('Invoice'),
-			'invoices' => $this->invoice->getUnpaid(),
-			'totalSales' => $this->invoice->getTotalSales(),
-			'recentPayments' => $this->invoice->getRecentPayments(),
-			'key' => $this->billing->getPublishableKey(),
-			'isLive' => $this->billing->isLive()
-		);
-		
-		return View::make('invoices.overview.index', $data);
+        $invoices = $this->invoice->all();
+
+		return view('invoices.index.index')->with('invoices', $invoices);
 	}
 
 	/**
