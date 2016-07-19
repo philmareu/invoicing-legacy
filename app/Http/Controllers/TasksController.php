@@ -111,40 +111,4 @@ class TasksController extends Controller {
 			echo 'completed';
 		}
 	}
-	
-	public function mark_completed($id)
-	{
-		$workorder = Workorder::restrict()->find($id);
-		
-		if(is_null($workorder) OR $workorder->completed)
-		{
-			echo json_encode(['status' => 'error']);
-		}
-		
-		elseif($workorder->uncompletedTasks->count())
-		{
-			echo json_encode(['status' => 'error', 'message' => 'Complete all tasks first']);
-		}
-		
-		else
-		{
-			$now = date('Y-m-d H:i:s');
-		
-			// Stop timer
-			$time = Time::where('workorder_id', $id)
-				->restrict()
-				->whereNull('stop')
-				->where('user_id', getUserId());
-			
-			if(count($time)) $time->update(array('stop' => $now));
-		
-			$workorder->update(array('completed' => $now));
-		
-			$output['status'] = 'success';
-			$output['message'] = 'Work Order marked complete';
-			$output['html'] = View::make('partials.ajax.workorder_completed')->render();
-		
-			echo json_encode($output);
-		}
-	}
 }
