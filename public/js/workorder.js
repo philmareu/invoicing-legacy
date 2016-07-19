@@ -157,15 +157,16 @@ $(function(){
     });
 
     // Toggle task
-    $('.uncompleted-tasks, .completed-tasks').on('click', 'a.toggle-task', function( e ){
+    $('.uncompleted-tasks, .completed-tasks').on('click', 'a.toggle-task', function( event ){
 
-        e.preventDefault();
+        event.preventDefault();
 
         var $taskId = $( this ).attr('id');
 
         $.ajax({
-            type: "GET",
-            url: SITE_URL + "/tasks/toggle/" + $taskId
+            type: "PUT",
+            url: SITE_URL + "/tasks/toggle/" + $taskId,
+            data: {_token: csrf}
         })
         .done( function( response ) {
 
@@ -173,11 +174,6 @@ $(function(){
             {
                 $('a#' + $taskId + '.toggle-task i').attr('class', 'uk-icon-check-square-o');
                 $('tr#row-' + $taskId).detach().appendTo($('table.tasks.completed tbody'));
-                
-                // alert($('table.tasks.completed tbody').html());
-                
-                // 
-                
             }
             else
             {
@@ -188,83 +184,6 @@ $(function(){
         })
 
     });
-	
-	// Add task Modal	
-	$('.uncompleted-tasks').on('click', 'a.add-to-workorder', function(e){
-		
-		e.preventDefault();
-	    
-	    taskId = $(this).attr('id');
-
-        uri = "/tasks/add-to-workorder/" + taskId;
-        
-        getModal(uri);
-		
-	});
-    
-    // Move task
-	// $('.uncompleted-tasks').on('click', 'a.move-task', function(e){
-	//
-	//     e.preventDefault();
-	//
-	// 	var $this = $( this );
-	// 	var ids = $this.attr('id');
-	// 	var row = $this.parents("tr");
-	//
-	// 	$.ajax({
-	// 		type: "GET",
-	// 		url: SITE_URL + "/workorders/move_task/" + ids
-	// 	})
-	// 	.done(function( data ) {
-	//
-	// 		var status = $.parseJSON(data).status;
-	//
-	// 		if(status == 'success')
-	// 		{
-	// 			row.remove();
-	// 		}
-	// 		else
-	// 		{
-	//
-	// 		}
-	//
-	// 	})
-	//
-	// });
-	
-	// Add task to work order
-	$('#modal').on("click", 'button#add-to-workorder', function( e ) {
-	    
-	    e.preventDefault();
-		
-		button = $( this );
-		
-		button.html('Adding to Work Order <i class="uk-icon-refresh uk-icon-spin"></i>').prop('disabled', true);
-	    
-        var modal = $.UIkit.modal("#modal");
-	    
-	    uri = "/tasks/add-to-workorder";
-	    data = $("form#add-task-to-workorder").serialize();
-        
-        $.ajax({
-    		type: "POST",
-    		url: SITE_URL + uri,
-    		data: data
-    	})
-    	.done( function( data ) {
-
-            var results = $.parseJSON(data);
-
-            if(results.status == 'success')
-    		{                
-    		    $('tr#row-' + results.taskId).remove();
-
-    			modal._hide();
-    		}
-
-    	});
-		
-	});
 
 });
 $(function(){

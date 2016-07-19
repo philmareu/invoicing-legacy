@@ -2,6 +2,7 @@
 
 namespace Invoicing\Http\Controllers;
 
+use Carbon\Carbon;
 use Invoicing\Http\Requests\CreateTaskRequest;
 use Invoicing\Http\Requests\UpdateTaskRequest;
 use Invoicing\Models\Task;
@@ -94,21 +95,21 @@ class TasksController extends Controller {
         return response()->json(['status' => 'success']);
 	}
 	
-	public function toggle($id)
+	public function toggle(Task $task)
 	{
-		$task = Task::restrict()->find($id);
-		
-		if($task->completed)
+		if(is_null($task->completed_at))
 		{
-			$task->completed = null;
-			$task->save();
-			echo 'uncompleted';
+            $task->completed_at = Carbon::now();
+            $task->save();
+            $result = 'completed';
 		}
 		else
 		{
-			$task->completed = date('Y-m-d H:i:s');
-			$task->save();
-			echo 'completed';
+            $task->completed_at = null;
+            $task->save();
+            $result = 'uncompleted';
 		}
+
+        return response()->json($result);
 	}
 }
