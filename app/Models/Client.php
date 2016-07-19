@@ -15,4 +15,9 @@ class Client extends Model
     {
         return $this->morphMany('Invoicing\Models\Note', 'subject');
     }
+
+    public function contacts()
+    {
+        return $this->hasMany('Invoicing\Models\ClientContact');
+    }
 }

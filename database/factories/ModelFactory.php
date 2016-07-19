@@ -78,3 +78,12 @@ $factory->define(Invoicing\Models\InvoiceItem::class, function (Faker\Generator 
         'amount' => $faker->numberBetween(5000, 450000)
     ];
 });
+
+$factory->define(Invoicing\Models\ClientContact::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name(),
+        'role' => $faker->word,
+        'phone' => $faker->phoneNumber,
+        'note' => $faker->paragraph()
+    ];
+});

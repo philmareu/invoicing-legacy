@@ -14,6 +14,7 @@ class ClientsTableSeeder extends Seeder
         factory(Invoicing\Models\Client::class, 10)->create()->each(function($c) {
             $this->addInvoices($c, rand(2, 5));
             $this->addNotes($c, rand(1, 3));
+            $this->addContact($c, rand(1, 3));
         });
     }
 
@@ -62,6 +63,13 @@ class ClientsTableSeeder extends Seeder
     {
         foreach(range(1, $quantity) as $row) {
             $invoice->items()->save(factory(Invoicing\Models\InvoiceItem::class)->make());
+        }
+    }
+
+    private function addContact($client, $quantity = 100)
+    {
+        foreach(range(1, $quantity) as $row) {
+            $client->contacts()->save(factory(Invoicing\Models\ClientContact::class)->make());
         }
     }
 }

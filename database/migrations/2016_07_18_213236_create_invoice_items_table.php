@@ -14,7 +14,13 @@ class CreateInvoiceItemsTable extends Migration
     {
         Schema::create('invoice_items', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('invoice_id');
+            $table->string('item', 200);
+            $table->unsignedInteger('amount');
             $table->timestamps();
+
+            $table->index(['invoice_id']);
+            $table->foreign('invoice_id')->references('id')->on('invoices')->onUpdate('cascade')->onDelete('restrict');
         });
     }
 

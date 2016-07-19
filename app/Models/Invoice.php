@@ -15,4 +15,9 @@ class Invoice extends Model
     {
         return $this->morphMany('Invoicing\Models\Note', 'subject');
     }
+
+    public function items()
+    {
+        return $this->hasMany('Invoicing\Models\InvoiceItem');
+    }
 }
