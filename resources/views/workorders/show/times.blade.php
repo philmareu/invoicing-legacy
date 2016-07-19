@@ -1,6 +1,7 @@
 <h3 class="times uk-panel-title">
-	Timer
-	Time log
+    <a href="#" id="add-time" class="{{ $workOrder->id }}" data-uk-modal>
+        +
+    </a>
 </h3>
 
 
