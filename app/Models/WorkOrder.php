@@ -15,4 +15,9 @@ class WorkOrder extends Model
     {
         return $this->hasMany('Invoicing\Models\Time');
     }
+
+    public function notes()
+    {
+        return $this->morphMany('Invoicing\Models\Note', 'subject');
+    }
 }

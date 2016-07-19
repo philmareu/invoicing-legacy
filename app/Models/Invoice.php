@@ -10,4 +10,9 @@ class Invoice extends Model
     {
         return $this->hasMany('Invoicing\Models\WorkOrder');
     }
+
+    public function notes()
+    {
+        return $this->morphMany('Invoicing\Models\Note', 'subject');
+    }
 }

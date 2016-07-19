@@ -65,3 +65,9 @@ $factory->define(Invoicing\Models\Time::class, function (Faker\Generator $faker)
         'time' => $faker->numberBetween(10, 400)
     ];
 });
+
+$factory->define(Invoicing\Models\Note::class, function (Faker\Generator $faker) {
+    return [
+        'note' => $faker->paragraph()
+    ];
+});

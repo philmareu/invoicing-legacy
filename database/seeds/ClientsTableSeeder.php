@@ -11,8 +11,9 @@ class ClientsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Invoicing\Models\Client::class, 10)->create()->each(function($m) {
-            $this->addInvoices($m, rand(2, 5));
+        factory(Invoicing\Models\Client::class, 10)->create()->each(function($c) {
+            $this->addInvoices($c, rand(2, 5));
+            $this->addNotes($c, rand(1, 3));
         });
     }
 
@@ -21,6 +22,7 @@ class ClientsTableSeeder extends Seeder
         foreach(range(1, $quantity) as $row) {
             $invoice = $client->invoices()->save(factory(Invoicing\Models\Invoice::class)->make());
             $this->addWorkOrders($invoice, rand(1, 2));
+            $this->addNotes($invoice, rand(1, 2));
         }
     }
 
@@ -30,6 +32,7 @@ class ClientsTableSeeder extends Seeder
             $workOrder = $invoice->workOrders()->save(factory(Invoicing\Models\WorkOrder::class)->make());
             $this->addTasksToWorkOrders($workOrder, rand(3, 5));
             $this->addTimesToWorkOrders($workOrder, rand(1, 3));
+            $this->addNotes($workOrder, rand(3, 5));
         }
     }
 
@@ -44,6 +47,13 @@ class ClientsTableSeeder extends Seeder
     {
         foreach(range(1, $quantity) as $row) {
             $workOrder->times()->save(factory(Invoicing\Models\Time::class)->make());
+        }
+    }
+
+    private function addNotes($model, $quantity = 100)
+    {
+        foreach(range(1, $quantity) as $row) {
+            $model->notes()->save(factory(Invoicing\Models\Note::class)->make());
         }
     }
 }
