@@ -1,3 +1,3 @@
 <tr>
-    <td>{{ $client->title }}</td>
+    <td><a href="{{ route('clients.show', $client->id) }}">{{ $client->title }}</a></td>
 </tr>

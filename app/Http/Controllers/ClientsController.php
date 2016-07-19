@@ -55,9 +55,9 @@ class ClientsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show(Client $clients)
+	public function show(Client $client)
 	{
-        return view('clients.show.index')->with('client', $clients);
+        return view('clients.show.index')->with('client', $client);
 	}
 
 	/**

@@ -13,7 +13,7 @@ class UpdateClientContactRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class UpdateClientContactRequest extends Request
     public function rules()
     {
         return [
-            //
+            'name' => 'required|max:255',
+            'role' => '',
+            'email' => 'email',
+            'phone' => '',
+            'note' => ''
         ];
     }
 }

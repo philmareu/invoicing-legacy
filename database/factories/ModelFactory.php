@@ -84,6 +84,7 @@ $factory->define(Invoicing\Models\ClientContact::class, function (Faker\Generato
     return [
         'name' => $faker->name(),
         'role' => $faker->word,
+        'email' => $faker->email,
         'phone' => $faker->phoneNumber,
         'note' => $faker->paragraph()
     ];

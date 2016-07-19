@@ -48,6 +48,7 @@ Route::group(['middleware' => 'auth'], function()
 //    |
 //    */
 //
+    Route::resource('clients/contacts', 'ClientContactsController', ['except' => ['index', 'show']]);
     Route::resource('clients', 'ClientsController');
 //
 //    /*

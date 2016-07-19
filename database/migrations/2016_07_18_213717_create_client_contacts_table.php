@@ -17,6 +17,7 @@ class CreateClientContactsTable extends Migration
             $table->unsignedInteger('client_id');
             $table->string('name');
             $table->string('role');
+            $table->string('email');
             $table->string('phone', 15);
             $table->text('note');
             $table->timestamps();
