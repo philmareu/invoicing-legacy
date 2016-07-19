@@ -15,4 +15,4 @@
         </tbody>
     </table>
 
-@stop
+@endsection
