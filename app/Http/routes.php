@@ -89,7 +89,7 @@ Route::group(['middleware' => 'auth'], function()
 //    Route::get('workorders/scheduled', 'WorkordersController@scheduled');
 //    Route::get('workorders/unscheduled', 'WorkordersController@unscheduled');
 //    Route::get('workorders/overview', 'WorkordersController@overview');
-//    Route::resource('workorders', 'WorkordersController');
+    Route::resource('work-orders', 'WorkordersController');
 //
 //    /*
 //    |--------------------------------------------------------------------------

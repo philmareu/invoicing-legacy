@@ -2,41 +2,15 @@
 
 namespace Invoicing\Http\Controllers;
 
-use App\Repositories\WorkorderRepository;
-use App\Repositories\ActivityRepository;
-use App\Repositories\ClientRepository;
-use App\Repositories\ProjectRepository;
-use App\Repositories\ProposalRepository;
-use App\Repositories\UserRepository;
-use App\Repositories\AccountRepository;
+use Invoicing\Models\WorkOrder;
 
 class WorkOrdersController extends Controller {
 	
 	protected $workorder;
-	protected $actiivty;
-	protected $client;
-	protected $project;
-	protected $proposal;
-	protected $user;
-	protected $account;
 	
-	public function __construct(
-		WorkorderRepository $workorder,
-		ActivityRepository $activity,
-		ClientRepository $client,
-		ProjectRepository $project,
-		ProposalRepository $proposal,
-		UserRepository $user,
-		AccountRepository $account
-	)
+	public function __construct(WorkOrder $workorder)
 	{
 		$this->workorder = $workorder;
-		$this->activity = $activity;
-		$this->client = $client;
-		$this->project = $project;
-		$this->proposal = $proposal;
-		$this->user = $user;
-		$this->account = $account;
 	}
 
 	/**
@@ -44,34 +18,11 @@ class WorkOrdersController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function scheduled()
+	public function index()
 	{
-		$data = array(
-			'today' => $this->workorder->getTodays(),
-			'future' => $this->workorder->getFuture(),
-			'past' => $this->workorder->getPast()
-		);
-		
-        return View::make('workorders.scheduled.index', $data);
-	}
-	
-	public function unscheduled()
-	{
-		$unscheduled = $this->workorder->getUnscheduled();
-		
-		return View::make('workorders.unscheduled.index', compact('unscheduled'));
-	}
-	
-	public function overview()
-	{
-		$data = array(
-			'activities' => $this->activity->getRecent('Workorder'),
-			'recentlyCompleted' => $this->workorder->getRecentlyCompleted(),
-			'unpaidWorkorders' => $this->workorder->getUnpaidWorkorders(),
-			'hoursData' => $this->workorder->getHoursData()
-		);
-		
-        return View::make('workorders.overview.index', $data);
+        $workOrders = $this->workorder->whereCompleted(0)->get();
+
+        return view('workorders.index.index')->with('workOrders', $workOrders);
 	}
 
 	/**
