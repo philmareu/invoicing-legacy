@@ -121,7 +121,7 @@ Route::group(['middleware' => 'auth'], function()
 //    ));
 //
     Route::get('tasks/create/{resource}', 'TasksController@create');
-//    Route::get('tasks/toggle/{task}', 'TasksController@toggle');
+    Route::put('tasks/toggle/{task}', 'TasksController@toggle');
     Route::resource('tasks', 'TasksController', ['except' => ['index', 'show']]);
 //
 //    /*
