@@ -1,1 +1,0 @@
-<h3>Your feedback has been successfully received. Thanks!</h3>
