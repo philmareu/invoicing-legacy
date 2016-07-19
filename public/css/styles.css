@@ -8,13 +8,13 @@
  */
 html {
   /* 1 */
-  font: normal 14px / 20px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: normal 17px / 22px "futura-pt", "Helvetica Neue", Helvetica, Arial, sans-serif;
   /* 2 */
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   /* 3 */
   background: #fff;
-  color: #444;
+  color: #4C4C4C;
 }
 /*
  * Removes default margin.
@@ -42,14 +42,14 @@ a:hover {
  */
 a,
 .uk-link {
-  color: #07D;
+  color: #d35400;
   text-decoration: none;
   cursor: pointer;
 }
 a:hover,
 .uk-link:hover {
-  color: #059;
-  text-decoration: underline;
+  color: #6d2b00;
+  text-decoration: none;
 }
 /* Text-level semantics
  ========================================================================== */
@@ -226,9 +226,9 @@ h4,
 h5,
 h6 {
   margin: 0 0 15px 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: normal;
-  color: #444;
+  font-family: "futura-pt", adelle, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  color: #4C4C4C;
   text-transform: none;
 }
 /*
@@ -1714,7 +1714,7 @@ iframe {
   text-decoration: none;
 }
 .uk-nav > li > a {
-  padding: 5px 15px;
+  padding: 10px 15px;
 }
 /*
  * Nested items
@@ -1735,7 +1735,7 @@ iframe {
 /* Sub-object: `uk-nav-header`
  ========================================================================== */
 .uk-nav-header {
-  padding: 5px 15px;
+  padding: 0px 15px;
   text-transform: uppercase;
   font-weight: bold;
   font-size: 12px;
@@ -1775,7 +1775,7 @@ ul.uk-nav-sub {
  * Items
  */
 .uk-nav-side > li > a {
-  color: #444;
+  color: #CCC;
 }
 /*
  * Hover
@@ -1784,14 +1784,14 @@ ul.uk-nav-sub {
  */
 .uk-nav-side > li > a:hover,
 .uk-nav-side > li > a:focus {
-  background: rgba(0, 0, 0, 0.05);
-  color: #444;
+  background: rgba(0, 0, 0, 0.1);
+  color: #CCC;
   /* 2 */
   outline: none;
 }
 /* Active */
 .uk-nav-side > li.uk-active > a {
-  background: #00a8e6;
+  background: #698aac;
   color: #fff;
 }
 /*
@@ -1810,10 +1810,10 @@ ul.uk-nav-sub {
  * Nested items
  */
 .uk-nav-side ul a {
-  color: #07D;
+  color: #E6E6E6;
 }
 .uk-nav-side ul a:hover {
-  color: #059;
+  color: #FFF;
 }
 /* Modifier `uk-nav-dropdown`
  ========================================================================== */
@@ -1830,7 +1830,7 @@ ul.uk-nav-sub {
  */
 .uk-nav-dropdown > li > a:hover,
 .uk-nav-dropdown > li > a:focus {
-  background: #00a8e6;
+  background: #698aac;
   color: #fff;
   /* 2 */
   outline: none;
