@@ -6,6 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Invoice extends Model
 {
+    protected $fillable = [
+        'client_id',
+        'invoice_number',
+        'unique_id',
+        'description',
+        'due',
+        'paid'
+    ];
+
     public function workOrders()
     {
         return $this->hasMany('Invoicing\Models\WorkOrder');
@@ -24,5 +33,10 @@ class Invoice extends Model
     public function payments()
     {
         return $this->hasMany('Invoicing\Models\Payment');
+    }
+
+    public function client()
+    {
+        return $this->belongsTo('Invoicing\Models\Client');
     }
 }

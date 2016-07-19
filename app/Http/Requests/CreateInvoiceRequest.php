@@ -13,7 +13,7 @@ class CreateInvoiceRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class CreateInvoiceRequest extends Request
     public function rules()
     {
         return [
-            //
+            'client_id' => 'required|exists:clients,id',
+            'description' => '',
+            'due' => 'required|date_format:Y-m-d'
         ];
     }
 }

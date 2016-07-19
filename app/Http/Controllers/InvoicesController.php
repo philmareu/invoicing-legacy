@@ -7,15 +7,20 @@ use App\Repositories\ActivityRepository;
 use App\Repositories\ClientRepository;
 use App\Repositories\AccountRepository;
 use App\Repositories\BillingRepository;
+use Invoicing\Http\Requests\CreateInvoiceRequest;
+use Invoicing\Models\Client;
 use Invoicing\Models\Invoice;
 
 class InvoicesController extends Controller {
 	
 	protected $invoice;
+
+    protected $client;
 	
-	public function __construct(Invoice $invoice)
+	public function __construct(Invoice $invoice, Client $client)
 	{
 		$this->invoice = $invoice;
+        $this->client = $client;
 	}
 
 	/**
@@ -37,15 +42,9 @@ class InvoicesController extends Controller {
 	 */
 	public function create()
 	{
-		$clientsDropdown = $this->client->dropdown();
-		
-		$clientId = Input::get('client_id');
-		
-		$workorders = array();
-		
-		if($clientId) $workorders = $this->client->getUnattachedWorkorders($clientId);
-		
-        return View::make('invoices.create.index', compact('clientsDropdown', 'workorders', 'clientId'));
+		$clients = $this->client->all();
+
+        return view('invoices.create')->with('clients', $clients);
 	}
 
 	/**
@@ -53,27 +52,20 @@ class InvoicesController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(CreateInvoiceRequest $request)
 	{
-		if (Session::token() != Input::get('_token'))
-		{
-			throw new Illuminate\Session\TokenMismatchException;
-		}
-		
-		$inputs = Input::all();
-		
-		$validator = Validator::make($inputs, Config::get('validation.invoice'));
-		
-		if ($validator->fails())
-		{
-			Input::flash();
-			return Redirect::back()->withErrors($validator);
-		}
-		
-		$invoice = $this->invoice->create($inputs);
-		
-		return Redirect::to('invoice/view/' . $invoice->client_id . '/' . $invoice->unique_id);
+		$invoice = $this->invoice->create($request->all());
+        $invoice->invoice_number = sprintf("%06d", $invoice->id);
+        $invoice->unique_id = str_random(50);
+        $invoice->save();
+
+		return redirect('invoices/' . $invoice->id)->with('success', 'Invoice created.');
 	}
+
+    public function show(Invoice $invoice)
+    {
+        return view('invoices.show.index')->with('invoice', $invoice);
+    }
 
 	/**
 	 * Show the form for editing the specified resource.

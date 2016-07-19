@@ -13,7 +13,7 @@ class UpdateInvoiceItemRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class UpdateInvoiceItemRequest extends Request
     public function rules()
     {
         return [
-            //
+            'invoice_id' => 'required|exists:invoices,id',
+            'item' => 'required|max:255',
+            'amount' => 'required|numeric'
         ];
     }
 }

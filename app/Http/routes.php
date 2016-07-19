@@ -1,6 +1,7 @@
 <?php
 
 Route::auth();
+Route::singularResourceParameters();
 
 //
 //Route::get('invoice/view/{client_id}/{unique_id}', [
@@ -89,7 +90,6 @@ Route::group(['middleware' => 'auth'], function()
 //    Route::get('workorders/scheduled', 'WorkordersController@scheduled');
 //    Route::get('workorders/unscheduled', 'WorkordersController@unscheduled');
 //    Route::get('workorders/overview', 'WorkordersController@overview');
-    Route::resource('work-orders', 'WorkordersController');
 //
 //    /*
 //    |--------------------------------------------------------------------------
@@ -176,7 +176,12 @@ Route::group(['middleware' => 'auth'], function()
 //        return Redirect::to(url('invoice/view/' . $inv->client_id . '/' . $inv->unique_id));
 //    })->where('id', '[0-9]+');
 //
+    Route::resource('invoices/invoice-items', 'InvoiceItemsController', ['except' => ['index', 'show'], 'parameters' => [
+        'invoice-items' => 'invoiceItem']]);
     Route::resource('invoices', 'InvoicesController');
+    Route::resource('payments', 'InvoicesController');
+    Route::resource('work-orders', 'WorkordersController');
+
 //
 //
 //    Route::get('invoice_item', 'AjaxViewController@invoice_item');
