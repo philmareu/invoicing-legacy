@@ -1,5 +1,5 @@
 <h3 class="times uk-panel-title">
-    <a href="#" id="add-time" class="{{ $workOrder->id }}" data-uk-modal>
+    <a href="" id="add-time" class="{{ $workOrder->id }}" data-uk-modal>
         +
     </a>
 </h3>
@@ -25,8 +25,7 @@
 	@foreach($workOrder->times as $time)
 		<tr id="row-{{ $time->id }}" class="time">
 			<td>{{ $time->start->format('n/j/y @ g:ia') }}</td>
-			@if($time->stop)
-				<td>{{ $time->stop->format('g:ia') }}</td>
+			@if($time->time)
 				<td>{{ $time->time }}</td>
 			@else
 				<td>Timer Going</td>
@@ -34,12 +33,12 @@
 			@endif
 			
 			<td>
-				@if( ! $workorder->invoice_id)
+				@if( ! $workOrder->invoice_id)
 				<a href="#" class="edit-time" id="{{ $time->id }}" data-uk-modal>
-					{{ icon('edit') }}
+					edit
 				</a>
 				<a href="" class="delete-time" id="{{ $time->id }}">
-					{{ icon('delete') }}
+					trash
 				</a>
 				@endif
 			</td>

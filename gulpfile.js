@@ -15,6 +15,8 @@ elixir(function(mix) {
     mix.scripts([
         '../bower/jquery/dist/jquery.js',
         '../bower/uikit/js/uikit.js',
+        '../bower/uikit/js/components/form-select.js',
+        '../bower/uikit/js/components/autocomplete.js',
         '../bower/uikit/js/components/datepicker.js',
         '../bower/uikit/js/components/timepicker.js',
         'scripts.js'

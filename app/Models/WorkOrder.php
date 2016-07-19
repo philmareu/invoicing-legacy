@@ -51,4 +51,9 @@ class WorkOrder extends Model
     {
         return $this->tasks()->whereNotNull('completed_at');
     }
+
+    public function totalTime()
+    {
+        return $this->times->sum('time');
+    }
 }

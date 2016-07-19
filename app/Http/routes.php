@@ -100,10 +100,10 @@ Route::group(['middleware' => 'auth'], function()
 //    |
 //    */
 //
-//    Route::get('times/create/{workorderId}', 'TimesController@create');
+    Route::get('times/create/{workorderId}', 'TimesController@create');
 //    Route::get('times/elapsed', 'TimesController@elapsed');
 //    Route::get('times/toggle/{workorder_id}', 'TimesController@toggle');
-//    Route::resource('times', 'TimesController');
+    Route::resource('times', 'TimesController', ['except' => ['index', 'show']]);
 //
 //    /*
 //    |--------------------------------------------------------------------------
@@ -112,13 +112,6 @@ Route::group(['middleware' => 'auth'], function()
 //    |
 //    |
 //    */
-//
-//    Route::get('tasks/add-to-workorder/{taskId}', 'AjaxViewController@activeWorkorders');
-//    Route::post('tasks/add-to-workorder', array(
-//        'before' => 'csrf',
-//        'as' => 'tasks.add-to-workorder',
-//        'uses' => 'TasksController@addToWorkorder'
-//    ));
 //
     Route::get('tasks/create/{resource}', 'TasksController@create');
     Route::put('tasks/toggle/{task}', 'TasksController@toggle');

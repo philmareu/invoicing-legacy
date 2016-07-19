@@ -13,7 +13,7 @@ class CreateTimeRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,12 @@ class CreateTimeRequest extends Request
     public function rules()
     {
         return [
-            //
+            'work_order_id' => 'required|exists:work_orders,id',
+            'date' => 'required|date_format:Y-m-d',
+            'time' => 'required|date_format:h:i A',
+            'hours' => 'required|numeric',
+            'minutes' => 'required|integer',
+            'note' => 'max:255'
         ];
     }
 }

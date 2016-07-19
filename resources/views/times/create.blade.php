@@ -1,43 +1,28 @@
-{{ Form::open(array('route' => 'times.store', 'id' => 'add-time', 'class' => 'uk-form uk-form-stacked')) }}
-{{ Form::hidden('workorder_id', $workorderId) }}
+<form action="{{ route('times.store') }}" id="add-time" class="uk-form uk-form-stacked">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="work_order_id" value="{{ $workOrderId }}">
 
-<div class="uk-form-row">
-	{{ $errors->first('start_date') }}
-	{{ Form::label('start_date', 'Start Date', array('class' => 'uk-form-label')) }}
-	<div class="uk-form-controls">
-		{{ Form::text('start_date', null, array('class' => 'uk-form-width-medium', 'data-uk-datepicker="{format:\'MM/DD/YYYY\'}"')) }}
-	</div>
-</div>
+    <div class="uk-form-row">
+        {{ $errors->first('date') }}
+        <label for="date" class="uk-form-label">Date</label>
+        <div class="uk-form-controls">
+            <input type="text" name="date" data-uk-datepicker="{weekstart:0, format:'YYYY-MM-DD'}">
+        </div>
+    </div>
 
-<div class="uk-form-row">
-	{{ $errors->first('start_time') }}
-	{{ Form::label('start_time', 'Start Time', array('class' => 'uk-form-label')) }}
-	<div class="uk-form-controls">
-		{{ Form::text('start_time', null, array('class' => 'uk-form-width-medium', 'data-uk-timepicker="{showMeridian:true}"')) }}
-	</div>
-</div>
+    <div class="uk-form-row">
+        {{ $errors->first('time') }}
+        <label for="time" class="uk-form-label">Time</label>
+        <div class="uk-form-controls">
+            <input type="text" name="time" data-uk-timepicker="{showMeridian:true, format:'12h'}">
+        </div>
+    </div>
 
-<div class="uk-form-row">
-	{{ $errors->first('time') }}
-	{{ Form::label('time', 'Time (hrs)', array('class' => 'uk-form-label')) }}
-	<div class="uk-form-controls">
-		{{ Form::text('time', null, array('class' => 'uk-form-width-mini')) }}
-	</div>
-</div>
+    @include('laraform::elements.form.text', ['field' => ['name' => 'hours']])
+    @include('laraform::elements.form.text', ['field' => ['name' => 'minutes']])
+    @include('laraform::elements.form.textarea', ['field' => ['name' => 'note']])
 
-<div class="uk-form-row">
-	{{ $errors->first('note') }}
-	{{ Form::label('note', 'Note', array('class' => 'uk-form-label')) }}
-	<div class="uk-form-controls">
-		{{ Form::text('note', null, array('class' => 'uk-form-width-large')) }}
-	</div>
-</div>
-
-<div class="uk-form-row">
-	<label class="uk-form-label"></label>
-	<div class="uk-form-controls">
-		<button type="button" id="save-time" class="uk-button uk-button-primary">Save</button>
-	</div>
-</div>
-
-{{ Form::close() }}
+    <div class="uk-form-row">
+        <button id="save-time" class="uk-button uk-button-primary">Save</button>
+    </div>
+</form>

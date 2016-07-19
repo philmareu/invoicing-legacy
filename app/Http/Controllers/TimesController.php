@@ -2,28 +2,33 @@
 
 namespace Invoicing\Http\Controllers;
 
+use Carbon\Carbon;
+use Invoicing\Http\Requests\CreateTimeRequest;
+use Invoicing\Models\Time;
+use Invoicing\Models\WorkOrder;
+
 class TimesController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
- 		return View::make('times.index');
-	}
+    protected $time;
+
+    protected $workOrder;
+
+    public function __construct(Time $time, WorkOrder $workOrder)
+    {
+        $this->time = $time;
+        $this->workOrder = $workOrder;
+    }
 
 	/**
 	 * Show the form for creating a new resource.
 	 *
 	 * @return Response
 	 */
-	public function create($workorderId)
+	public function create($workOrderId)
 	{
-		$output['html'] = View::make('times.create', compact('workorderId'))->render();
+		$output['html'] = view('times.create')->with('workOrderId', $workOrderId)->render();
 
-		echo json_encode($output);
+		return response()->json($output);
 	}
 
 	/**
@@ -31,53 +36,24 @@ class TimesController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(CreateTimeRequest $request)
 	{
-		if (Session::token() != Input::get('_token'))
-		{
-			throw new Illuminate\Session\TokenMismatchException;
-		}
-		
-		$rules = array(
-			'title' => ''
-		);
-		
-		$validator = Validator::make(Input::all(), $rules);
-		
-		if ($validator->fails())
-		{
-			// Input::flash();
-			// return Redirect::back()->withErrors($validator);
-			echo 'validation_errors';
-		}
-		
-		$date = Input::get('start_date');
-		$time = Input::get('start_time');
+        $workOrder = $this->workOrder->findOrFail($request->work_order_id);
+        $time = $workOrder->tasks()->create([
+            'start' => Carbon::createFromFormat('Y-m-d h:iS', $request->date . ' ' . $request->time),
+            'time' => round($request->minutes),
+            'note' => $request->note
+        ]);
 
-	 	$start = date('Y-m-d H:i:s', strtotime($date . ' ' . $time));
-		
-		$time = new Time;
-		$time->start = $start;
-		$time->stop = date('Y-m-d H:i:s', strtotime($time->start) + (Input::get('time') * 60 * 60));
-		$time->account_id = getAccountId();
-		$time->user_id = getUserId();
-		$time->save();
-		
-		$time->update([
-			'time' => round(Input::get('time'), 3),
-			'note' => Input::get('note'),
-			'workorder_id' => Input::get('workorder_id')
-				]);
-		
-		$workorder = Workorder::find($time->workorder_id);
-		
-		$output['workorder_id'] = $workorder->id;
-		$output['total_time'] = $workorder->total_time();
-		$output['status'] = 'saved';
-		$output['html'] = View::make('times.partials.row', compact('time'))->render();
-		
-		echo json_encode($output);
-	}
+        $output = [
+            'workOrder' => $workOrder,
+            'totalTime' => $workOrder->totalTime(),
+            'html' => view('times.partials.row')->with('time', $time)->render(),
+            'status' => 'saved'
+        ];
+
+        return response()->json($output);
+    }
 
 	/**
 	 * Display the specified resource.

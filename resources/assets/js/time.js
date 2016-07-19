@@ -12,40 +12,35 @@ $(function(){
 	});
     
     // Save time
-	$('#modal').on("click", 'button#save-time', function( e ) {
+	$('#modal').on("click", 'button#save-time', function( event ) {
 	    
-	    e.preventDefault();
+	    event.preventDefault();
 	    
-		button = $( this );
-		
+		var button = $( this );
+        var form = button.parents('form');
+        var action = form.attr('action');
 		button.html('Saving <i class="uk-icon-refresh uk-icon-spin"></i>').prop('disabled', true);
 		
 	    var modal = $.UIkit.modal("#modal");
-	    
-	    uri = "/times";
-	    data = $("form#add-time").serialize();
-        
+
         $.ajax({
     		type: "POST",
-    		url: SITE_URL + uri,
-    		data: data
+    		url: action,
+    		data: form.serialize()
     	})
-    	.done( function( data ) {
+    	.done( function( response ) {
 
-            var results = $.parseJSON(data);
-
-            if(results.status == 'saved')
+            if(response.status == 'saved')
     		{
     		    if ($('tr.time').length == 0) {
     		        table = '<div class="uk-overflow-container"><table class="uk-table uk-table-striped uk-table-condensed times uk-text-nowrap"><thead><tr><th>Start</th><th>Stop</th><th>Total</th><th>&nbsp;</th></tr></thead><tbody>' + results.html + '</tbody></table></div>';
-    		        
     		        
     		        $('.no-times').remove();
     		        $('.timesheet').after( table );
                 }
                 
                 else {
-                    $('table.times tbody').append( results.html );
+                    $('table.times tbody').append( response.html );
                 }
 
     			modal._hide();
