@@ -71,3 +71,10 @@ $factory->define(Invoicing\Models\Note::class, function (Faker\Generator $faker)
         'note' => $faker->paragraph()
     ];
 });
+
+$factory->define(Invoicing\Models\InvoiceItem::class, function (Faker\Generator $faker) {
+    return [
+        'item' => $faker->sentence(),
+        'amount' => $faker->numberBetween(5000, 450000)
+    ];
+});
