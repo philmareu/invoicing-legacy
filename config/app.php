@@ -157,7 +157,7 @@ return [
         Invoicing\Providers\AuthServiceProvider::class,
         Invoicing\Providers\EventServiceProvider::class,
         Invoicing\Providers\RouteServiceProvider::class,
-
+        Philsquare\LaraForm\LaraFormServiceProvider::class
     ],
 
     /*
