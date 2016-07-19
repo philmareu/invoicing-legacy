@@ -22,11 +22,11 @@
 			
 			<li data-uk-dropdown="{mode:'click'}">
 `
-				<a href="#">{{ $name }} {{ icon('dropdown') }}</a>
+				<a href="#">{{ Auth::user()->name }} <i class="uk-icon-toggle-down"></i></a>
 
 				<div class="uk-dropdown uk-dropdown-small">
 					<ul class="uk-nav uk-nav-dropdown">
-						<li><a href="{{ url('logout') }}">{{ icon('logout') }} Logout</a></li>
+						<li><a href="{{ url('logout') }}"><i class="uk-icon-sign-out"></i> Logout</a></li>
 					</ul>
 				</div>
 			</li>

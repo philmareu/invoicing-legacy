@@ -19,7 +19,6 @@ elixir(function(mix) {
     ], 'public/js/scripts.js');
     mix.copy('resources/assets/bower/uikit/fonts', 'public/fonts/');
     mix.less([
-        'vendor/uikit/uikit.less',
         'styles.less'
     ], 'public/css/styles.css');
 });

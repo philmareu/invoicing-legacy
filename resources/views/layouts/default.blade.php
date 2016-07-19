@@ -1,28 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>WorkTop | @yield('title', 'Manage Your Business')</title>
+	<title>Invoicing | @yield('title', 'Invoicing app by Phil Mareu')</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link href="{{ asset('css/application.min.css') }}" rel="stylesheet" media="screen">
-
-	<!-- scripts -->
-	@if(App::environment() == 'production')
-
-	<script type="text/javascript" charset="utf-8">
-		var SITE_URL = "{{ URL::secure('/') }}";
-	</script>
-
-	@else
-
-	<script type="text/javascript" charset="utf-8">
-		var SITE_URL = "{{ URL::to('/') }}";
-	</script>
-
-	@endif
-
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script>window.jQuery || document.write('<script src="{{ asset('js/jquery-2.1.1.min.js') }}"><\/script>')</script>
+	<link href="{{ asset('css/styles.css') }}" rel="stylesheet" media="screen">
 
 	<!-- Typekit fonts -->
 	<script type="text/javascript" src="//use.typekit.net/qux8web.js"></script>
@@ -74,12 +56,7 @@
 		</div>
 	</section>
 	
-	<script src="{{ asset('js/uikit.min.js') }}"></script>
-	<script src="{{ asset('js/search.min.js') }}"></script>
-	<script src="{{ asset('js/autocomplete.min.js') }}"></script>
-	<script src="{{ asset('js/application.js') }}"></script>
-	
-	@yield('scripts-footer')
+	@yield('scripts')
 
 </body>
 </html>

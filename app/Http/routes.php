@@ -1,4 +1,7 @@
 <?php
+
+Route::auth();
+
 //
 //Route::get('invoice/view/{client_id}/{unique_id}', [
 //    'as' => 'invoice.view',
@@ -293,3 +296,5 @@ Route::group(['middleware' => 'auth'], function()
 //));
 //
 //Route::controller('password', 'RemindersController');
+
+Route::get('/home', 'HomeController@index');

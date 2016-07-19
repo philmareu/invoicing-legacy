@@ -1,7 +1,7 @@
 <div class="uk-offcanvas-bar">
 	
 	<div class="uk-panel">
-		<h3 class="uk-panel-title">{{ $account_title }}</h3>
+		<h3 class="uk-panel-title">Untitled</h3>
 		<ul class="uk-list">
 			<li>{{ date('D, M d Y') }}</li>
 		</ul>
@@ -54,16 +54,6 @@
 		<li class="uk-nav-divider"></li>
 
 		<li class="uk-nav-header account">Account</li>
-
-	
-		<li class="uk-parent">
-			<a href="#"><i class="uk-icon-arrows-h"></i> Switch Accounts</a>
-			<ul class="uk-nav-sub">
-				@foreach($user->accounts as $account)
-				<li><a href="{{ url('/account/select/' . $account->id) }}">Philsquare</a></li>
-				@endforeach
-			</ul>
-		</li>
 
 		<li class="uk-parent">
 			<a href="#">
