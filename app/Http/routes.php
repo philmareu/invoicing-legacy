@@ -1,16 +1,295 @@
 <?php
+//
+//Route::get('invoice/view/{client_id}/{unique_id}', [
+//    'as' => 'invoice.view',
+//    'uses' => 'InvoicesController@view'
+//]);
+//
+//Route::get('invoice/pay/{client_id}/{unique_id}', array(
+//
+//    'as' => 'invoice.pay',
+//    'uses' => 'InvoicesController@pay'
+//
+//));
+//
+//Route::post('invoice/pay', array(
+//
+//    'as' => 'invoice.process_payment',
+//    'uses' => 'InvoicesController@process_payment'
+//
+//));
+//
+Route::group(['middleware' => 'auth'], function()
+{
+    /*
+    |--------------------------------------------------------------------------
+    | Dashboard
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+    Route::get('dashboard', array(
 
-Route::get('/', function () {
-    return view('welcome');
+        'as' => 'dashboard',
+        'uses' => 'DashboardController@index'
+
+    ));
+
+//    /*
+//    |--------------------------------------------------------------------------
+//    | Clients
+//    |--------------------------------------------------------------------------
+//    |
+//    |
+//    */
+//
+//    Route::get('clients/archived', 'ClientsController@archived');
+//    Route::get('clients/active', 'ClientsController@active');
+//    Route::get('clients/overview', 'ClientsController@overview');
+//    Route::resource('clients', 'ClientsController');
+//
+//    /*
+//    |--------------------------------------------------------------------------
+//    | Account
+//    |--------------------------------------------------------------------------
+//    |
+//    |
+//    */
+//
+//    Route::get('account', 'AccountController@index');
+//    Route::get('account/billing', 'AccountController@billing');
+//    Route::get('account/edit', 'AccountController@edit');
+//    Route::patch('account/edit', array(
+//        'before' => 'csrf',
+//        'as' => 'account.update',
+//        'uses' => 'AccountController@update'
+//
+//    ));
+//    Route::get('account/select/{id}', 'AccountController@select');
+//
+//    Route::resource('account/workorder_types', 'WorkorderTypesController');
+//
+//    Route::resource('account/stripe', 'StripeController');
+//
+//    /*
+//    |--------------------------------------------------------------------------
+//    | Work Orders
+//    |--------------------------------------------------------------------------
+//    |
+//    |
+//    */
+//
+//    Route::get('workorders/completed', 'WorkordersController@completed');
+//    Route::get('workorders/mark_completed/{id}', array(
+//        'before' => 'ajax',
+//        'uses' => 'TasksController@mark_completed'
+//    ));
+//    Route::get('workorders/move_task/{ids}', 'TasksController@move_task');
+//    Route::get('workorders/scheduled', 'WorkordersController@scheduled');
+//    Route::get('workorders/unscheduled', 'WorkordersController@unscheduled');
+//    Route::get('workorders/overview', 'WorkordersController@overview');
+//    Route::resource('workorders', 'WorkordersController');
+//
+//    /*
+//    |--------------------------------------------------------------------------
+//    | Times
+//    |--------------------------------------------------------------------------
+//    |
+//    |
+//    */
+//
+//    Route::get('times/create/{workorderId}', 'TimesController@create');
+//    Route::get('times/elapsed', 'TimesController@elapsed');
+//    Route::get('times/toggle/{workorder_id}', 'TimesController@toggle');
+//    Route::resource('times', 'TimesController');
+//
+//    /*
+//    |--------------------------------------------------------------------------
+//    | Tasks
+//    |--------------------------------------------------------------------------
+//    |
+//    |
+//    */
+//
+//    Route::get('tasks/add-to-workorder/{taskId}', 'AjaxViewController@activeWorkorders');
+//    Route::post('tasks/add-to-workorder', array(
+//        'before' => 'csrf',
+//        'as' => 'tasks.add-to-workorder',
+//        'uses' => 'TasksController@addToWorkorder'
+//    ));
+//
+//    Route::get('tasks/create/{resource}', 'TasksController@create');
+//    Route::get('tasks/toggle/{task}', 'TasksController@toggle');
+//    Route::resource('tasks', 'TasksController');
+//
+//    /*
+//    |--------------------------------------------------------------------------
+//    | Search
+//    |--------------------------------------------------------------------------
+//    |
+//    |
+//    */
+//    // Route::get('search', 'SearchController@index');
+//    Route::post('search/results', 'SearchController@results');
+//
+//    /*
+//    |--------------------------------------------------------------------------
+//    | Notes
+//    |--------------------------------------------------------------------------
+//    |
+//    |
+//    */
+//
+//    Route::get('notes/create/{resource}', 'NotesController@create');
+//    Route::resource('notes', 'NotesController');
+//
+//    /*
+//    |--------------------------------------------------------------------------
+//    | Invoicing
+//    |--------------------------------------------------------------------------
+//    |
+//    |
+//    */
+//
+//    Route::get('invoices/{id}/send', array('as' => 'invoices.send', 'uses' => 'InvoicesController@send'));
+//    Route::post('invoices/{id}/send', array(
+//        'before' => 'csrf',
+//        'as' => 'invoices.mail',
+//        'uses' => 'InvoicesController@mail'
+//    ));
+//    Route::get('invoices/{id}/delete', array(
+//        'as' => 'invoices.delete',
+//        'uses' => 'InvoicesController@remove'
+//    ));
+//    Route::get('invoices/paid', 'InvoicesController@paid');
+//    Route::get('invoices/overview', 'InvoicesController@overview');
+//
+//    Route::get('invoices/{id}', function($id)
+//    {
+//        $invoice = new App\Repositories\InvoiceRepository;
+//
+//        $inv = $invoice->get($id);
+//
+//        Session::reflash();
+//
+//        return Redirect::to(url('invoice/view/' . $inv->client_id . '/' . $inv->unique_id));
+//    })->where('id', '[0-9]+');
+//
+//    Route::resource('invoices', 'InvoicesController');
+//
+//
+//    Route::get('invoice_item', 'AjaxViewController@invoice_item');
+//    Route::get('invoice_workorders/{client_id}', 'AjaxViewController@workorders');
+//
+//    Route::get('payment', 'AjaxViewController@payment');
+//
+//    Route::group(array('before' => 'ajax'), function()
+//    {
+//        Route::get('feedback', function()
+//        {
+//            $output['html'] = View::make('feedback.form')->render();
+//
+//            echo json_encode($output);
+//        });
+//
+//        Route::post('feedback', ['before' => 'csrf', function()
+//        {
+//            $feedback = Feedback::create(Input::all());
+//
+//            if($feedback)
+//            {
+//                $feedback->user_id = getUserId();
+//                $feedback->account_id = getAccountId();
+//                $feedback->save();
+//
+//                $data['user'] = Auth::user();
+//                $data['feedback'] = $feedback;
+//
+//                //send email with link to activate.
+//                Mail::send('emails.feedback.new', $data, function($message) use($data)
+//                {
+//                    $message->to('admin@worktop.co')->subject('New Feedback');
+//                    $message->from('website@worktop.co', 'WorkTop Website');
+//                });
+//
+//                $output['html'] = View::make('feedback.success')->render();
+//            }
+//            else
+//            {
+//                $output['html'] = View::make('feedback.error')->render();
+//            }
+//
+//            echo json_encode($output);
+//        }]);
+//    });
+//
+//    Route::get('helpbar', 'AjaxViewController@helpbar');
+
 });
+//
+///*
+//|--------------------------------------------------------------------------
+//| Auth
+//|--------------------------------------------------------------------------
+//|
+//|
+//*/
+//
+//Route::get('login', array(
+//
+//    'before' => 'guest',
+//    'as' => 'login',
+//
+//    function()
+//    {
+//        return View::make('auth.login');
+//    }
+//
+//));
+//
+//Route::post('login', array('before' => 'csrf', 'uses' => 'AuthController@processLogin'));
+//
+//Route::get('register', array(
+//
+//    'before' => 'guest',
+//    'as' => 'register',
+//    function()
+//    {
+//        dd('Sorry, not excepting registrations at this time.');
+//        return View::make('auth.register');
+//    }
+//
+//));
+//
+////Route::post('register', [
+////	'before' => 'csrf',
+////	'uses' => 'AuthController@processRegistration'
+////	]);
+//
+//Route::get('recover_password', array(
+//
+//    'as' => 'auth.recover_password',
+//    'uses' => 'AuthController@resetPassword'
+//
+//));
+//
+//Route::get('activate/{userID}/{activationCode}', array(
+//
+//    'as' => 'auth.activate',
+//    'uses' => 'AuthController@activate'
+//
+//));
+//
+//Route::get('logout', array(
+//
+//    'as' => 'logout',
+//    function()
+//    {
+//        Session::flush();
+//        Auth::logout();
+//        return Redirect::route('home');
+//    }
+//));
+//
+//Route::controller('password', 'RemindersController');

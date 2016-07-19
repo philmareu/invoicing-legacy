@@ -1,0 +1,1 @@
+{{ Form::select('project_id', $projects, null, array('class' => 'uk-form-width-medium projects')) }}
