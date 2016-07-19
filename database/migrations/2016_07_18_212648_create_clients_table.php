@@ -21,6 +21,7 @@ class CreateClientsTable extends Migration
             $table->char('state', 2);
             $table->string('zip', 10);
             $table->string('phone', 10);
+            $table->string('invoicing_email');
             $table->timestamps();
         });
     }

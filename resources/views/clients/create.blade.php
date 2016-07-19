@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1>{{ icon('clients') }} Clients > Create</h1>
+<h1><i class="uk-icon-users"></i> Clients > Create</h1>
 
 <div class="uk-grid">
 	<div class="uk-width-3-5 uk-push-2-10">
@@ -20,6 +20,7 @@
                         @include('laraform::elements.form.text', ['field' => ['name' => 'state']])
                         @include('laraform::elements.form.text', ['field' => ['name' => 'zip']])
                         @include('laraform::elements.form.text', ['field' => ['name' => 'phone']])
+                        @include('laraform::elements.form.text', ['field' => ['name' => 'invoicing_email']])
 
                         <div class="uk-form-row">
                             @include('laraform::elements.form.submit')

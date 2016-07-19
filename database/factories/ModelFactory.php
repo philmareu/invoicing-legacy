@@ -29,7 +29,8 @@ $factory->define(Invoicing\Models\Client::class, function (Faker\Generator $fake
         'city' => $faker->city,
         'state' => 'KS',
         'zip' => $faker->numberBetween(10000, 99999),
-        'phone' => $faker->phoneNumber
+        'phone' => $faker->phoneNumber,
+        'invoicing_email' => $faker->email
     ];
 });
 

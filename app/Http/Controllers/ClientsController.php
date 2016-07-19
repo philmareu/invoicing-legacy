@@ -32,7 +32,7 @@ class ClientsController extends Controller {
 	 */
 	public function create()
 	{
- 		return View::make('clients.create.index');
+ 		return view('clients.create');
 	}
 
 	/**

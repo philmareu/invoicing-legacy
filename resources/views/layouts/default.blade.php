@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<link href="{{ asset('css/styles.css') }}" rel="stylesheet" media="screen">
-    
+
 	@yield('head')
 </head>
 <body>
