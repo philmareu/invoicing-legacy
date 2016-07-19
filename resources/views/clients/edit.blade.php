@@ -1,136 +1,28 @@
 @extends('layouts.default')
 
 @section('content')
-	
-	<h1>{{ icon('clients') }} Edit {{ $client->title }}</i></h2>
-		
-		<div class="uk-grid">
-			<div class="uk-width-3-5 uk-push-2-10">
-		
-		<div class="uk-panel uk-panel-box">
-			<h3 class="uk-panel-title">Edit Client</h3>
-			
-			<div class="uk-grid">
-				<div class="uk-width-1-1">
-	
-	{{ Form::model($client, array('route' => array('clients.update', $client->id), 'method' => 'PATCH', 'class' => 'uk-form uk-form-stacked', 'files' => true)) }}
-	
-	@if($client->image)
-	
-		<img src="{{ url('image/' . $client->image) }}">
-		
-	@endif
-	
-	<div class="uk-form-row">
-		{{ $errors->first('image') }}
-		{{ Form::label('image', 'Image', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::file('image', array('class' => 'uk-form-width-large')) }}
-		</div>
-	</div>
-	
-	<div class="uk-form-row">
-		<div class="validation-error">{{ $errors->first('archive') }}</div>
-		{{ Form::label('archive', 'Archive', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::checkbox('archive', null, array('class' => 'uk-form-width-large')) }}
-		</div>
-	</div>
 
-	<div class="uk-form-row">
-		<div class="validation-error">{{ $errors->first('title') }}</div>
-		{{ Form::label('title', 'Name *', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::text('title', null, array('class' => 'uk-form-width-large')) }}
-		</div>
-	</div>
+    <h1><i class="uk-icon-users"></i> Clients > Edit {{ $client->title }}</h1>
 
-	<div class="uk-form-row">
-		<div class="validation-error">{{ $errors->first('address_1') }}</div>
-		{{ Form::label('address_1', 'Address 1', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::text('address_1', null) }}
-		</div>
-	</div>
+    <div class="uk-width-3-5 uk-container-center uk-panel uk-panel-box">
+        <h3 class="uk-panel-title">Create Client</h3>
+        <form action="{{ route('clients.update', $client->id) }}" method="POST" class="uk-form uk-form-stacked">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="_method" value="PUT">
 
-	<div class="uk-form-row">
-		<div class="validation-error">{{ $errors->first('address_2') }}</div>
-		{{ Form::label('address_2', 'Address 2', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::text('address_2', null) }}
-		</div>
-	</div>
-	
-	<div class="uk-form-row">
-		<div class="validation-error">{{ $errors->first('city') }}</div>
-		{{ Form::label('city', 'City', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::text('city', null) }}
-		</div>
-	</div>
-	
-	<div class="uk-form-row">
-		<div class="validation-error">{{ $errors->first('state') }}</div>
-		{{ Form::label('state', 'State', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::text('state', null, array('class' => 'uk-form-width-mini', 'maxlength' => '2')) }}
-		</div>
-	</div>
-	
-	<div class="uk-form-row">
-		<div class="validation-error">{{ $errors->first('zip_code') }}</div>
-		{{ Form::label('zip_code', 'Zip Code', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::text('zip_code', null, array('class' => 'uk-form-width-small', 'maxlength' => '5')) }}
-		</div>
-	</div>
-	
-	<div class="uk-form-row">
-		<div class="validation-error">{{ $errors->first('phone') }}</div>
-		{{ Form::label('phone', 'Phone', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::text('phone', null) }}
-		</div>
-	</div>
-	
-	<div class="uk-form-row">
-		<div class="validation-error">{{ $errors->first('contact') }}</div>
-		{{ Form::label('contact', 'Contact Name *', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::text('contact', null) }}
-		</div>
-	</div>
-	
-	<div class="uk-form-row">
-		<div class="validation-error">{{ $errors->first('contact_email') }}</div>
-		{{ Form::label('contact_email', 'Contact Email', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::text('contact_email', null) }}
-		</div>
-	</div>
-	
-	<div class="uk-form-row">
-		<div class="validation-error">{{ $errors->first('description') }}</div>
-		{{ Form::label('description', 'Description', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::textarea('description', null, array('class' => 'uk-form-width-large')) }}
-		</div>
-	</div>
+            @include('laraform::elements.form.text', ['field' => ['name' => 'title', 'value' => $client->title]])
+            @include('laraform::elements.form.text', ['field' => ['name' => 'address_1', 'value' => $client->address_1]])
+            @include('laraform::elements.form.text', ['field' => ['name' => 'address_2', 'value' => $client->address_2]])
+            @include('laraform::elements.form.text', ['field' => ['name' => 'city', 'value' => $client->city]])
+            @include('laraform::elements.form.text', ['field' => ['name' => 'state', 'value' => $client->state]])
+            @include('laraform::elements.form.text', ['field' => ['name' => 'zip', 'value' => $client->zip]])
+            @include('laraform::elements.form.text', ['field' => ['name' => 'phone', 'value' => $client->phone]])
+            @include('laraform::elements.form.text', ['field' => ['name' => 'invoicing_email', 'value' => $client->invoicing_email]])
 
-	<div class="uk-form-row">
-		<label class="uk-form-label"></label>
-		<div class="uk-form-controls">
-			{{ Form::submit('Submit', array('class' => 'uk-button uk-button-primary')) }}
-        	
-			{{ link_to(URL::previous(), 'Cancel') }}
-		</div>
-	</div>
+            <div class="uk-form-row">
+                @include('laraform::elements.form.submit')
+            </div>
+        </form>
+    </div>
 
-	{{ Form::close() }}
-	
-</div>
-</div>
-</div>
-</div>
-</div>
-@stop
+@endsection

@@ -2,6 +2,8 @@
 
 namespace Invoicing\Http\Controllers;
 
+use Invoicing\Http\Requests\CreateClientRequest;
+use Invoicing\Http\Requests\UpdateClientRequest;
 use Invoicing\Models\Client;
 
 class ClientsController extends Controller {
@@ -40,40 +42,11 @@ class ClientsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(CreateClientRequest $request)
 	{
-		if (Session::token() != Input::get('_token'))
-		{
-			throw new Illuminate\Session\TokenMismatchException;
-		}
-		
-		$inputs = Input::all();
-		
-		Validator::extend('unique_title', function($attribute, $value, $parameters)
-		{
-			$search = Client::restrict()->whereTitle($value)->first();
-			
-			if($search) return false;
-			
-			return true;
-		});
-		
-		$validator = Validator::make($inputs, Config::get('validation.client'));
-		
-		if ($validator->fails())
-		{
-			Input::flash();
-			return Redirect::back()->withErrors($validator);
-		}
-		
-		$client = $this->client->create($inputs);
+		$client = $this->client->create($request->all());
 
-		if($inputs['reference'] == 'none') return Redirect::to('clients/' . $client->id);
-		
-		// @todo clean up please
-		$url = url($inputs['reference'] . '/create?client_id=' . $client->id, null,  App::environment() == 'production' ? true : false);
-		
-		return Redirect::to($url);
+		return redirect('clients')->with('success', $client->title . ' added to client list.');
 	}
 
 	/**
@@ -82,15 +55,9 @@ class ClientsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show(Client $clients)
 	{
-		$data = array(
-			'client' => $this->client->get($id),
-			'workorders' => $this->client->getWorkorders($id),
-			'activeWorkorders' => $this->client->getActiveWorkorders($id)
-		);
-		
- 		return View::make('clients.show.index', $data);
+        return view('clients.show.index')->with('client', $clients);
 	}
 
 	/**
@@ -99,11 +66,9 @@ class ClientsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(Client $clients)
 	{
-		$client = Client::restrict()->find($id);
-		
-        return View::make('clients.edit', compact('client'));
+        return view('clients.edit')->with('client', $clients);
 	}
 
 	/**
@@ -112,50 +77,10 @@ class ClientsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(UpdateClientRequest $request, Client $clients)
 	{
-		if (Session::token() != Input::get('_token'))
-		{
-			throw new Illuminate\Session\TokenMismatchException;
-		}
+		$clients->update($request->all());
 		
-		$inputs = Input::all();
-		$inputs['archive'] = isset($inputs['archive']) ? 1 : 0;
-		
-		Validator::extend('unique_title', function($attribute, $value, $parameters) use($id)
-		{
-			$search = Client::restrict()->whereTitle($value)->first();
-			
-			if($search && $search->id != $id) return false;
-			
-			return true;
-		});
-		
-		$validator = Validator::make($inputs, Config::get('validation.client'));
-		
-		if ($validator->fails())
-		{
-			Input::flash();
-			return Redirect::back()->withErrors($validator);
-		}
-		
-		$client = $this->client->update($id, $inputs);
-		
-		return Redirect::to('clients/' . $client->id);
+		return redirect('clients/' . $clients->id . '/edit')->with('success', 'Changes were saved.');
 	}
-	
-	public function active()
-	{
-		$clients = $this->client->getActive();
-		
- 		return View::make('clients.active', compact('clients'));
-	}
-	
-	public function archived()
-	{
-		$clients = $this->client->getArchived();
-		
- 		return View::make('clients.archived', compact('clients'));
-	}
-
 }
