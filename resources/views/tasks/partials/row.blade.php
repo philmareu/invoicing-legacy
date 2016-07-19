@@ -2,19 +2,19 @@
 	<td class="uk-table-middle" width="5%">
 		<a href="#" class="toggle-task" id="{{ $task->id }}">
 			@if($task->completed)
-				{{ icon('completed_task') }}
+				done
 			@else
-				{{ icon('uncompleted_task')}}
+				not done
 			@endif
 		</a>
 	</td>
 	<td>{{ $task->task }}</td>
 	<td class="uk-text-right uk-table-middle actions">
 		<a href="#" class="edit-task" id="{{ $task->id }}" data-uk-modal>
-			{{ icon('edit') }}
+			edit
 		</a>
 		<a href="#" class="delete-task" id="{{ $task->id }}">
-			{{ icon('delete') }}
+			delete
 		</a>
 	</td>
 </tr>

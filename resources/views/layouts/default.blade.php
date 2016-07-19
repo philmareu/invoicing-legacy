@@ -6,6 +6,11 @@
 
 	<link href="{{ asset('css/styles.css') }}" rel="stylesheet" media="screen">
 
+    <script type="text/javascript" charset="utf-8">
+        var SITE_URL = "{{ url('/') }}";
+        var csrf = "{{ csrf_token() }}";
+    </script>
+
 	@yield('head')
 </head>
 <body>
@@ -51,7 +56,8 @@
 			</div>
 		</div>
 	</section>
-	
+
+    <script src="{{ asset('js/scripts.js') }}"></script>
 	@yield('scripts')
 
 </body>

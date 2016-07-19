@@ -13,7 +13,7 @@ class CreateTaskRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class CreateTaskRequest extends Request
     public function rules()
     {
         return [
-            //
+            'work_order_id' => 'required|exists:work_orders,id',
+            'task' => 'required|max:255'
         ];
     }
 }

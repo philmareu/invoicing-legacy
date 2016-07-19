@@ -29,15 +29,10 @@
 	</div>
 </div>
 	
-@stop
+@endsection
 
-@section('scripts-footer')
+@section('scripts')
 
-<script src="{{ asset('js/workorders.js') }}"></script>
-<script src="{{ asset('js/datepicker.min.js') }}"></script>
-<script src="{{ asset('js/timepicker.min.js') }}"></script>
-<script src="{{ asset('js/time.js') }}"></script>
-<script src="{{ asset('js/tasks.js') }}"></script>
-<script src="{{ asset('js/notes.js') }}"></script>
+    <script src="{{ asset('js/workorder.js') }}"></script>
 
-@stop
+@endsection

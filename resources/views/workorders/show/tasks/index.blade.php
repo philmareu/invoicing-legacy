@@ -1,6 +1,6 @@
 <h3 class="tasks uk-panel-title">
 	Tasks
-	<a href="#" id="add-task" class="workorder-{{ $workOrder->id }}" data-uk-modal>
+	<a href="#" id="add-task" data-invoicing-work-order-id="{{ $workOrder->id }}" data-uk-modal>
 		+
 	</a>
 </h3>

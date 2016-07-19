@@ -15,8 +15,16 @@ elixir(function(mix) {
     mix.scripts([
         '../bower/jquery/dist/jquery.js',
         '../bower/uikit/js/uikit.js',
+        '../bower/uikit/js/components/datepicker.js',
+        '../bower/uikit/js/components/timepicker.js',
         'scripts.js'
     ], 'public/js/scripts.js');
+    mix.scripts([
+        'workorders.js',
+        'tasks.js',
+        'time.js',
+        'notes.js'
+    ], 'public/js/workorder.js');
     mix.copy('resources/assets/bower/uikit/fonts', 'public/fonts/');
     mix.less([
         'styles.less'

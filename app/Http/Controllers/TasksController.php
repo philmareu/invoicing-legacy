@@ -2,30 +2,32 @@
 
 namespace Invoicing\Http\Controllers;
 
+use Invoicing\Http\Requests\CreateTaskRequest;
+use Invoicing\Models\Task;
+use Invoicing\Models\WorkOrder;
+
 class TasksController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-        return View::make('tasks.index');
-	}
+    protected $task;
+
+    protected $workOrder;
+
+    public function __construct(Task $task, WorkOrder $workOrder)
+    {
+        $this->task = $task;
+        $this->workOrder = $workOrder;
+    }
 
 	/**
 	 * Show the form for creating a new resource.
 	 *
 	 * @return Response
 	 */
-	public function create($resourceString)
+	public function create($workOrderId)
 	{
-		list($resource, $resource_id) = explode('-', $resourceString);
+        $output['html'] = view('tasks.create')->with('workOrderId', $workOrderId)->render();
 
-        $output['html'] = View::make('tasks.create', compact('resource', 'resource_id'))->render();
-
-		echo json_encode($output);
+		return response()->json($output);
 	}
 
 	/**
@@ -33,46 +35,17 @@ class TasksController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(CreateTaskRequest $request)
 	{		
-		if (Session::token() != Input::get('_token'))
-		{
-			throw new Illuminate\Session\TokenMismatchException;
-		}
+        $workOrder = $this->workOrder->findOrFail($request->work_order_id);
+        $task = $workOrder->tasks()->create($request->all());
+
+        $output = [
+            'html' => view('tasks.partials.row')->with('task', $task)->render(),
+            'status' => 'saved'
+        ];
 		
-		$rules = array(
-			'title' => ''
-		);
-		
-		$inputs = Input::all();
-		
-		$validator = Validator::make($inputs, $rules);
-		
-		if ($validator->fails())
-		{
-			// Input::flash();
-			// return Redirect::back()->withErrors($validator);
-			echo 'validation_errors';
-		}
-		
-		$task = Task::create($inputs);
-		$task->account_id = getAccountId();
-		$task->user_id = getUserId();
-		$task->save();
-		
-		if($inputs['taskable_type'] == 'Workorder')
-		{
-			$output['html'] = View::make('tasks.partials.row', compact('task'))->render();
-		}
-		else
-		{
-			$output['html'] = View::make('tasks.partials.row_view_only', compact('task'))->render();
-		}
-			
-		$output['status'] = 'saved';
-		
-		
-		echo json_encode($output);
+		return response()->json($output);
 	}
 
 	/**

@@ -120,9 +120,9 @@ Route::group(['middleware' => 'auth'], function()
 //        'uses' => 'TasksController@addToWorkorder'
 //    ));
 //
-//    Route::get('tasks/create/{resource}', 'TasksController@create');
+    Route::get('tasks/create/{resource}', 'TasksController@create');
 //    Route::get('tasks/toggle/{task}', 'TasksController@toggle');
-//    Route::resource('tasks', 'TasksController');
+    Route::resource('tasks', 'TasksController', ['except' => ['index', 'show']]);
 //
 //    /*
 //    |--------------------------------------------------------------------------
