@@ -46,12 +46,11 @@ $(function(){
 
     // Add task Modal
 	$('a#add-task').on('click', function(e){
-	    console.log('madeit');
         id = $( this ).attr('data-invoicing-work-order-id');
         uri = "/tasks/create/" + id;
-        
+
         getModal(uri);
-		
+
 	});
     
     // Save task
