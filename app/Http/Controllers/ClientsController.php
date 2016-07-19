@@ -2,18 +2,15 @@
 
 namespace Invoicing\Http\Controllers;
 
-use App\Repositories\ClientRepository;
-use App\Repositories\ActivityRepository;
+use Invoicing\Models\Client;
 
 class ClientsController extends Controller {
 	
 	protected $client;
-	protected $activity;
-	
-	public function __construct(ClientRepository $client, ActivityRepository $activity)
+
+	public function __construct(Client $client)
 	{
 		$this->client = $client;
-		$this->activity = $activity;
 	}
 
 	/**
@@ -21,16 +18,11 @@ class ClientsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function overview()
+	public function index()
 	{
-		$data = array(
-			'withInvoices' => $this->client->getWithInvoices(),
-			'recentClients' => $this->client->getRecent(),
-			'newClients' => $this->client->getNew(),
-			'activities' => $this->activity->getRecent('Client')
-		);
+        $clients = $this->client->all();
 		
- 		return View::make('clients.overview.index', $data);
+ 		return view('clients.index.index')->with('clients', $clients);
 	}
 
 	/**

@@ -8458,6 +8458,9 @@ body {
   text-transform: uppercase;
   padding-bottom: 40px;
 }
+.sidebar .uk-nav-side .uk-icon-justify {
+  width: 1.5em;
+}
 .sidebar .uk-nav-side li li {
   text-transform: none;
 }

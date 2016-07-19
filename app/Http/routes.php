@@ -47,10 +47,7 @@ Route::group(['middleware' => 'auth'], function()
 //    |
 //    */
 //
-//    Route::get('clients/archived', 'ClientsController@archived');
-//    Route::get('clients/active', 'ClientsController@active');
-//    Route::get('clients/overview', 'ClientsController@overview');
-//    Route::resource('clients', 'ClientsController');
+    Route::resource('clients', 'ClientsController');
 //
 //    /*
 //    |--------------------------------------------------------------------------
