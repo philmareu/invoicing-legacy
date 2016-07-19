@@ -45,13 +45,16 @@
             <thead>
                 <tr>
                     <th>Date</th>
+                    <th>Payment Type</th>
+                    <th>Note</th>
+                    <th class="uk-text-right">Amount</th>
                 </tr>
             </thead>
             <tbody>
                 @each('invoices.show.payment', $invoice->payments, 'payment')
             </tbody>
         </table>
-        <a href="{{ route('payments.create', $invoice->id) }}" class="uk-button">Add</a>
+        <a href="{{ route('invoices.payments.create', ['invoice_id' => $invoice->id]) }}" class="uk-button">Add</a>
     </div>
 
     <div class="actions">

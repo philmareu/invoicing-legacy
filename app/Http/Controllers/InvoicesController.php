@@ -42,7 +42,7 @@ class InvoicesController extends Controller {
 	 */
 	public function create()
 	{
-		$clients = $this->client->all();
+		$clients = $this->client->lists('title', 'id');
 
         return view('invoices.create')->with('clients', $clients);
 	}

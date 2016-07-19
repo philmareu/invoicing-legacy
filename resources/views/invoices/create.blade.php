@@ -9,7 +9,7 @@
         <form action="{{ route('invoices.store') }}" method="POST" class="uk-form uk-form-stacked">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-            @include('laraform::elements.form.select', ['field' => ['name' => 'client_id', 'label' => 'Client', 'options' => $clients->lists('title', 'id')]])
+            @include('laraform::elements.form.select', ['field' => ['name' => 'client_id', 'label' => 'Client', 'options' => $clients]])
             @include('laraform::elements.form.textarea', ['field' => ['name' => 'description']])
             @include('laraform::elements.form.date', ['field' => ['name' => 'due']])
 

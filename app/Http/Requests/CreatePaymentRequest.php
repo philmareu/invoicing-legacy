@@ -13,7 +13,7 @@ class CreatePaymentRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class CreatePaymentRequest extends Request
     public function rules()
     {
         return [
-            //
+            'payment_type_id' => 'required|exists:payment_types,id',
+            'date' => 'required|date_format:Y-m-d',
+            'note' => 'max:255',
+            'amount' => 'numeric'
         ];
     }
 }
