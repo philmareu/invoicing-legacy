@@ -105,17 +105,18 @@ class TimesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy(Time $time)
 	{
-		$time = Time::restrict()->find($id);
-		$workorder = Workorder::find($time->workorder_id);
+        $workOrder = $this->workOrder->find($time->workOrder->id);
 		$time->delete();
-		
-		$output['workorder_id'] = $workorder->id;
-		$output['total_time'] = $workorder->total_time();
-		$output['status'] = 'success';
-		
-		echo json_encode($output);
+
+        $output = [
+            'workOrder' => $workOrder,
+            'totalTime' => $workOrder->totalTime(),
+            'status' => 'success'
+        ];
+
+		return response()->json($output);
 	}
 	
 	public function toggle($workorder_id)

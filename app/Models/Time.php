@@ -15,4 +15,9 @@ class Time extends Model
     protected $dates = [
         'date'
     ];
+
+    public function workOrder()
+    {
+        return $this->belongsTo('Invoicing\Models\WorkOrder');
+    }
 }

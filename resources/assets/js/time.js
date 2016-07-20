@@ -33,7 +33,7 @@ $(function(){
             if(response.status == 'saved')
     		{
     		    if ($('tr.time').length == 0) {
-    		        table = '<div class="uk-overflow-container"><table class="uk-table uk-table-striped uk-table-condensed times uk-text-nowrap"><thead><tr><th>Start</th><th>Stop</th><th>Total</th><th>&nbsp;</th></tr></thead><tbody>' + results.html + '</tbody></table></div>';
+    		        table = '<div class="uk-overflow-container"><table class="uk-table uk-table-striped uk-table-condensed times uk-text-nowrap"><thead><tr><th>Start</th><th>Stop</th><th>Total</th><th>&nbsp;</th></tr></thead><tbody>' + response.html + '</tbody></table></div>';
     		        
     		        $('.no-times').remove();
     		        $('.timesheet').after( table );
@@ -93,9 +93,9 @@ $(function(){
 	});
 	
 	// Delete time
-    $('.timesheet').on('click', 'a.delete-time', function(e){
+    $('.timesheet').on('click', 'a.delete-time', function(event){
 		
-		e.preventDefault();
+		event.preventDefault();
 
         time_id = $( this ).attr('id');
 		
@@ -103,16 +103,14 @@ $(function(){
 		{
 	        $.ajax({
 	            type: "DELETE",
-	            url: SITE_URL + "/times/" + time_id
+	            url: SITE_URL + "/times/" + time_id,
+                data: {_token: csrf}
 	        })
-	        .done( function( data ) {
+	        .done( function( response ) {
 
-	            var status = $.parseJSON(data).status;
-
-	            if(status == 'success')
-	            {
-	                var total_time = $.parseJSON(data).total_time;
-	                var workorder_id = $.parseJSON(data).workorder_id;
+                if(response.status == 'success') {
+	                var total_time = response.totalTime;
+	                var workorder_id = response.workOrder.id;
                     
 	                $('span.total-time-' + workorder_id).html( total_time );
 	                $('tr#row-' + time_id).remove();

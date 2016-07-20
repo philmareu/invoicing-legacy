@@ -10,8 +10,8 @@
         </div>
     </div>
 
-    @include('laraform::elements.form.text', ['field' => ['name' => 'hours']])
-    @include('laraform::elements.form.text', ['field' => ['name' => 'minutes']])
+    @include('laraform::elements.form.text', ['field' => ['name' => 'hours', 'value' => 0]])
+    @include('laraform::elements.form.text', ['field' => ['name' => 'minutes', 'value' => 0]])
     @include('laraform::elements.form.textarea', ['field' => ['name' => 'note']])
 
     <div class="uk-form-row">
