@@ -16,7 +16,7 @@ class CreateTimesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('work_order_id');
             $table->date('date');
-            $table->unsignedMediumInteger('time');
+            $table->unsignedMediumInteger('time')->nullable();
             $table->string('note');
             $table->timestamps();
 

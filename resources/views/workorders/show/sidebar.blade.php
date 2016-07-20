@@ -3,8 +3,7 @@
 		Edit
 	</a>
 	
-	@if( ! $workOrder->invoice_id && is_null($workOrder->completed))
-	@if($timer)
+	@if(0)
 	<button type="button" class="uk-button toggle-time uk-text-danger" id="{{ $workOrder->id }}">
 		<i class="uk-icon-clock-o uk-icon-spin"></i>
 		Stop
@@ -22,7 +21,6 @@
 		Mark Completed
 	</a>
 
-	@endif
 </div>
 
 <div class="uk-panel uk-panel-box">

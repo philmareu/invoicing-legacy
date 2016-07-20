@@ -4,6 +4,7 @@ namespace Invoicing\Http\Controllers;
 
 use Carbon\Carbon;
 use Invoicing\Http\Requests\CreateTimeRequest;
+use Invoicing\Http\Requests\ToggleTimeRequest;
 use Invoicing\Http\Requests\UpdateTimeRequest;
 use Invoicing\Models\Time;
 use Invoicing\Models\WorkOrder;
@@ -119,55 +120,18 @@ class TimesController extends Controller {
 		return response()->json($output);
 	}
 	
-	public function toggle($workorder_id)
+	public function toggle(ToggleTimeRequest $request)
 	{
-		$time = Time::restrict()
-			->where('user_id', getUserId())
-			->whereNull('stop')
-			->first();
-			
-		$workorder = Workorder::find($workorder_id);
+		$time = $this->time->whereNull('time')->first();
+		$workOrder = $this->workOrder->find($request->work_order_id);
 
-		if(count($time))
-		{
-			$now = date('Y-m-d H:i:s');
-			
-			$durationInSeconds = strtotime($now) - strtotime($time->start);
-			$durationInHours = $durationInSeconds / (60 * 60);
-			
-			if($durationInSeconds > 10)
-			{
-				$time->stop = $now;
-			
-				$time->time = round($durationInHours, 3);
-				$time->save();
-			
-				if($workorder_id != $time->workorder_id)
-				{
-					$output = $this->_createTime($workorder);
-				}
-				else
-				{
-					$output['total_time'] = $workorder->total_time();
-					$output['status'] = 'stopped';
-				}
-			}
-			
-			// Delete times less then 10s
-			else
-			{
-				$time->delete();
-				$output['status'] = 'stopped';
-				$output['message'] = 'Deleted timer';
-			}
-			
-		}
-		else
-		{
-			$output = $this->_createTime($workorder);
-		}
-		
-		echo json_encode($output);
+		if(! $time instanceof Time) return $this->createTimer($workOrder);
+
+        if($this->belowMinTimeLimit($time)) return $this->deleteTimer();
+        $this->stopCurrentTimer($time);
+        if($this->isNotCurrentTimer($time, $workOrder)) return $this->createTimer($workOrder);
+
+        return response()->json(['status' => 'stopped']);
 	}
 	
 	public function elapsed()
@@ -190,26 +154,36 @@ class TimesController extends Controller {
 		
 		echo json_encode($output);
 	}
-	
-	private function _createTime($workorder)
-	{
-		$time = Time::create(
-			array(
-				'start' => date('Y-m-d H:i:s'),
-				'user_id' => getUserId(),
-				'workorder_id' => $workorder->id
-			)
-		);
-		
-		$elapsed = '0:00';
-		
-		$output['timer'] = View::make('partials.timer', compact('workorder', 'elapsed'))->render();
-		
-		$time->account_id = getAccountId();
-		$time->save();
-		
-		$output['status'] = 'started';
-		
-		return $output;
-	}
+
+    private function belowMinTimeLimit($time)
+    {
+        return $this->getDiffInMinutes($time) < 1;
+    }
+
+    private function deleteTimer()
+    {
+        return response()->json(['status' => 'deleted']);
+    }
+
+    private function stopCurrentTimer($time)
+    {
+        return $time->update(['time' => $this->getDiffInMinutes($time)]);
+    }
+
+    private function getDiffInMinutes($time)
+    {
+        return $time->date->diffInMinutes();
+    }
+
+    private function isNotCurrentTimer($time, $workOrder)
+    {
+        return $time->work_order_id != $workOrder->id;
+    }
+
+    private function createTimer($workOrder)
+    {
+        $workOrder->times()->create(['date' => Carbon::now()]);
+
+        return response()->json(['status' => 'started']);
+    }
 }

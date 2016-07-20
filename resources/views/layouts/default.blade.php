@@ -9,6 +9,8 @@
     <script type="text/javascript" charset="utf-8">
         var SITE_URL = "{{ url('/') }}";
         var csrf = "{{ csrf_token() }}";
+        {{--var pusher = new Pusher('{{ env('PUSHER_KEY') }}');--}}
+        {{--var channel = pusher.subscribe('invoicing');--}}
     </script>
 
 	@yield('head')

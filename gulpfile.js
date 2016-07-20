@@ -17,6 +17,7 @@ elixir(function(mix) {
         '../bower/uikit/js/uikit.js',
         '../bower/uikit/js/components/form-select.js',
         '../bower/uikit/js/components/datepicker.js',
+        'socket.js',
         'scripts.js'
     ], 'public/js/scripts.js');
     mix.scripts([
