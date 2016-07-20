@@ -173,9 +173,9 @@ Route::group(['middleware' => 'auth'], function()
     Route::resource('invoices/invoice-items', 'InvoiceItemsController', ['except' => ['index', 'show'], 'parameters' => [
         'invoice-items' => 'invoiceItem']]);
     Route::resource('invoices/payments', 'PaymentsController', ['except' => ['index', 'show']]);
-    Route::resource('invoices/work-orders', 'WorkOrdersController', ['except' => ['index', 'show'], 'parameters' => [
+    Route::resource('invoices/work-orders', 'WorkOrdersController', ['except' => ['index', 'show', 'edit', 'store'], 'parameters' => [
         'work-orders' => 'workOrder']]);
-    Route::resource('work-orders', 'WorkOrdersController', ['only' => ['index', 'show'], 'parameters' => [
+    Route::resource('work-orders', 'WorkOrdersController', ['only' => ['index', 'show', 'edit', 'store'], 'parameters' => [
         'work-orders' => 'workOrder']]);
     Route::resource('invoices', 'InvoicesController');
 
