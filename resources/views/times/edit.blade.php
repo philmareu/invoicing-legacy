@@ -1,43 +1,20 @@
-{{ Form::model($time, array('route' => array('times.update', $time->id), 'id' => 'edit-time', 'method' => 'PATCH', 'class' => 'uk-form uk-form-stacked')) }}
-{{ Form::hidden('id', $time->id, array('id' => 'time-id')) }}
+<form action="{{ route('times.update', $time->id) }}" id="edit-time" class="uk-form uk-form-stacked">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="_method" value="PUT">
 
-<div class="uk-form-row">
-	{{ $errors->first('start_date') }}
-	{{ Form::label('start_date', 'Start Date', array('class' => 'uk-form-label')) }}
-	<div class="uk-form-controls">
-		{{ Form::text('start_date', date('m/d/Y', strtotime($time->start)), array('class' => 'uk-form-width-medium', 'data-uk-datepicker="{format:\'MM/DD/YYYY\'}"')) }}
-	</div>
-</div>
+    <div class="uk-form-row">
+        {{ $errors->first('date') }}
+        <label for="date" class="uk-form-label">Date</label>
+        <div class="uk-form-controls">
+            <input type="text" name="date" data-uk-datepicker="{weekstart:0, format:'YYYY-MM-DD'}" value="{{ $time->date->format('Y-m-d') }}">
+        </div>
+    </div>
 
-<div class="uk-form-row">
-	{{ $errors->first('start_time') }}
-	{{ Form::label('start_time', 'Start Time', array('class' => 'uk-form-label')) }}
-	<div class="uk-form-controls">
-		{{ Form::text('start_time', date('h:i A', strtotime($time->start)), array('class' => 'uk-form-width-medium', 'data-uk-timepicker="{showMeridian:true}"')) }}
-	</div>
-</div>
+    @include('laraform::elements.form.text', ['field' => ['name' => 'hours', 'value' => $hours]])
+    @include('laraform::elements.form.text', ['field' => ['name' => 'minutes', 'value' => $minutes]])
+    @include('laraform::elements.form.textarea', ['field' => ['name' => 'note', 'value' => $time->note]])
 
-<div class="uk-form-row">
-	{{ $errors->first('time') }}
-	{{ Form::label('time', 'Time (hrs)', array('class' => 'uk-form-label')) }}
-	<div class="uk-form-controls">
-		{{ Form::text('time', null, array('class' => 'uk-form-width-mini')) }}
-	</div>
-</div>
-
-<div class="uk-form-row">
-	{{ $errors->first('note') }}
-	{{ Form::label('note', 'Note', array('class' => 'uk-form-label')) }}
-	<div class="uk-form-controls">
-		{{ Form::text('note', null, array('class' => 'uk-form-width-large')) }}
-	</div>
-</div>
-
-<div class="uk-form-row">
-	<label class="uk-form-label"></label>
-	<div class="uk-form-controls">
-		<button type="button" id="update-time" class="uk-button uk-button-primary">Update</button>
-	</div>
-</div>
-
-{{ Form::close() }}
+    <div class="uk-form-row">
+        <button id="update-time" class="uk-button uk-button-primary">Update</button>
+    </div>
+</form>

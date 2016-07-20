@@ -4,6 +4,7 @@ namespace Invoicing\Http\Controllers;
 
 use Carbon\Carbon;
 use Invoicing\Http\Requests\CreateTimeRequest;
+use Invoicing\Http\Requests\UpdateTimeRequest;
 use Invoicing\Models\Time;
 use Invoicing\Models\WorkOrder;
 
@@ -56,29 +57,23 @@ class TimesController extends Controller {
     }
 
 	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-	/**
 	 * Show the form for editing the specified resource.
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(Time $time)
 	{
-		$time = Time::restrict()->find($id);
-		
-        $output['html'] = View::make('times.edit', compact('time'))->render();
-		
-		echo json_encode($output);
+        $hours = floor($time->time / 60);
+        $minutes = $time->time - ($hours * 60);
+
+        $output['html'] = view('times.edit')
+            ->with('time', $time)
+            ->with('hours', $hours)
+            ->with('minutes', $minutes)
+            ->render();
+
+        return response()->json($output);
 	}
 
 	/**
@@ -87,46 +82,21 @@ class TimesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(UpdateTimeRequest $request, Time $time)
 	{
-		if (Session::token() != Input::get('_token'))
-		{
-			throw new Illuminate\Session\TokenMismatchException;
-		}
-		
-		$rules = array(
-			'title' => ''
-		);
-		
-		$validator = Validator::make(Input::all(), $rules);
-		
-		if ($validator->fails())
-		{
-			// Input::flash();
-			// return Redirect::back()->withErrors($validator);
-			echo 'validation_errors';
-		}
-		
-		$date = Input::get('start_date');
-		$time = Input::get('start_time');
+        $time->update([
+            'date' => $request->date,
+            'time' => $request->hours * 60 + $request->minutes,
+            'note' => $request->note
+        ]);
 
-	 	$start = date('Y-m-d H:i:s', strtotime($date . ' ' . $time));
-		
-		$time = Time::restrict()->find($id);
-		$time->start = $start;
-		$time->stop = date('Y-m-d H:i:s', strtotime($time->start) + (Input::get('time') * 60 * 60));
-		$time->note = Input::get('note');
-		$time->save();
-		
-		$time->update([
-			'time' => round(Input::get('time'), 3),
-			'note' => Input::get('note')
-				]);
-		
-		$output['status'] = 'saved';
-		$output['html'] = View::make('times.partials.row', compact('time'))->render();
-		
-		echo json_encode($output);
+        $output = [
+            'time' => $time,
+            'html' => view('times.partials.row')->with('time', $time)->render(),
+            'status' => 'saved'
+        ];
+
+        return response()->json($output);
 	}
 
 	/**

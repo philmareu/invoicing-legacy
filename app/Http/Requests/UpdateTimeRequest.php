@@ -13,7 +13,7 @@ class UpdateTimeRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class UpdateTimeRequest extends Request
     public function rules()
     {
         return [
-            //
+            'date' => 'required|date_format:Y-m-d',
+            'hours' => 'required|integer|min:0',
+            'minutes' => 'required|integer|min:0|max:59',
+            'note' => 'max:255'
         ];
     }
 }

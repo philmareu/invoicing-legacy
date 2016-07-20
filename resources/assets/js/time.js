@@ -66,36 +66,29 @@ $(function(){
 
 	    e.preventDefault();
 
-		button = $( this );
+		var button = $( this );
+        var form = button.parents('form');
+        var action = form.attr('action');
 
 		button.html('Updating <i class="uk-icon-refresh uk-icon-spin"></i>').prop('disabled', true);
 
-	        var modal = $.UIkit.modal("#modal");
+        var modal = $.UIkit.modal("#modal");
 
-	        timeId = $('input#time-id').val();
+        $.ajax({
+            type: "PUT",
+            url: action,
+            data: form.serialize()
+        })
+        .done( function( response ) {
 
-	    uri = SITE_URL + "/times/" + timeId;
-	    data = $("form#edit-time").serialize();
+            if(response.status == 'saved')
+            {
+                $('table.times tr#row-' + response.time.id).replaceWith( response.html );
 
-	        $.ajax({
-	    		type: "PATCH",
-	    		url: uri,
-	    		data: data
-	    	})
-	    	.done( function( data ) {
+                modal._hide();
+            }
 
-	            var results = $.parseJSON(data);
-
-	            if(results.status == 'saved')
-	    		{
-	    		    var html = $.parseJSON(data).html;
-
-	                $('table.times tr#row-' + timeId).replaceWith( html );
-
-	    			modal._hide();
-	    		}
-
-	    	});
+        });
 
 	});
 	
