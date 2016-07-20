@@ -10,14 +10,6 @@
         </div>
     </div>
 
-    <div class="uk-form-row">
-        {{ $errors->first('time') }}
-        <label for="time" class="uk-form-label">Time</label>
-        <div class="uk-form-controls">
-            <input type="text" name="time" data-uk-timepicker="{showMeridian:true, format:'12h'}">
-        </div>
-    </div>
-
     @include('laraform::elements.form.text', ['field' => ['name' => 'hours']])
     @include('laraform::elements.form.text', ['field' => ['name' => 'minutes']])
     @include('laraform::elements.form.textarea', ['field' => ['name' => 'note']])

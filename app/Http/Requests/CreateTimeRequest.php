@@ -26,9 +26,8 @@ class CreateTimeRequest extends Request
         return [
             'work_order_id' => 'required|exists:work_orders,id',
             'date' => 'required|date_format:Y-m-d',
-            'time' => 'required|date_format:h:i A',
-            'hours' => 'required|numeric',
-            'minutes' => 'required|integer',
+            'hours' => 'required|integer',
+            'minutes' => 'required|integer|min:0|max:59',
             'note' => 'max:255'
         ];
     }

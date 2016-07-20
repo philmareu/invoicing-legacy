@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Time extends Model
 {
     protected $fillable = [
-        'start',
+        'date',
         'time',
         'note'
     ];
 
     protected $dates = [
-        'start'
+        'date'
     ];
 }

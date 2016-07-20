@@ -62,8 +62,9 @@ $factory->define(Invoicing\Models\Task::class, function (Faker\Generator $faker)
 
 $factory->define(Invoicing\Models\Time::class, function (Faker\Generator $faker) {
     return [
-        'note' => $faker->paragraph(),
-        'time' => $faker->numberBetween(10, 400)
+        'date' => $faker->date(),
+        'time' => $faker->numberBetween(10, 400),
+        'note' => $faker->paragraph()
     ];
 });
 

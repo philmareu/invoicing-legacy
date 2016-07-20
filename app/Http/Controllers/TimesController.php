@@ -39,9 +39,9 @@ class TimesController extends Controller {
 	public function store(CreateTimeRequest $request)
 	{
         $workOrder = $this->workOrder->findOrFail($request->work_order_id);
-        $time = $workOrder->tasks()->create([
-            'start' => Carbon::createFromFormat('Y-m-d h:iS', $request->date . ' ' . $request->time),
-            'time' => round($request->minutes),
+        $time = $workOrder->times()->create([
+            'date' => $request->date,
+            'time' => $request->hours * 60 + $request->minutes,
             'note' => $request->note
         ]);
 

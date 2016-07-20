@@ -15,7 +15,6 @@
 	<thead>
 	<tr>
 		<th>Start</th>
-		<th>Stop</th>
 		<th>Hrs</th>
 		<th>&nbsp;</th>
 	</tr>
@@ -24,23 +23,20 @@
 	<tbody>
 	@foreach($workOrder->times as $time)
 		<tr id="row-{{ $time->id }}" class="time">
-			<td>{{ $time->start->format('n/j/y @ g:ia') }}</td>
+			<td>{{ $time->date->format('n/j/y') }}</td>
 			@if($time->time)
 				<td>{{ $time->time }}</td>
 			@else
 				<td>Timer Going</td>
-				<td>Timer Going</td>
 			@endif
 			
 			<td>
-				@if( ! $workOrder->invoice_id)
-				<a href="#" class="edit-time" id="{{ $time->id }}" data-uk-modal>
-					edit
-				</a>
-				<a href="" class="delete-time" id="{{ $time->id }}">
-					trash
-				</a>
-				@endif
+                <a href="#" class="edit-time" id="{{ $time->id }}" data-uk-modal>
+                    edit
+                </a>
+                <a href="" class="delete-time" id="{{ $time->id }}">
+                    trash
+                </a>
 			</td>
 		</tr>
 	@endforeach

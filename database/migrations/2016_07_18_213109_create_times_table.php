@@ -15,7 +15,7 @@ class CreateTimesTable extends Migration
         Schema::create('times', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('work_order_id');
-            $table->dateTime('start');
+            $table->date('date');
             $table->unsignedMediumInteger('time');
             $table->string('note');
             $table->timestamps();
