@@ -1,7 +1,6 @@
 <div class="top-panel">
-    <img src="">
-
-    <h2>Untitled</h2>
+    <img src="{{ url('images/original/' . $user->image) }}">
+    <h2>{{ $user->name }}</h2>
 </div>
 
 <ul class="uk-nav uk-nav-side" data-uk-nav>

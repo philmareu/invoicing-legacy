@@ -16,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->setTimerActionViewComposers();
         view()->composer('partials.topbar', 'Invoicing\ViewComposers\NavigationComposer');
+        view()->composer('*', 'Invoicing\ViewComposers\UserViewComposer');
     }
 
     /**
