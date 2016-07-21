@@ -66,9 +66,9 @@ class ClientsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit(Client $clients)
+	public function edit(Client $client)
 	{
-        return view('clients.edit')->with('client', $clients);
+        return view('clients.edit')->with('client', $client);
 	}
 
 	/**
@@ -77,10 +77,10 @@ class ClientsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(UpdateClientRequest $request, Client $clients)
+	public function update(UpdateClientRequest $request, Client $client)
 	{
-		$clients->update($request->all());
+		$client->update($request->all());
 		
-		return redirect('clients/' . $clients->id . '/edit')->with('success', 'Changes were saved.');
+		return redirect('clients/' . $client->id . '/edit')->with('success', 'Changes were saved.');
 	}
 }

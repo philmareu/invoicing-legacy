@@ -24,8 +24,8 @@ $factory->define(Invoicing\Models\User::class, function (Faker\Generator $faker)
 $factory->define(Invoicing\Models\Client::class, function (Faker\Generator $faker) {
     return [
         'title' => $faker->company,
-        'address_1' => $faker->address,
-        'address_2' => $faker->address,
+        'address_1' => $faker->streetAddress,
+        'address_2' => $faker->streetAddress,
         'city' => $faker->city,
         'state' => 'KS',
         'zip' => $faker->numberBetween(10000, 99999),

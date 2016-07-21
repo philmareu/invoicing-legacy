@@ -5,6 +5,10 @@
     </a>
 </h3>
 
-<div id="notes">
-    @each('partials.notes.note', $notes, 'note', 'partials.notes.none')
+<div class="uk-grid">
+    <div class="uk-width-1-1">
+        <div id="notes">
+            @each('partials.notes.note', $notes, 'note', 'partials.notes.none')
+        </div>
+    </div>
 </div>

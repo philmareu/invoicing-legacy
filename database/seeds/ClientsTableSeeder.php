@@ -14,7 +14,7 @@ class ClientsTableSeeder extends Seeder
         factory(Invoicing\Models\Client::class, 10)->create()->each(function($c) {
             $this->addInvoices($c, rand(2, 5));
             $this->addNotes($c, rand(1, 3));
-            $this->addContact($c, rand(1, 3));
+            $this->addContact($c, rand(3, 5));
         });
     }
 

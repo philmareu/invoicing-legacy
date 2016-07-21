@@ -7,43 +7,42 @@
 
 @section('content')
 
-    <h1><i class="uk-icon-users"></i> {{ $client->title }}</h1>
+    <h1><i class="uk-icon-user"></i> {{ $client->title }}</h1>
 
-    <div class="uk-grid" data-uk-match>
-        <div class="uk-width-medium-1-2">
+    <div class="uk-grid">
+        <div class="uk-width-medium-1-3">
             @include('clients.show.info')
-        </div>
-        <div class="uk-width-medium-1-2">
             @include('clients.show.contacts')
+        </div>
+        <div class="uk-width-medium-2-3">
+            <div class="uk-panel uk-panel-box">
+                <h3 class="uk-panel-title"><i class="uk-icon-info"></i> Invoices</h3>
+
+                <div class="uk-grid">
+                    <div class="uk-width-1-1">
+                        @include('invoices.index.table', ['invoices' => $client->invoices])
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-panel uk-panel-box">
+                <h3 class="uk-panel-title"><i class="uk-icon-info"></i> Work Orders</h3>
+
+                <div class="uk-grid">
+                    <div class="uk-width-1-1">
+                        @include('workorders.index.table', ['workOrders' => $client->workOrders])
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <h2>Invoices</h2>
-    <table class="uk-table uk-condensed">
-        <thead>
-            <tr>
-                <th>Number</th>
-            </tr>
-        </thead>
-        <tbody>
-            @each('clients.show.invoice', $client->invoices, 'invoice')
-        </tbody>
-    </table>
-
-    <h2>Work Orders</h2>
-    <table class="uk-table uk-condensed">
-        <thead>
-            <tr>
-                <th>ID</th>
-            </tr>
-        </thead>
-        <tbody>
-            @each('clients.show.workorder', $client->workOrders, 'workOrder')
-        </tbody>
-    </table>
-
-    <div class="uk-panel uk-panel-box">
-        @include('partials.notes.notes', ['notes' => $client->notes])
+    <div class="uk-grid">
+        <div class="uk-width-1-1">
+            <div class="uk-panel uk-panel-box">
+                @include('partials.notes.notes', ['notes' => $client->notes])
+            </div>
+        </div>
     </div>
 
 @endsection

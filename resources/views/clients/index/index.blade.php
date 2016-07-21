@@ -4,15 +4,14 @@
 
     <h1><i class="uk-icon-users"></i> Clients</h1>
 
-    <table class="uk-table uk-table-striped uk-table-condensed">
-        <thead>
-            <tr>
-                <th>Title</th>
-            </tr>
-        </thead>
-        <tbody>
-            @each('clients.index.row', $clients, 'client', 'clients.index.none')
-        </tbody>
-    </table>
+    <div class="uk-panel uk-panel-box">
+        <h3 class="uk-panel-title"><i class="uk-icon-info"></i> Clients</h3>
+
+        <div class="uk-grid">
+            <div class="uk-width-1-1">
+                @include('clients.index.table')
+            </div>
+        </div>
+    </div>
 
 @endsection
