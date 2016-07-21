@@ -134,8 +134,8 @@ Route::group(['middleware' => 'auth'], function()
 //    |
 //    */
 //
-//    Route::get('notes/create/{resource}', 'NotesController@create');
-//    Route::resource('notes', 'NotesController');
+    Route::get('notes/create/{resource}', 'NotesController@create');
+    Route::resource('notes', 'NotesController', ['except' => ['index', 'show', 'create']]);
 //
 //    /*
 //    |--------------------------------------------------------------------------

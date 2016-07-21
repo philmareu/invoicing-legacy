@@ -5,16 +5,6 @@ namespace Invoicing\Http\Controllers;
 class NotesController extends Controller {
 
 	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-        return View::make('notes.index');
-	}
-
-	/**
 	 * Show the form for creating a new resource.
 	 *
 	 * @return Response
@@ -67,17 +57,6 @@ class NotesController extends Controller {
 	}
 
 	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-        return View::make('notes.show');
-	}
-
-	/**
 	 * Show the form for editing the specified resource.
 	 *
 	 * @param  int  $id
@@ -85,7 +64,7 @@ class NotesController extends Controller {
 	 */
 	public function edit($id)
 	{
-        return View::make('notes.edit');
+
 	}
 
 	/**
