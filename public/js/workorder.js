@@ -70,33 +70,6 @@ $(function(){
         });
 
     });
-            //.done( function( response ) {
-            //
-            //
-            //    //var timerClass = '.' + workorderId + '-elapsed';
-            //    //
-            //    //if(response.status == 'started')
-            //    //{
-            //    //    $this.html('<i class="uk-icon-clock-o uk-icon-spin"></i> <i class="uk-icon-stop"></i><span class="' + workorderId + '-elapsed"> 0:00</span>').prop('disabled', false);
-            //    //
-            //    //    var timer = $.parseJSON(data).timer;
-            //    //
-            //    //    $('.toggle-time').attr('class', 'uk-button uk-button-primary toggle-time uk-text-danger');
-            //    //    $('i.uk-icon-play').attr('class', 'uk-icon-stop');
-            //    //    $('i.uk-icon-clock-o').attr('class', 'uk-icon-clock-o uk-icon-spin');
-            //    //
-            //    //    $('.uk-nav li.timer').remove();
-            //    //    $('.topbar .uk-subnav').prepend( timer );
-            //    //}
-            //    //else if(status == 'stopped')
-            //    //{
-            //        $this.html('<i class="uk-icon-clock-o"></i> <i class="uk-icon-play"></i>').prop('disabled', false);
-            //
-            //        var totalTime = $.parseJSON(data).total_time;
-            //
-
-            //    //}
-            //})
 	
 });
 
