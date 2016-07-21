@@ -17,7 +17,7 @@
 
                     @if(! is_null($timer))
                         <span class="timer" data-invoicing-work-order-id="{{ $timer->work_order_id }}">
-                            {{ $timer->elapsedFormatted() }}
+                            <a href="{{ route('work-orders.show', $timer->work_order_id) }}">{{ $timer->elapsedFormatted() }}</a>
                         </span>
                     @else
                         <span class="timer" data-invoicing-work-order-id="">
