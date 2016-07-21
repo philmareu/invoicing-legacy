@@ -16,12 +16,12 @@
 		<td>{{ $payment->created_at->toFormattedDateString() }}</td>
 		<td>{{ $payment->type->title }}</td>
 		<td>{{ $payment->note }}</td>
-		<td class="uk-text-right">{{ moneyFormat($payment->amount) }}</td>
+		<td class="uk-text-right">{{ $payment->amount }}</td>
 	</tr>
 	@endforeach
 
 	<tr>
-		<td colspan="4" class="uk-text-right"><strong>Payment total: {{ moneyFormat($totals['payments']) }}</strong></td>
+		<td colspan="4" class="uk-text-right"><strong>Payment total: {{ $invoice->payments->sum('amount') }}</strong></td>
 	</tr>
 	</tbody>
 

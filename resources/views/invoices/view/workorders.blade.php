@@ -24,20 +24,20 @@
 				<ul class="uk-list">
 					@foreach($workorder->tasks as $task)
 
-					<li>{{ icon('completed_task') }} {{ $task->task }}</li>
+					<li><i class="uk-icon-check"></i> {{ $task->task }}</li>
 
 					@endforeach
 				</ul>
 				@endif
 			</td>
-			<td>{{ $workorder->total_time() }}</td>
-			<td>{{ moneyFormat($workorder->rate) }}</td>
-			<td class="uk-text-right">{{ moneyFormat($workorder->total_amount()) }}</td>
+			<td>{{ $workorder->times->sum('time') }}</td>
+			<td>{{ $workorder->rate }}</td>
+			<td class="uk-text-right">{{ $workorder->amount() }}</td>
 		</tr>
 		@endforeach
 
 		<tr>
-			<td colspan="4" class="uk-text-right"><strong>Work order total: {{ moneyFormat($totals['workorders']) }}</strong></td>
+			<td colspan="4" class="uk-text-right"><strong>Work order total: {{ $invoice->workOrderTotals() }}</strong></td>
 		</tr>
 	</tbody>
 </table>

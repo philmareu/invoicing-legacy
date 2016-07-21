@@ -2,15 +2,6 @@
 
 @section('content')
 
-@if(Session::has('flash_message'))
-					
-<div class="uk-alert" data-uk-alert>
-	<a href="" class="uk-alert-close uk-close"></a>
-	<p>{{ Session::get('flash_message') }}</p>
-</div>
-
-@endif
-
 <div class="client-invoice">
 	
 	<div class="uk-grid">
@@ -43,16 +34,16 @@
 		
 		<div class="uk-width-1-2">
 			
-			@if($invoice->paid_at)
+			@if($invoice->paid)
 				<div class="uk-alert uk-alert-success">
-					<p>This invoice was paid on {{ $invoice->paid_at->format('M d, Y @ g:i a') }}. Thank you!</p>
+					<p>This invoice is paid. Thank you!</p>
 				</div>
 			@endif
 			
 			<ul class="uk-list info">
 				<li class="invoice-number">Invoice #{{ $invoice->invoice_number }}</li>
 				<li><span>DATE:</span> {{ $invoice->created_at->toFormattedDateString() }}</li>
-				<li><span>BALANCE:</span> {{ moneyFormat($invoice->balance) }}</li>
+				<li><span>BALANCE:</span> {{ $invoice->balance() }}</li>
 				<li><span>DUE:</span> {{ $invoice->due->toFormattedDateString() }}</li>
 			</ul>
 		</div>
@@ -92,7 +83,7 @@
 	<div class="uk-width-1-1">
 		<div class="uk-panel uk-panel-box">
 			<div class="invoice-total">
-				<p class="uk-text-right uk-text-large"><strong>Total invoice: {{ moneyFormat($totals['invoice']) }}</strong></p>
+				<p class="uk-text-right uk-text-large"><strong>Total invoice: {{ $invoice->items->sum('amount') + $invoice->workOrderTotals() }}</strong></p>
 			</div>
 		</div>
 	</div>
@@ -115,7 +106,7 @@
 		<div class="uk-panel uk-panel-box">
 			<div class="additional-notes">
 				<h4>Additional Notes</h4>
-				{{ $account->additional_invoice_notes }}
+				Setting -> Add. notes
 			</div>
 		</div>
 	</div>
@@ -123,16 +114,14 @@
 	<div class="uk-width-1-2">
 		<div class="uk-panel uk-panel-box">
 			<div class="balance-total">
-				<p class="uk-text-right uk-text-large"><strong>Remaining balance: {{ moneyFormat($totals['balance']) }}</strong></p>
+				<p class="uk-text-right uk-text-large"><strong>Remaining balance: {{ $invoice->balance() }}</strong></p>
 				<div class="uk-text-right">
-					@if(is_null($invoice->paid_at) && $key)
+					@if(is_null($invoice->paid) && $settings)
 						<a href="{{ route('invoice.pay', array($invoice->client->id, $invoice->unique_id)) }}" class="uk-button uk-button-primary">
-							{{ icon('pay') }}
 							Pay Online
 						</a>
 					@endif
 					<a href="#" id="print" class="uk-button">
-						{{ icon('print') }}
 						Print Invoice
 					</a>
 				</div>
@@ -156,20 +145,14 @@
 		<div class="col-xs-6">
 			<h3>Mail or Delivery to:</h3>
 			<address>
-				{{ $account->title }}<br>
-				{{ $account->address_1}}<br>
-				@if($account->address_2 != '')
-					{{ $account->address_2}}<br>
-				@endif
-				{{ $account->city }}, {{ $account->state }} {{ $account->zip_code }}<br>
-				{{ $account->phone }}
+                Account
 			</address>
 		</div>
 
 		<div class="col-xs-6">
 			<h3>Invoice #{{ $invoice->invoice_number }}</h3>
 			<ul class="list list-unstyled">
-				<li>Balance: {{ moneyFormat($invoice->balance) }}</li>
+				<li>Balance: {{ $invoice->balance() }}</li>
 				<li>Due: {{ $invoice->due->format('M j, Y') }}</li>
 			</ul>
 		</div>

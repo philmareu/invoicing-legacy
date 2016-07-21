@@ -14,12 +14,12 @@
 		<tr>
 			<td>{{ $item->item }}</td>
 			<td>{{ $item->description }}</td>
-			<td class="uk-text-right">{{ moneyFormat($item->amount) }}</td>
+			<td class="uk-text-right">{{ $item->amount }}</td>
 		</tr>
 		@endforeach
 
 		<tr>
-			<td colspan="3" class="uk-text-right"><strong>Item total: {{ moneyFormat($totals['items']) }}</strong></td>
+			<td colspan="3" class="uk-text-right"><strong>Item total: {{ $invoice->items->sum('amount') }}</strong></td>
 		</tr>
 	</tbody>
 </table>

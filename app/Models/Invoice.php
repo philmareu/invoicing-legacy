@@ -15,6 +15,10 @@ class Invoice extends Model
         'paid'
     ];
 
+    protected $dates = [
+        'due'
+    ];
+
     public function workOrders()
     {
         return $this->hasMany('Invoicing\Models\WorkOrder');
@@ -45,12 +49,17 @@ class Invoice extends Model
         return $this->hasMany('Invoicing\Models\WorkOrder')->whereCompleted(0);
     }
 
+    public function workOrderTotals()
+    {
+        return $this->workOrders->reduce(function($total, $workOrder) {
+            return $total + $workOrder->amount();
+        }, 0);
+    }
+
     public function balance()
     {
         $items = $this->items->sum('amount');
-        $workOrders = $this->workOrders->reduce(function($total, $workOrder) {
-            return $total + $workOrder->amount();
-        }, 0);
+        $workOrders = $this->workOrderTotals();
         $payments = $this->payments->sum('amount');
 
         return $items + $workOrders - $payments;

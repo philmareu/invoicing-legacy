@@ -3,26 +3,26 @@
 Route::auth();
 Route::singularResourceParameters();
 
-//
-//Route::get('invoice/view/{client_id}/{unique_id}', [
-//    'as' => 'invoice.view',
-//    'uses' => 'InvoicesController@view'
-//]);
-//
-//Route::get('invoice/pay/{client_id}/{unique_id}', array(
-//
-//    'as' => 'invoice.pay',
-//    'uses' => 'InvoicesController@pay'
-//
-//));
-//
-//Route::post('invoice/pay', array(
-//
-//    'as' => 'invoice.process_payment',
-//    'uses' => 'InvoicesController@process_payment'
-//
-//));
-//
+
+Route::get('invoice/view/{client_id}/{unique_id}', [
+    'as' => 'invoice.view',
+    'uses' => 'InvoicesController@view'
+]);
+
+Route::get('invoice/pay/{client_id}/{unique_id}', array(
+
+    'as' => 'invoice.pay',
+    'uses' => 'InvoicesController@pay'
+
+));
+
+Route::post('invoice/pay', array(
+
+    'as' => 'invoice.process_payment',
+    'uses' => 'InvoicesController@process_payment'
+
+));
+
 Route::group(['middleware' => 'auth'], function()
 {
     /*

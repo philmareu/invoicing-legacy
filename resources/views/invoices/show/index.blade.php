@@ -8,7 +8,7 @@
 @section('content')
 
     <h1><i class="uk-icon-money"></i> Invoice {{ $invoice->invoice_number }}</h1>
-
+    <a href="{{ url(route('invoice.view', [$invoice->client_id, $invoice->unique_id])) }}">View</a>
     <div class="info">
         {{ $invoice->client->title }}
     </div>

@@ -202,17 +202,13 @@ class InvoicesController extends Controller {
     	return Redirect::to('invoice/view/' . $invoice->client_id . '/' . $invoice->unique_id);
 	}
 	
-	public function view($client_id, $unique_id)
+	public function view($clientId, $uniqueId)
 	{
-		$invoice = $this->invoice->getByUri($client_id, $unique_id);
+		$invoice = $this->invoice->whereClientId($clientId)->whereUniqueId($uniqueId)->first();
 		
-		if(is_null($invoice)) App::abort(404);
-		
-		$account = $this->account->get($invoice->account_id);
-		$key = $this->billing->getPublishableKey($invoice->account_id);
-		$totals = $this->invoice->getTotals($invoice->id);
-		
-		return View::make('invoices.view.index', compact('invoice', 'totals', 'account', 'key'));
+		if(is_null($invoice)) abort(404);
+
+		return view('invoices.view.index')->with('invoice', $invoice);
 	}
 	
 	public function pay($client_id, $unique_id)
