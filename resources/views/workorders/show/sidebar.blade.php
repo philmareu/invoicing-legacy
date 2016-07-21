@@ -21,6 +21,8 @@
 
 </div>
 
+<a href="{{ route('invoices.show', $workOrder->invoice_id) }}">Invoice</a>
+
 <div class="uk-panel uk-panel-box">
 	@include('workorders.show.times')
 </div>

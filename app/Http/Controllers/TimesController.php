@@ -42,7 +42,7 @@ class TimesController extends Controller {
 	{
         $workOrder = $this->workOrder->findOrFail($request->work_order_id);
         $time = $workOrder->times()->create([
-            'start' => $request->date,
+            'start' => $request->start,
             'time' => $request->hours * 60 + $request->minutes,
             'note' => $request->note
         ]);
@@ -86,7 +86,7 @@ class TimesController extends Controller {
 	public function update(UpdateTimeRequest $request, Time $time)
 	{
         $time->update([
-            'start' => $request->date,
+            'start' => $request->start,
             'time' => $request->hours * 60 + $request->minutes,
             'note' => $request->note
         ]);

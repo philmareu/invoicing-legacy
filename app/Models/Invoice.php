@@ -39,4 +39,20 @@ class Invoice extends Model
     {
         return $this->belongsTo('Invoicing\Models\Client');
     }
+
+    public function uncompletedWorkOrders()
+    {
+        return $this->hasMany('Invoicing\Models\WorkOrder')->whereCompleted(0);
+    }
+
+    public function balance()
+    {
+        $items = $this->items->sum('amount');
+        $workOrders = $this->workOrders->reduce(function($total, $workOrder) {
+            return $total + $workOrder->amount();
+        }, 0);
+        $payments = $this->payments->sum('amount');
+
+        return $items + $workOrders - $payments;
+    }
 }

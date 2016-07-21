@@ -35,6 +35,10 @@
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Status</th>
+                    <th>Time</th>
+                    <th>Rate</th>
+                    <th class="uk-text-right">Amount</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,6 +65,9 @@
         </table>
         <a href="{{ route('invoices.payments.create', ['invoice_id' => $invoice->id]) }}" class="uk-button">Add</a>
     </div>
+
+    <h2>Total</h2>
+    <p class="uk-text-right">{{ $invoice->balance() }}</p>
 
     <div class="actions">
 

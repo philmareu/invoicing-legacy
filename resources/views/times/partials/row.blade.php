@@ -1,5 +1,5 @@
 <tr id="row-{{ $time->id }}" class="time">
-	<td>{{ $time->date->format('n/j/y') }}</td>
+	<td>{{ $time->start->format('n/j/y') }}</td>
 	@if($time->time)
 		<td>{{ $time->time }}</td>
 	@else

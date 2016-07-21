@@ -3,10 +3,10 @@
     <input type="hidden" name="work_order_id" value="{{ $workOrderId }}">
 
     <div class="uk-form-row">
-        {{ $errors->first('date') }}
-        <label for="date" class="uk-form-label">Date</label>
+        {{ $errors->first('start') }}
+        <label for="start" class="uk-form-label">Date</label>
         <div class="uk-form-controls">
-            <input type="text" name="date" data-uk-datepicker="{weekstart:0, format:'YYYY-MM-DD'}">
+            <input type="text" name="start" data-uk-datepicker="{weekstart:0, format:'YYYY-MM-DD'}">
         </div>
     </div>
 
