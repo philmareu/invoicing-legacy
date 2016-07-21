@@ -1,5 +1,10 @@
 @extends('layouts.default')
 
+@section('head')
+    <meta name="resource-id" content="{{ $invoice->id }}"/>
+    <meta name="resource-model" content="{{ get_class($invoice) }}"/>
+@endsection
+
 @section('content')
 
     <h1><i class="uk-icon-money"></i> Invoice {{ $invoice->invoice_number }}</h1>
@@ -61,8 +66,11 @@
 
     </div>
 
-    <div class="notes">
-        <h2>Notes</h2>
-        @each('invoices.show.note', $invoice->notes, 'note')
+    <div class="uk-panel uk-panel-box">
+        @include('partials.notes.notes', ['notes' => $invoice->notes])
     </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/invoice.js') }}"></script>
 @endsection

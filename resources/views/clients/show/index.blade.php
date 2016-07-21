@@ -1,5 +1,10 @@
 @extends('layouts.default')
 
+@section('head')
+    <meta name="resource-id" content="{{ $client->id }}"/>
+    <meta name="resource-model" content="{{ get_class($client) }}"/>
+@endsection
+
 @section('content')
 
     <h1><i class="uk-icon-users"></i> {{ $client->title }}</h1>
@@ -37,4 +42,12 @@
         </tbody>
     </table>
 
+    <div class="uk-panel uk-panel-box">
+        @include('partials.notes.notes', ['notes' => $client->notes])
+    </div>
+
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/client.js') }}"></script>
 @endsection

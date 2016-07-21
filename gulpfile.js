@@ -26,6 +26,12 @@ elixir(function(mix) {
         'time.js',
         'notes.js'
     ], 'public/js/workorder.js');
+    mix.scripts([
+        'notes.js'
+    ], 'public/js/invoice.js');
+    mix.scripts([
+        'notes.js'
+    ], 'public/js/client.js');
     mix.copy('resources/assets/bower/uikit/fonts', 'public/fonts/');
     mix.less([
         'styles.less'
