@@ -142,7 +142,7 @@ class TimesController extends Controller {
     private function deleteTimer($time)
     {
         $time->delete();
-        
+
         return response()->json(['status' => 'stopped']);
     }
 

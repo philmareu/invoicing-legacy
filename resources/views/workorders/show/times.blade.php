@@ -15,7 +15,7 @@
 	<thead>
 	<tr>
 		<th>Start</th>
-		<th>Hrs</th>
+		<th>Time</th>
 		<th>&nbsp;</th>
 	</tr>
 	</thead>
@@ -25,7 +25,7 @@
 		<tr id="row-{{ $time->id }}" class="time">
 			<td>{{ $time->start->format('n/j/y') }}</td>
 			@if($time->time)
-				<td>{{ $time->time }}</td>
+				<td>{{ $time->elapsedFormatted() }}</td>
 			@else
 				<td>Timer Going</td>
 			@endif
