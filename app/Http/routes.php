@@ -101,7 +101,6 @@ Route::group(['middleware' => 'auth'], function()
 //    */
 //
     Route::get('times/create/{workorderId}', 'TimesController@create');
-//    Route::get('times/elapsed', 'TimesController@elapsed');
     Route::put('times/toggle', 'TimesController@toggle');
     Route::resource('times', 'TimesController', ['except' => ['index', 'show']]);
 //
