@@ -9,19 +9,19 @@ Route::get('invoice/view/{client_id}/{unique_id}', [
     'uses' => 'InvoicesController@view'
 ]);
 
-Route::get('invoice/pay/{client_id}/{unique_id}', array(
+Route::get('invoice/pay/{client_id}/{unique_id}', [
 
     'as' => 'invoice.pay',
     'uses' => 'InvoicesController@pay'
 
-));
+]);
 
-Route::post('invoice/pay', array(
+Route::post('invoice/pay', [
 
     'as' => 'invoice.process-payment',
     'uses' => 'InvoicesController@processPayment'
 
-));
+]);
 
 Route::group(['middleware' => 'auth'], function()
 {
@@ -33,12 +33,12 @@ Route::group(['middleware' => 'auth'], function()
     |
     */
 
-    Route::get('dashboard', array(
+    Route::get('dashboard', [
 
         'as' => 'dashboard',
         'uses' => 'DashboardController@index'
 
-    ));
+    ]);
 
     /*
     |--------------------------------------------------------------------------
@@ -59,8 +59,9 @@ Route::group(['middleware' => 'auth'], function()
     |
     */
 
-    Route::get('account/edit', 'AccountController@edit');
-    Route::put('account', 'AccountController@update');
+    Route::get('settings/edit', ['as' => 'settings.edit', 'uses' => 'SettingsController@edit']);
+    Route::put('settings', ['as' => 'settings.update', 'uses' => 'SettingsController@update']);
+    Route::get('settings/remove-stripe', ['as' => 'settings.remove-stripe', 'uses' => 'SettingsController@removeStripeKeys']);
 
     /*
     |--------------------------------------------------------------------------

@@ -22,7 +22,7 @@
 		<a href="{{ url('invoices')}}"><i class="uk-icon-money uk-icon-justify"></i> Invoices</a>
 	</li>
 	
-	<li class="{{ Request::is('account*') ? 'uk-active' : '' }}">
-		<a href="{{ url('account') }}"><i class="uk-icon-gear uk-icon-justify"></i> Account</a>
+	<li class="{{ Request::is('settings*') ? 'uk-active' : '' }}">
+		<a href="{{ url('settings/edit') }}"><i class="uk-icon-gear uk-icon-justify"></i> Settings</a>
 	</li>
 </ul>

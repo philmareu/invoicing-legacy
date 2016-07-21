@@ -105,3 +105,9 @@ $factory->define(Invoicing\Models\Payment::class, function (Faker\Generator $fak
         'amount' => $faker->numberBetween(2000, 35000)
     ];
 });
+
+$factory->define(Invoicing\Models\Setting::class, function (Faker\Generator $faker) {
+    return [
+        'rate' => 85
+    ];
+});

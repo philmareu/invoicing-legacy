@@ -2,197 +2,39 @@
 
 @section('content')
 
-<h1>{{ icon('account') }} Account > Settings</h1>
+<h1>Account > Settings</h1>
 
 <div class="uk-grid">
 	<div class="uk-width-1-1">
 		
 		<div class="uk-panel uk-panel-box">
-			<h3 class="uk-panel-title">Account Settings</h3>
-	
-	{{ Form::model($user, array('route' => array('account.update'), 'method' => 'PATCH', 'class' => 'uk-form uk-form-horizontal', 'files' => true)) }}
-	
-	<div class="uk-grid">
-		<div class="uk-width-1-1">
-	
-	@if($account->image)
-	
-		<img src="{{ url('image/' . $account->image) }}" class="uk-margin-bottom">
-		
-	@endif
-	
-	<div class="uk-form-row">
-		{{ $errors->first('image') }}
-		{{ Form::label('image', 'Image', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::file('image', array('class' => 'uk-form-width-large')) }}
-		</div>
-	</div>
-	
-	<div class="uk-form-row">
-		{{ $errors->first('title') }}
-		{{ Form::label('title', 'Account Title', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::text('title', $account->title, array('class' => 'uk-form-width-large')) }}
-		</div>
-	</div>
-	
-	<div class="uk-form-row">
-		{{ $errors->first('email') }}
-		{{ Form::label('email', 'Your Email', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::text('email', null, array('class' => 'uk-form-width-large')) }}
-		</div>
-	</div>
+			<h3 class="uk-panel-title">Settings</h3>
 
-	<div class="uk-form-row">
-		{{ $errors->first('first_name') }}
-		{{ Form::label('first_name', 'First Name', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::text('first_name', null, array('class' => 'uk-form-width-medium')) }}
-		</div>
-	</div>
-	
-	<div class="uk-form-row">
-		{{ $errors->first('last_name') }}
-		{{ Form::label('last_name', 'Last Name', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::text('last_name', null, array('class' => 'uk-form-width-medium')) }}
-		</div>
-	</div>
-	
-	<div class="uk-form-row">
-		{{ $errors->first('password') }}
-		{{ Form::label('password', 'Password', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::password('password', array('class' => 'uk-form-width-medium')) }}
-		</div>
-	</div>
+            <form action="{{ route('settings.update') }}" method="POST" class="uk-form uk-form-horizontal" enctype="multipart/form-data">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="_method" value="PUT">
 
-	<div class="uk-form-row">
-		{{ $errors->first('password_confirmation') }}
-		{{ Form::label('password_confirmation', 'Confirm Password', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::password('password_confirmation', array('class' => 'uk-form-width-medium')) }}
-		</div>
-	</div>
-	
-	<div class="uk-form-row">
-		{{ $errors->first('default_account') }}
-		{{ Form::label('default_account', 'Default Account', array('class' => 'uk-form-label')) }}
-		
-		<div class="uk-form-controls">
-		@foreach($user->accounts as $userAccount)
-
-		<div class="radio">
-			<label>
-				{{ Form::radio('default_account', $userAccount->id, ($userAccount->pivot->default) ? true : false) }}
-				{{ $userAccount->title }}
-
-				@if($userAccount->pivot->owner)
-				(Owner)
-				@endif
-
-				@if($userAccount->pivot->default)
-				(Default)
-				@endif
-
-			</label>
-		</div>
-
-		@endforeach
-		</div>
-		
-	</div>
-
-	<div class="uk-form-row">
-		{{ $errors->first('default_rate') }}
-		{{ Form::label('default_rate', 'Default Rate', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::text('default_rate', $account->default_rate, array('class' => 'uk-form-width-small')) }}
-		</div>
-	</div>
-	
-	<div class="uk-form-row">
-		<div class="validation-error">{{ $errors->first('default_workorder_type_id') }}</div>
-		{{ Form::label('default_workorder_type_id', 'Default Work Order Type', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::select('default_workorder_type_id', $workorderTypes, $account->default_workorder_type) }}
-		</div>
-	</div>
-	
-	<div class="uk-form-row">
-		{{ $errors->first('contact_email') }}
-		{{ Form::label('contact_email', 'Account/Invoice Email', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::text('contact_email', $account->contact_email, array('class' => 'uk-form-width-large')) }}
-		</div>
-	</div>
-	
-	<div class="uk-form-row">
-		{{ $errors->first('address_1') }}
-		{{ Form::label('address_1', 'Address 1', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::text('address_1', $account->address_1, array('class' => 'uk-form-width-medium')) }}
-		</div>
-	</div>
-
-	<div class="uk-form-row">
-		{{ $errors->first('address_2') }}
-		{{ Form::label('address_2', 'Address 2', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::text('address_2', $account->address_2, array('class' => 'uk-form-width-medium')) }}
-		</div>
-	</div>
-	
-	<div class="uk-form-row">
-		{{ $errors->first('city') }}
-		{{ Form::label('city', 'City', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::text('city', $account->city, array('class' => 'uk-form-width-small')) }}
-		</div>
-	</div>
-	
-	<div class="uk-form-row">
-		{{ $errors->first('state') }}
-		{{ Form::label('state', 'State', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::text('state', $account->state, array('class' => 'uk-form-width-mini', 'maxlength' => '2')) }}
-		</div>
-	</div>
-	
-	<div class="uk-form-row">
-		{{ $errors->first('zip_code') }}
-		{{ Form::label('zip_code', 'Zip Code', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::text('zip_code', $account->zip_code, array('class' => 'uk-form-width-small', 'maxlength' => '5')) }}
-		</div>
-	</div>
-	
-	<div class="uk-form-row">
-		{{ $errors->first('phone') }}
-		{{ Form::label('phone', 'Phone', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::text('phone', $account->phone) }}
-		</div>
-	</div>
-	
-	<div class="uk-form-row">
-		{{ $errors->first('additional_invoice_notes') }}
-		{{ Form::label('additional_invoice_notes', 'Addition Invoice Notes (Shows on all invoices at bottom)', array('class' => 'uk-form-label')) }}
-		<div class="uk-form-controls">
-			{{ Form::textarea('additional_invoice_notes', $account->additional_invoice_notes, ['class' => 'uk-form-width-large']) }}
-		</div>
-	</div>
-	
-	<button type="submit" class="uk-button uk-button-primary">Save</button>
-	
-</div>
-</div>
-
-	{{ Form::close() }}
-	
-</div>
-</div>
+                @include('laraform::elements.form.image', ['field' => ['name' => 'image', 'value' => $user->image]])
+                @include('laraform::elements.form.text', ['field' => ['name' => 'name', 'value' => $user->name]])
+                @include('laraform::elements.form.email', ['field' => ['name' => 'email', 'value' => $user->email]])
+                @include('laraform::elements.form.password', ['field' => ['name' => 'password']])
+                @include('laraform::elements.form.text', ['field' => ['name' => 'rate', 'value' => $user->settings->rate]])
+                @include('laraform::elements.form.text', ['field' => ['name' => 'invoice_email', 'value' => $user->settings->invoice_email]])
+                @include('laraform::elements.form.text', ['field' => ['name' => 'invoice_address_1', 'value' => $user->settings->invoice_address_1]])
+                @include('laraform::elements.form.text', ['field' => ['name' => 'invoice_address_2', 'value' => $user->settings->invoice_address_2]])
+                @include('laraform::elements.form.text', ['field' => ['name' => 'invoice_city', 'value' => $user->settings->invoice_city]])
+                @include('laraform::elements.form.text', ['field' => ['name' => 'invoice_state', 'value' => $user->settings->invoice_state]])
+                @include('laraform::elements.form.text', ['field' => ['name' => 'invoice_zip', 'value' => $user->settings->invoice_zip]])
+                @include('laraform::elements.form.text', ['field' => ['name' => 'invoice_phone', 'value' => $user->settings->invoice_phone]])
+                @include('laraform::elements.form.textarea', ['field' => ['name' => 'invoice_note', 'value' => $user->settings->invoice_note]])
+                @include('laraform::elements.form.text', ['field' => ['name' => 'stripe_public', 'value' => $user->settings->stripe_public]])
+                @include('laraform::elements.form.password', ['field' => ['name' => 'stripe_secret']])
+                @if($user->settings->stripe_public)
+                    <a href="{{ route('settings.remove-stripe') }}">Remove Stripe Keys</a>
+                @endif
+                <button type="submit" class="uk-button uk-button-primary">Save</button>
+            </form>
+        </div>
+    </div>
 </div>
 @stop
