@@ -17,7 +17,6 @@
 		
 		<footer>
 			<p class="text-center">Your payment is made securely through <a href="http://stripe.com">Stripe</a>. We do not store any of your credit card information.</p>
-			<p>Powered by <a href="http://worktop.co">WorkTop</a>.</p>
 		</footer>
 	</div>
 	

@@ -116,11 +116,9 @@
 			<div class="balance-total">
 				<p class="uk-text-right uk-text-large"><strong>Remaining balance: {{ $invoice->balance() }}</strong></p>
 				<div class="uk-text-right">
-					@if(is_null($invoice->paid) && $settings)
-						<a href="{{ route('invoice.pay', array($invoice->client->id, $invoice->unique_id)) }}" class="uk-button uk-button-primary">
-							Pay Online
-						</a>
-					@endif
+                    <a href="{{ route('invoice.pay', [$invoice->client->id, $invoice->unique_id]) }}" class="uk-button uk-button-primary">
+                        Make Payment
+                    </a>
 					<a href="#" id="print" class="uk-button">
 						Print Invoice
 					</a>

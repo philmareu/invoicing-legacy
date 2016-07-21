@@ -204,25 +204,19 @@ class InvoicesController extends Controller {
 	
 	public function view($clientId, $uniqueId)
 	{
-		$invoice = $this->invoice->whereClientId($clientId)->whereUniqueId($uniqueId)->first();
-		
-		if(is_null($invoice)) abort(404);
+        $invoice = $this->getInvoiceOrFail($clientId, $uniqueId);
 
 		return view('invoices.view.index')->with('invoice', $invoice);
 	}
 	
-	public function pay($client_id, $unique_id)
+	public function pay($clientId, $uniqueId)
 	{
-		$invoice = $this->invoice->getByUri($client_id, $unique_id);
-		$invoice_uri = 'invoice/view/' . $invoice->client_id . '/' . $invoice->unique_id;
-		if($invoice->paid_at) return Redirect::to($invoice_uri)->withFlashMessage('Invoice is already paid.');
-		
-		$key = $this->billing->getPublishableKey($invoice->account_id);
-		
-		return View::make('invoices.pay.index', compact('invoice', 'key'));
+        $invoice = $this->getInvoiceOrFail($clientId, $uniqueId);
+
+		return view('invoices.pay.index')->with('invoice', $invoice);
 	}
 	
-	public function process_payment()
+	public function processPayment()
 	{
 		$inputs = Input::all();
 		$amount = (int) round($inputs['amount'] * 100);
@@ -279,5 +273,18 @@ class InvoicesController extends Controller {
 		return Redirect::to($invoice_uri)->withFlashMessage('Your payment has been processed. Thank you!');
 	}
 
-	
+    /**
+     * @param $clientId
+     * @param $uniqueId
+     * @return mixed
+     */
+    private function getInvoiceOrFail($clientId, $uniqueId)
+    {
+        $invoice = $this->invoice->whereClientId($clientId)->whereUniqueId($uniqueId)->first();
+
+        if (is_null($invoice)) abort(404);return $invoice;
+        return $invoice;
+    }
+
+
 }

@@ -18,8 +18,8 @@ Route::get('invoice/pay/{client_id}/{unique_id}', array(
 
 Route::post('invoice/pay', array(
 
-    'as' => 'invoice.process_payment',
-    'uses' => 'InvoicesController@process_payment'
+    'as' => 'invoice.process-payment',
+    'uses' => 'InvoicesController@processPayment'
 
 ));
 
