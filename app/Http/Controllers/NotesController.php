@@ -32,7 +32,7 @@ class NotesController extends Controller {
 
         $output = [
             'status' => 'saved',
-            'html' => view('notes.partials.row')->with('note', $note)->render()
+            'html' => view('partials.notes.note')->with('note', $note)->render()
         ];
 
 		return response()->json($output);

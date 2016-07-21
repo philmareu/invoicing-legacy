@@ -35,11 +35,11 @@ $(function(){
     		{
                 if ($('div.note').length == 0) {
     		        $('.no-notes').remove();
-    		        $('div.notes').html( response.html );
+    		        $('#notes').html( response.html );
                 }
                 
                 else {
-                    $('div.notes').append( response.html );
+                    $('#notes').append( response.html );
                 }
 
     			modal._hide();

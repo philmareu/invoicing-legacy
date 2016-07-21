@@ -23,7 +23,7 @@
 		</div>
 			
 		<div class="uk-panel uk-panel-box">
-			@include('workorders.show.notes')
+			@include('partials.notes.notes', ['notes' => $workOrder->notes])
 		</div>
 	</div>
 		
