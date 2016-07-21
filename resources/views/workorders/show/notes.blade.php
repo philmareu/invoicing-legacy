@@ -1,6 +1,6 @@
 <h3 class="notes uk-panel-title">
 	Notes
-	<a href="#" id="add-note" class="workorder-{{ $workOrder->id }}" data-uk-modal>
+	<a href="" id="add-note" class="workorder-{{ $workOrder->id }}" data-uk-modal>
 		+
 	</a>
 </h3>

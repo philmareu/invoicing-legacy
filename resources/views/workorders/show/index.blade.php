@@ -1,5 +1,10 @@
 @extends('layouts.default')
 
+@section('head')
+    <meta name="resource-id" content="{{ $workOrder->id }}"/>
+    <meta name="resource-model" content="{{ get_class($workOrder) }}"/>
+@endsection
+
 @section('content')
 
 <h1>

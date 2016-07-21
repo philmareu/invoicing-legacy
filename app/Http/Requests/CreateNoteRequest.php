@@ -13,7 +13,7 @@ class CreateNoteRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class CreateNoteRequest extends Request
     public function rules()
     {
         return [
-            //
+            'resource_id' => 'required|integer',
+            'resource_model' => 'required',
+            'note' => 'required'
         ];
     }
 }

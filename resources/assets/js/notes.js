@@ -2,9 +2,11 @@ $(function(){
     
     // Add Note Modal
 	$('a#add-note').on('click', function(e){
-	    
+
+        var resourceId = $('meta[name="resource-id"]').attr('content');
+        var resourceModel = $('meta[name="resource-model"]').attr('content');
         resourceString = $( this ).attr('class');
-        uri = "/notes/create/" + resourceString;
+        uri = "/notes/create?resource_id=" + resourceId + "&resource_model=" + resourceModel;
         
         getModal(uri);
 		
@@ -15,33 +17,29 @@ $(function(){
 	    
 	    e.preventDefault();
 		
-		button = $( this );
+		var button = $( this );
+        var form = button.parents('form');
+        var action = form.attr('action');
 		
 		button.html('Saving <i class="uk-icon-refresh uk-icon-spin"></i>').prop('disabled', true);
-	    
 	    var modal = $.UIkit.modal("#modal");
-	    
-	    uri = "/notes";
-	    data = $("form#add-note").serialize();
         
         $.ajax({
     		type: "POST",
-    		url: SITE_URL + uri,
-    		data: data
+    		url: action,
+    		data: form.serialize()
     	})
-    	.done( function( data ) {
+    	.done( function( response ) {
 
-            var results = $.parseJSON(data);
-
-            if(results.status == 'saved')
+            if(response.status == 'saved')
     		{
                 if ($('div.note').length == 0) {
     		        $('.no-notes').remove();
-    		        $('div.notes').html( results.html );
+    		        $('div.notes').html( response.html );
                 }
                 
                 else {
-                    $('div.notes').append( results.html );
+                    $('div.notes').append( response.html );
                 }
 
     			modal._hide();

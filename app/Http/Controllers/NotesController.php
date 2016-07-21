@@ -2,6 +2,9 @@
 
 namespace Invoicing\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Invoicing\Http\Requests\CreateNoteRequest;
+
 class NotesController extends Controller {
 
 	/**
@@ -9,13 +12,11 @@ class NotesController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create($resourceString)
+	public function create(Request $request)
 	{
-		list($resource, $resource_id) = explode('-', $resourceString);
+        $output['html'] = view('notes.create')->with('request', $request)->render();
 
-        $output['html'] = View::make('notes.create', compact('resource', 'resource_id'))->render();
-
-		echo json_encode($output);
+		return response()->json($output);
 	}
 
 	/**
@@ -23,37 +24,18 @@ class NotesController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(CreateNoteRequest $request)
 	{
-		if (Session::token() != Input::get('_token'))
-		{
-			throw new Illuminate\Session\TokenMismatchException;
-		}
-		
-		$rules = array(
-			'note' => ''
-		);
-		
-		$inputs = Input::all();
-		
-		$validator = Validator::make($inputs, $rules);
-		
-		if ($validator->fails())
-		{
-			// Input::flash();
-			// return Redirect::back()->withErrors($validator);
-			echo 'validation_errors';
-		}
-		
-		$note = Note::create($inputs);
-		$note->account_id = getAccountId();
-		$note->user_id = getUserId();
-		$note->save();
-		
-		$output['status'] = 'saved';
-		$output['html'] = View::make('notes.partials.row', compact('note'))->render();
-		
-		echo json_encode($output);
+        $model = $request->resource_model;
+        $resource = (new $model)->findOrFail($request->resource_id);
+        $note = $resource->notes()->create($request->only('note'));
+
+        $output = [
+            'status' => 'saved',
+            'html' => view('notes.partials.row')->with('note', $note)->render()
+        ];
+
+		return response()->json($output);
 	}
 
 	/**
