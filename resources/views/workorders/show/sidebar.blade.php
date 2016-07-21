@@ -3,18 +3,16 @@
 		Edit
 	</a>
 	
-	@if(0)
-	<button type="button" class="uk-button toggle-time uk-text-danger" id="{{ $workOrder->id }}">
-		<i class="uk-icon-clock-o uk-icon-spin"></i>
-		Stop
-		<span class="{{ $workOrder->id }}-elapsed">{{ $timer }}</span>
-	</button>
-	@else
-	<button type="button" class="uk-button toggle-time uk-text-success" id="{{ $workOrder->id }}">
-		Timer |
-		Play
-		<span class="{{ $workOrder->id }}-elapsed"></span>
-	</button>
+	@if(! is_null($timer) && $timer->work_order_id == $workOrder->id)
+        <button type="button" class="uk-button toggle-time uk-text-danger" id="{{ $workOrder->id }}">
+            <i class="uk-icon-stop"></i>
+            <span class="timer">{{ $timer->elapsedFormatted() }}</span>
+        </button>
+    @else
+        <button type="button" class="uk-button toggle-time uk-text-success" id="{{ $workOrder->id }}">
+            <i class="uk-icon-play"></i>
+            <span class="timer" data-invoicing-work-order-id="{{ $workOrder->id }}"></span>
+        </button>
 	@endif
 
 	<a href="#" class="workorder-completed uk-button" id="{{ $workOrder->id}}">

@@ -42,7 +42,7 @@ class TimesController extends Controller {
 	{
         $workOrder = $this->workOrder->findOrFail($request->work_order_id);
         $time = $workOrder->times()->create([
-            'date' => $request->date,
+            'start' => $request->date,
             'time' => $request->hours * 60 + $request->minutes,
             'note' => $request->note
         ]);
@@ -86,7 +86,7 @@ class TimesController extends Controller {
 	public function update(UpdateTimeRequest $request, Time $time)
 	{
         $time->update([
-            'date' => $request->date,
+            'start' => $request->date,
             'time' => $request->hours * 60 + $request->minutes,
             'note' => $request->note
         ]);
@@ -127,32 +127,11 @@ class TimesController extends Controller {
 
 		if(! $time instanceof Time) return $this->createTimer($workOrder);
 
-        if($this->belowMinTimeLimit($time)) return $this->deleteTimer();
+        if($this->belowMinTimeLimit($time)) return $this->deleteTimer($time);
         $this->stopCurrentTimer($time);
         if($this->isNotCurrentTimer($time, $workOrder)) return $this->createTimer($workOrder);
 
         return response()->json(['status' => 'stopped']);
-	}
-	
-	public function elapsed()
-	{
-		$time = Time::restrict()
-			->where('user_id', getUserId())
-			->whereNull('stop')
-			->first();
-		
-		if(count($time))
-		{
-			$output['time'] = time_span(strtotime($time->start));
-			$output['workorder_id'] = $time->workorder_id;
-			$output['status'] = 'success';
-		}
-		else
-		{
-			$output['status'] = 'stopped';
-		}
-		
-		echo json_encode($output);
 	}
 
     private function belowMinTimeLimit($time)
@@ -160,9 +139,11 @@ class TimesController extends Controller {
         return $this->getDiffInMinutes($time) < 1;
     }
 
-    private function deleteTimer()
+    private function deleteTimer($time)
     {
-        return response()->json(['status' => 'deleted']);
+        $time->delete();
+        
+        return response()->json(['status' => 'stopped']);
     }
 
     private function stopCurrentTimer($time)
@@ -172,7 +153,7 @@ class TimesController extends Controller {
 
     private function getDiffInMinutes($time)
     {
-        return $time->date->diffInMinutes();
+        return $time->start->diffInMinutes();
     }
 
     private function isNotCurrentTimer($time, $workOrder)
@@ -182,7 +163,7 @@ class TimesController extends Controller {
 
     private function createTimer($workOrder)
     {
-        $workOrder->times()->create(['date' => Carbon::now()]);
+        $workOrder->times()->create(['start' => Carbon::now()]);
 
         return response()->json(['status' => 'started']);
     }

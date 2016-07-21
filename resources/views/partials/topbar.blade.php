@@ -13,14 +13,18 @@
 
 	<div class="uk-width-1-2">
 		<ul class="uk-subnav uk-subnav-line uk-float-right">
-			
-			@if(isset($elapsed))
 
-				@include('partials.timer')
-				
-			@endif
-			
-			<li data-uk-dropdown="{mode:'click'}">
+
+                    @if(! is_null($timer))
+                        <span class="timer" data-invoicing-work-order-id="{{ $timer->work_order_id }}">
+                            {{ $timer->elapsedFormatted() }}
+                        </span>
+                    @else
+                        <span class="timer" data-invoicing-work-order-id="">
+                        </span>
+                    @endif
+
+                <li data-uk-dropdown="{mode:'click'}">
 `
 				<a href="#">{{ Auth::user()->name }} <i class="uk-icon-toggle-down"></i></a>
 

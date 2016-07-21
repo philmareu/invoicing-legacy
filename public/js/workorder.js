@@ -54,7 +54,18 @@ $(function(){
             url: SITE_URL + "/times/toggle",
             data: {_token: csrf, work_order_id: workorderId},
             success: function (response) {
-                console.log(response);
+                console.log(response.status);
+
+                if(response.status == 'stopped') {
+                    $this.html('<i class="uk-icon-play"></i>').prop('disabled', false);
+                    $('i.uk-icon-stop').attr('class', 'uk-icon-play');
+                    $('.timer').text('').attr('data-invoicing-work-order-id', '');
+                    $('.toggle-time').attr('class', 'uk-button toggle-time uk-text-success');
+                } else {
+                    $this.html('<i class="uk-icon-stop"></i><span class="timer"> 0:00</span>').prop('disabled', false);
+                    $('.toggle-time').attr('class', 'uk-button toggle-time uk-text-danger');
+                    $('i.uk-icon-play').attr('class', 'uk-icon-stop');
+                }
             }
         });
 
@@ -79,17 +90,11 @@ $(function(){
             //    //}
             //    //else if(status == 'stopped')
             //    //{
-            //    //    $this.html('<i class="uk-icon-clock-o"></i> <i class="uk-icon-play"></i>').prop('disabled', false);
-            //    //
-            //    //    var totalTime = $.parseJSON(data).total_time;
-            //    //
-            //    //    $('.topbar .timer').remove();
-            //    //    $('.toggle-time').attr('class', 'uk-button uk-button-primary toggle-time uk-text-success');
-            //    //    $('i.uk-icon-clock-o').attr('class', 'uk-icon-clock-o');
-            //    //    $('i.uk-icon-stop').attr('class', 'uk-icon-play');
-            //    //    $('span.total-time-' + workorderId).html( totalTime );
-            //    //    $( timerClass ).html('');
-            //    //    $('.uk-parent.timer').toggle();
+            //        $this.html('<i class="uk-icon-clock-o"></i> <i class="uk-icon-play"></i>').prop('disabled', false);
+            //
+            //        var totalTime = $.parseJSON(data).total_time;
+            //
+
             //    //}
             //})
 	
