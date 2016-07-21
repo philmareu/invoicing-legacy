@@ -2,7 +2,9 @@
     <thead>
         <tr>
             <th>Number</th>
+            <th>Client</th>
             <th>Due</th>
+            <th>Balance</th>
         </tr>
     </thead>
     <tbody>
