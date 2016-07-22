@@ -2,20 +2,32 @@
 
 @section('content')
 
-    <div class="uk-width-3-5 uk-container-center uk-panel uk-panel-box">
+    <div class="uk-width-1-3 uk-container-center uk-panel uk-panel-box">
         <h3 class="uk-panel-title">Edit Invoice Item</h3>
-        <form action="{{ route('invoices.invoice-items.update', $invoiceItem->id) }}" method="POST" class="uk-form uk-form-stacked">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <input type="hidden" name="_method" value="PUT">
-            <input type="hidden" name="invoice_id" value="{{ $invoiceItem->invoice->id }}">
 
-            @include('laraform::elements.form.text', ['field' => ['name' => 'item', 'value' => $invoiceItem->item]])
-            @include('laraform::elements.form.text', ['field' => ['name' => 'amount', 'value' => $invoiceItem->amount]])
+        <div class="uk-grid">
+            <div class="uk-width-1-1">
+                <form action="{{ route('invoices.invoice-items.update', $invoiceItem->id) }}" method="POST" class="uk-form uk-form-stacked">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="_method" value="PUT">
+                    <input type="hidden" name="invoice_id" value="{{ $invoiceItem->invoice->id }}">
 
-            <div class="uk-form-row">
-                @include('laraform::elements.form.submit')
+                    @include('laraform::elements.form.text', ['field' => ['name' => 'item', 'value' => $invoiceItem->item]])
+                    @include('laraform::elements.form.text', ['field' => ['name' => 'amount', 'value' => $invoiceItem->amount]])
+
+                    <div class="uk-form-row">
+                        <div class="uk-grid">
+                            <div class="uk-width-1-2">
+                                @include('laraform::elements.form.submit')
+                            </div>
+                            <div class="uk-width-1-2">
+                                <a href="{{ route('invoices.show', $invoiceItem->invoice->id) }}" class="uk-button uk-width-1-1">Done</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 
 @endsection
