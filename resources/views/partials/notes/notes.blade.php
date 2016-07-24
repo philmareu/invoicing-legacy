@@ -3,6 +3,8 @@
 
 <div class="uk-grid">
     <div class="uk-width-1-1">
-        @each('partials.notes.note', $notes, 'note', 'partials.notes.none')
+        <div id="notes">
+            @each('partials.notes.note', $notes, 'note', 'partials.notes.none')
+        </div>
     </div>
 </div>
