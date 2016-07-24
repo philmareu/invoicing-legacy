@@ -8,6 +8,7 @@ use App\Repositories\ClientRepository;
 use App\Repositories\AccountRepository;
 use App\Repositories\BillingRepository;
 use Invoicing\Http\Requests\CreateInvoiceRequest;
+use Invoicing\Http\Requests\UpdateInvoiceRequest;
 use Invoicing\Models\Client;
 use Invoicing\Models\Invoice;
 
@@ -73,19 +74,13 @@ class InvoicesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
-	{	
-		$invoice = $this->invoice->get($id);
-		
-		$data = array(
-			'invoice' => $invoice,
-			'clientsDropdown' => $this->client->dropdown(),
-			'clientWorkorders' => $this->client->getUnattachedWorkorders($invoice->client_id),
-			'payment_types' => PaymentType::lists('title', 'id'),
-			'totals' => $this->invoice->getTotals($invoice->id)
-		);
-		
-        return View::make('invoices.edit.index', $data);
+	public function edit(Invoice $invoice)
+	{
+        $clients = $this->client->lists('title', 'id');
+
+        return view('invoices.edit')
+            ->with('invoice', $invoice)
+            ->with('clients', $clients);
 	}
 
 	/**
@@ -94,26 +89,15 @@ class InvoicesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(UpdateInvoiceRequest $request, Invoice $invoice)
 	{
-		if (Session::token() != Input::get('_token'))
-		{
-			throw new Illuminate\Session\TokenMismatchException;
-		}
-		
-		$inputs = Input::all();
-		
-		$validator = Validator::make($inputs, Config::get('validation.invoice'));
-		
-		if ($validator->fails())
-		{
-			Input::flash();
-			return Redirect::back()->withErrors($validator);
-		}
-		
-		$invoice = $this->invoice->update($id, $inputs);
-		
-		return Redirect::to('invoice/view/' . $invoice->client_id . '/' . $invoice->unique_id);
+		$attr = $request->all();
+        if($request->has('reset_unique_id')) $attr['unique_id'] = str_random(50);
+        $attr['paid'] = $request->has('paid') ? 1 : 0;
+
+        $invoice->update($attr);
+
+		return redirect()->route('invoices.show', $invoice->id);
 	}
 	
 	public function remove($id)

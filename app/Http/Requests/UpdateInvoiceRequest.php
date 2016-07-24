@@ -25,10 +25,10 @@ class UpdateInvoiceRequest extends Request
     {
         return [
             'client_id' => 'required|exists:clients,id',
-            'invoice_number' => 'required|unique|invoices,invoice_number,' . $this->segment(2),
-            'unique_id' => 'required|unique|invoices,unique_id,' . $this->segment(2),
+            'invoice_number' => 'required|unique:invoices,invoice_number,' . $this->segment(2),
             'description' => '',
             'due' => 'required|date_format:Y-m-d',
+            'reset_unique_id' => 'boolean',
             'paid' => 'boolean'
         ];
     }

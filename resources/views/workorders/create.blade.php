@@ -7,13 +7,13 @@
 
         <div class="uk-grid">
             <div class="uk-width-1-1">
-                <form action="{{ route('work-orders.store') }}" method="POST" class="uk-form uk-form-stacked">
+                <form action="{{ route('invoices.work-orders.store') }}" method="POST" class="uk-form uk-form-stacked">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="invoice_id" value="{{ $invoice->id }}">
 
                     @include('laraform::elements.form.date', ['field' => ['name' => 'scheduled', 'id' => 'date']])
                     @include('laraform::elements.form.textarea', ['field' => ['name' => 'description']])
-                    @include('laraform::elements.form.text', ['field' => ['name' => 'rate']])
+                    @include('laraform::elements.form.text', ['field' => ['name' => 'rate', 'value' => $user->settings->rate]])
 
                     <div class="uk-form-row">
                         @include('laraform::elements.form.submit')

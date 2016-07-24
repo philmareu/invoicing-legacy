@@ -7,14 +7,35 @@
 
 @section('content')
 
-
+    <h1>Invoice #{{ $invoice->invoice_number }}</h1>
     <div class="uk-panel uk-panel-box uk-margin-bottom">
-        <h3 class="uk-panel-title"><i class="uk-icon-info"></i> Invoice {{ $invoice->invoice_number }}</h3>
-        <div class="uk-panel-badge"><a href="{{ url(route('invoice.view', [$invoice->client_id, $invoice->unique_id])) }}">View</a></div>
+        <h3 class="uk-panel-title"><i class="uk-icon-info"></i> Info</h3>
+        <div class="uk-panel-badge">
+            <a href="{{ url(route('invoice.view', [$invoice->client_id, $invoice->unique_id])) }}">View</a>
+            <a href="{{ url(route('invoices.edit', $invoice->id)) }}">Edit</a>
+        </div>
 
         <div class="uk-grid">
             <div class="uk-width-1-1">
-                {{ $invoice->client->title }}
+
+                @if($invoice->paid)
+                    <div class="uk-alert uk-alert-danger uk-margin-bottom-remove">
+                        <p class="uk-text-center">
+                            This invoice is paid.
+                            @if($invoice->balance() != 0)
+                                There is a balance of ${{ number_format($invoice->balance(), 2) }}
+                            @endif
+                        </p>
+                    </div>
+                @else
+                    <div class="uk-alert uk-alert-warning uk-margin-bottom-remove">
+                        <p class="uk-text-center">This invoice has a balance of ${{ number_format($invoice->balance(), 2) }}</p>
+                    </div>
+                @endif
+
+                <h3>{{ $invoice->client->title }}</h3>
+                <p>{{ $invoice->due->format('M d, Y') }}</p>
+                <p>{{ $invoice->description }}</p>
             </div>
         </div>
     </div>
@@ -32,7 +53,7 @@
     </div>
 
     <h2>Total</h2>
-    <p class="uk-text-right">{{ $invoice->balance() }}</p>
+    <p class="uk-text-right uk-text-bold">${{ number_format($invoice->balance(), 2) }}</p>
 
     <div class="actions">
 

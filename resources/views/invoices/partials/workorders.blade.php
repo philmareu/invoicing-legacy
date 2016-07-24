@@ -16,18 +16,21 @@
             </thead>
 
             <tbody>
-            @foreach($invoice->workorders as $workorder)
+            @foreach($invoice->workorders as $workOrder)
                 <tr>
                     <td class="uk-width-5-6">
-                        <span class="uk-text-bold">WO# {{ $workorder->id }} - {{ $workorder->scheduled->format('M d, Y') }}</span><br>
+                        @if($user)
+                            <a href="{{ route('work-orders.show', $workOrder->id) }}">View</a>
+                        @endif
+                        <span class="uk-text-bold">WO# {{ $workOrder->id }} - {{ $workOrder->scheduled->format('M d, Y') }}</span><br>
 
-                        <p class="services">{{ $workorder->description }}</p>
+                        <p class="services">{{ $workOrder->description }}</p>
 
-                        @if(count($workorder->tasks))
+                        @if(count($workOrder->tasks))
 
                             <h5>Tasks Completed</h5>
                             <ul class="uk-list">
-                                @foreach($workorder->tasks as $task)
+                                @foreach($workOrder->tasks as $task)
 
                                     <li><i class="uk-icon-check-square-o"></i> {{ $task->task }}</li>
 
@@ -35,9 +38,9 @@
                             </ul>
                         @endif
                     </td>
-                    <td>{{ round($workorder->times->sum('time') / 60, 3) }}</td>
-                    <td>{{ $workorder->rate }}</td>
-                    <td class="uk-text-right">{{ number_format($workorder->amount(), 2) }}</td>
+                    <td>{{ round($workOrder->times->sum('time') / 60, 3) }}</td>
+                    <td>{{ $workOrder->rate }}</td>
+                    <td class="uk-text-right">{{ number_format($workOrder->amount(), 2) }}</td>
                 </tr>
             @endforeach
 

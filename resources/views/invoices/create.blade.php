@@ -20,3 +20,9 @@
     </div>
 
 @endsection
+
+@section('scripts')
+    <script>
+        var datepicker = UIkit.datepicker('#date', { weekstart:0, format:'YYYY-MM-DD' });
+    </script>
+@endsection
