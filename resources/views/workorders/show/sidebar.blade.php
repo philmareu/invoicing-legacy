@@ -1,5 +1,5 @@
 <div class="uk-button-group uk-margin-bottom">
-	<a href="{{ url('workorders/' . $workOrder->id . '/edit') }}" class="uk-button">
+	<a href="{{ route('work-orders.edit', $workOrder->id) }}" class="uk-button">
 		Edit
 	</a>
 	

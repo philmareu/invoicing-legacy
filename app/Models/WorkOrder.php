@@ -59,6 +59,6 @@ class WorkOrder extends Model
 
     public function amount()
     {
-        return $this->totalTime() / 60 * $this->rate;
+        return round($this->totalTime() / 60 * $this->rate, 2);
     }
 }

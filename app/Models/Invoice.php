@@ -56,12 +56,18 @@ class Invoice extends Model
         }, 0);
     }
 
+    public function itemTotal()
+    {
+        return $this->items->sum('amount');
+    }
+
+    public function paymentTotal()
+    {
+        return $this->payments->sum('amount');
+    }
+
     public function balance()
     {
-        $items = $this->items->sum('amount');
-        $workOrders = $this->workOrderTotals();
-        $payments = $this->payments->sum('amount');
-
-        return $items + $workOrders - $payments;
+        return $this->itemTotal() + $this->workOrderTotals() - $this->paymentTotal();
     }
 }

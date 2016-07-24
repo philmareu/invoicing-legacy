@@ -30,10 +30,18 @@ elixir(function(mix) {
         'notes.js'
     ], 'public/js/invoice.js');
     mix.scripts([
+        '../bower/jquery/dist/jquery.js',
+        '../bower/uikit/js/uikit.js',
+        'billing.js'
+    ], 'public/js/billing.js');
+    mix.scripts([
         'notes.js'
     ], 'public/js/client.js');
     mix.copy('resources/assets/bower/uikit/fonts', 'public/fonts/');
     mix.less([
         'styles.less'
     ], 'public/css/styles.css');
+    mix.less([
+        'invoice.less'
+    ], 'public/css/invoice.css');
 });

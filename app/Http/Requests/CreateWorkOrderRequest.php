@@ -26,8 +26,7 @@ class CreateWorkOrderRequest extends Request
         return [
             'scheduled' => 'date_format:Y-m-d',
             'description' => '',
-            'rate' => 'required|integer',
-            'completed' => 'boolean'
+            'rate' => 'required|integer'
         ];
     }
 }

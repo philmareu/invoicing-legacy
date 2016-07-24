@@ -76,7 +76,7 @@ class WorkOrdersController extends Controller {
 	 */
 	public function edit(WorkOrder $workOrder)
 	{
-        return view('invoice_items.edit')->with('workOrder', $workOrder);
+        return view('workorders.edit')->with('workOrder', $workOrder);
 	}
 
 	/**
@@ -89,7 +89,7 @@ class WorkOrdersController extends Controller {
 	{
         $workOrder->update($request->all());
 
-        return redirect(route('invoices.show', $workOrder->invoice->id))->with('success', 'Item updated.');
+        return redirect(route('work-orders.show', $workOrder->id))->with('success', 'Item updated.');
 	}
 
 	/**

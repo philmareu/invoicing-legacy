@@ -7,18 +7,20 @@
 	<link rel="stylesheet" href="{{ asset('css/invoice.css') }}">
 </head>
 <body class="invoice">
-	
-	<div class="uk-container uk-container-center">
-		<div class="uk-grid">
-			<div class="uk-width-1-1">			
-				@yield('content')
-			</div>
-		</div>
-		
-		<footer>
-			<p class="text-center">Your payment is made securely through <a href="http://stripe.com">Stripe</a>. We do not store any of your credit card information.</p>
-		</footer>
-	</div>
+
+    <div class="uk-container uk-container-center">
+        @if($user)
+            <p class="uk-margin-top"><a href="{{ route('invoices.show', $invoice->id) }}">Edit</a></p>
+        @endif
+
+        <div id="invoice">
+            @yield('content')
+        </div>
+    </div>
+
+    <footer>
+        <p class="text-center">Your payment is made securely through <a href="http://stripe.com">Stripe</a>. We do not store any of your credit card information.</p>
+    </footer>
 	
 	<script src="{{ asset('js/billing.js') }}"></script>
 	<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
