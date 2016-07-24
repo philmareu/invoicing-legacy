@@ -1,44 +1,46 @@
 $(function(){
     
     // Mark workorders complete
-	$('a.workorder-completed').on('click', function( e ) {
-	    
-	    e.preventDefault();
-	    
-        if (confirm("Are you sure you want to complete this work order?"))
-        {
-			var $this = $( this );
-            var workorderId = $this.attr('id');
-			
-			$this.html('Marking complete <i class="uk-icon-refresh uk-icon-spin"></i>').prop('disabled', true);
-            
-            $.ajax({
-                type: "GET",
-                url: SITE_URL + "/workorders/mark_completed/" + workorderId
-            })
-            .done(function( data ) {
-            
-                var status = $.parseJSON(data).status;
-                var html = $.parseJSON(data).html;
-            
-                if(status == 'success')
-                {
-                    $('a.workorder-completed').remove();
-                    $('a.toggle-time').remove();
-                    $('div.status').html( html );
-                    $('div.status').attr('class', 'uk-alert uk-alert-danger');
-                }
-				
-				else
-				{
-					alert('An error occurred. Please make sure you have completed all tasks.');
-					$this.html('<i class="uk-icon-check"></i> Mark Completed');
-				}
-            
-            })
-        }
+    function completionListener() {
+        $('a.toggle-completion').one('click', function( event ) {
 
-	});
+            event.preventDefault();
+            var $this = $( this );
+            var workorderId = $this.attr('id');
+
+            if($this.hasClass('completed')) {
+                $this.html('<i class="uk-icon-refresh uk-icon-spin"></i>').prop('disabled', true);
+                toggleCompletion(workorderId);
+            } else {
+                if (confirm("Are you sure you want to complete this work order?"))
+                {
+                    $this.html('<i class="uk-icon-refresh uk-icon-spin"></i>').prop('disabled', true);
+                    toggleCompletion(workorderId);
+                }
+            }
+
+            function toggleCompletion(workOrderId) {
+
+                $.ajax({
+                    type: "PUT",
+                    url: SITE_URL + "/work-orders/toggle-completion",
+                    data: {_token: csrf, work_order_id: workorderId}
+                })
+                    .done(function( response ) {
+                        $this.toggleClass('completed');
+                        if(response.workOrder.completed) {
+                            $this.html('<i class="uk-icon-check"></i> Completed')
+                        } else {
+                            $this.html('<i class="uk-icon-check-box-o"></i> Open')
+                        }
+                        console.log(response);
+                    });
+
+                completionListener();
+            }
+
+        });
+    }
 
     // Toggle time
     $('.toggle-time').on("click", function( ) {
@@ -70,5 +72,7 @@ $(function(){
         });
 
     });
-	
+
+    completionListener();
+
 });

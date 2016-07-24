@@ -4,6 +4,7 @@ namespace Invoicing\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Invoicing\Http\Requests\CreateWorkOrderRequest;
+use Invoicing\Http\Requests\ToggleCompletionRequest;
 use Invoicing\Http\Requests\UpdateWorkOrderRequest;
 use Invoicing\Models\Invoice;
 use Invoicing\Models\WorkOrder;
@@ -103,39 +104,15 @@ class WorkOrdersController extends Controller {
 		//
 	}
 
-    public function mark_completed($id)
+    public function toggleCompletion(ToggleCompletionRequest $request)
     {
-        $workorder = Workorder::restrict()->find($id);
+        $workorder = $this->workOrder->findOrFail($request->work_order_id);
 
-        if(is_null($workorder) OR $workorder->completed)
-        {
-            echo json_encode(['status' => 'error']);
-        }
+        if($workorder->uncompletedTasks->count()) return response()
+            ->json(['status' => 'error', 'message' => 'Complete all tasks first']);
 
-        elseif($workorder->uncompletedTasks->count())
-        {
-            echo json_encode(['status' => 'error', 'message' => 'Complete all tasks first']);
-        }
+        $workorder->update(['completed' => ! $workorder->completed]);
 
-        else
-        {
-            $now = date('Y-m-d H:i:s');
-
-            // Stop timer
-            $time = Time::where('workorder_id', $id)
-                ->restrict()
-                ->whereNull('stop')
-                ->where('user_id', getUserId());
-
-            if(count($time)) $time->update(array('stop' => $now));
-
-            $workorder->update(array('completed' => $now));
-
-            $output['status'] = 'success';
-            $output['message'] = 'Work Order marked complete';
-            $output['html'] = View::make('partials.ajax.workorder_completed')->render();
-
-            echo json_encode($output);
-        }
+        return response()->json(['workOrder' => $workorder]);
     }
 }

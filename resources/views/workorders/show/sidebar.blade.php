@@ -15,9 +15,13 @@
         </button>
 	@endif
 
-	<a href="#" class="workorder-completed uk-button" id="{{ $workOrder->id}}">
-		Mark Completed
-	</a>
+	<a href="#" class="toggle-completion uk-button {{ $workOrder->completed ? 'completed' : 'uncompleted' }}" id="{{ $workOrder->id}}">
+        @if($workOrder->completed)
+            Completed
+        @else
+            Open
+        @endif
+    </a>
 
 </div>
 
