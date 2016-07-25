@@ -28,7 +28,7 @@
                 </div>
             </div>
 
-            <div class="uk-grid uk-margin-top-remove">
+            <div class="uk-grid uk-margin-top-remove uk-margin-bottom">
                 <div class="uk-width-small-1-3">
                     <div class="uk-form-row">
                         <label for="cvc" class="uk-form-label">CVC</label>
@@ -55,7 +55,8 @@
                 </div>
             </div>
 
-            <input type="submit" class="uk-button uk-button-primary uk-margin-top" value="Make Payment">
+            <input type="submit" class="uk-button uk-button-primary" value="Make Payment">
+            <a href="{{ route('invoice.view', [$invoice->client_id, $invoice->unique_id]) }}" class="uk-button">Back</a>
 
         </form>
     </div>
