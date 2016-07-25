@@ -6,7 +6,7 @@
         {{ $errors->first('start') }}
         <label for="start" class="uk-form-label">Date</label>
         <div class="uk-form-controls">
-            <input type="text" name="start" data-uk-datepicker="{weekstart:0, format:'YYYY-MM-DD'}" value="{{ $time->date->format('Y-m-d') }}">
+            <input type="text" name="start" data-uk-datepicker="{weekstart:0, format:'YYYY-MM-DD'}" value="{{ $time->start->format('Y-m-d') }}">
         </div>
     </div>
 
