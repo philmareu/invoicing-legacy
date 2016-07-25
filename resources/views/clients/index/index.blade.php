@@ -6,6 +6,7 @@
 
     <div class="uk-panel uk-panel-box">
         <h3 class="uk-panel-title"><i class="uk-icon-info"></i> Clients</h3>
+        <div class="uk-panel-badge"><a href="{{ route('clients.create') }}">Add</a></div>
 
         <div class="uk-grid">
             <div class="uk-width-1-1">

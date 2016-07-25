@@ -4,7 +4,7 @@
 
     <h1><i class="uk-icon-users"></i> Clients > Edit {{ $client->title }}</h1>
 
-    <div class="uk-width-1-3 uk-panel uk-panel-box">
+    <div class="uk-width-1-2 uk-container-center uk-panel uk-panel-box">
         <h3 class="uk-panel-title">Create Client</h3>
 
         <div class="uk-grid">

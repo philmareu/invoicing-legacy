@@ -1,9 +1,5 @@
-<h3 class="times uk-panel-title">
-    <a href="" id="add-time" class="{{ $workOrder->id }}" data-uk-modal>
-        +
-    </a>
-</h3>
-
+<h3 class="tasks uk-panel-title">Times</h3>
+<div class="uk-panel-badge"><a href="" id="add-time" class="{{ $workOrder->id }}" data-uk-modal>Add</a></div>
 
 <div class="uk-grid">
 	<div class="uk-width-1-1 timesheet">
@@ -22,23 +18,7 @@
 	
 	<tbody>
 	@foreach($workOrder->times as $time)
-		<tr id="row-{{ $time->id }}" class="time">
-			<td>{{ $time->start->format('n/j/y') }}</td>
-			@if($time->time)
-				<td>{{ $time->elapsedFormatted() }}</td>
-			@else
-				<td>Timer Going</td>
-			@endif
-			
-			<td>
-                <a href="#" class="edit-time" id="{{ $time->id }}" data-uk-modal>
-                    edit
-                </a>
-                <a href="" class="delete-time" id="{{ $time->id }}">
-                    trash
-                </a>
-			</td>
-		</tr>
+		@include('times.partials.row')
 	@endforeach
 	</tbody>
 </table>

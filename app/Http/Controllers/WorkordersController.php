@@ -28,7 +28,10 @@ class WorkOrdersController extends Controller {
 	 */
 	public function index()
 	{
-        $workOrders = $this->workOrder->whereCompleted(0)->get();
+        $workOrders = $this->workOrder
+            ->whereCompleted(0)
+            ->orderBy('scheduled', 'asc')
+            ->get();
 
         return view('workorders.index.index')->with('workOrders', $workOrders);
 	}
@@ -53,9 +56,9 @@ class WorkOrdersController extends Controller {
 	public function store(CreateWorkOrderRequest $request)
 	{
         $invoice = $this->invoice->findOrFail($request->invoice_id);
-        $invoice->workOrders()->create($request->all());
+        $workOrder = $invoice->workOrders()->create($request->all());
 
-        return redirect(route('invoices.show', $invoice->id))->with('success', 'Work order added.');
+        return redirect(route('work-orders.show', $workOrder->id))->with('success', 'Work order added.');
 	}
 
 	/**

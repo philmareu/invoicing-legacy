@@ -38,14 +38,7 @@
 				</header>
 		
 				<div class="uk-container">
-					@if(Session::has('flash_message'))
-					
-						<div class="uk-alert" data-uk-alert>
-						    <a href="" class="uk-alert-close uk-close"></a>
-						    <p>{{ Session::get('flash_message') }}</p>
-						</div>
-
-					@endif
+					@include('laraform::alerts.default')
 					
 					@yield('content')
 				</div>

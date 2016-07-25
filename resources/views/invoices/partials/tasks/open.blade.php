@@ -1,0 +1,1 @@
+<li><i class="uk-icon-square-o"></i> {{ $task->task }}</li>

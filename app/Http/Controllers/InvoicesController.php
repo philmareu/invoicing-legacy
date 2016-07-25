@@ -31,7 +31,7 @@ class InvoicesController extends Controller {
 	 */
 	public function index()
 	{
-        $invoices = $this->invoice->all();
+        $invoices = $this->invoice->orderBy('due', 'asc')->get();
 
 		return view('invoices.index.index')->with('invoices', $invoices);
 	}

@@ -110,7 +110,7 @@ $(function(){
             if(response.status == 'saved')
     		{
 				if ($('.uncompleted-tasks tr.task').length == 0) {
-    		        table = '<div class="uk-overflow-container"><table class="uk-table uk-table-striped uk-table-condensed tasks uncompleted"><caption class="uk-margin-bottom">These are tasks assigned to this work order.</caption><tbody>' + results.html + '</tbody></table></div>';
+    		        table = '<div class="uk-overflow-container"><table class="uk-table uk-table-striped uk-table-condensed tasks uncompleted"><caption class="uk-margin-bottom">These are tasks assigned to this work order.</caption><tbody>' + response.html + '</tbody></table></div>';
     		        
     		        $('p.no-tasks').remove();
     		        $('.uncompleted-tasks').html( table );

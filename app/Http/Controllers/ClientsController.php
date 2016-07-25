@@ -46,7 +46,7 @@ class ClientsController extends Controller {
 	{
 		$client = $this->client->create($request->all());
 
-		return redirect('clients')->with('success', $client->title . ' added to client list.');
+		return redirect()->route('clients.show', $client->id)->with('success', $client->title . ' added.');
 	}
 
 	/**

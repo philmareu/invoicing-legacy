@@ -3,6 +3,7 @@
 Route::auth();
 Route::singularResourceParameters();
 
+Route::get('/', 'HomeController@index');
 
 Route::get('invoice/view/{client_id}/{unique_id}', [
     'as' => 'invoice.view',

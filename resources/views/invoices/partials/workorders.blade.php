@@ -28,12 +28,10 @@
 
                         @if(count($workOrder->tasks))
 
-                            <h5>Tasks Completed</h5>
+                            <h5>Tasks</h5>
                             <ul class="uk-list">
                                 @foreach($workOrder->tasks as $task)
-
-                                    <li><i class="uk-icon-check-square-o"></i> {{ $task->task }}</li>
-
+                                    @include('invoices.partials.tasks.' . (is_null($task->completed_at) ? 'open' : 'completed'))
                                 @endforeach
                             </ul>
                         @endif
