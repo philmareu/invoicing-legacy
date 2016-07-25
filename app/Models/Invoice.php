@@ -68,6 +68,6 @@ class Invoice extends Model
 
     public function balance()
     {
-        return $this->itemTotal() + $this->workOrderTotals() - $this->paymentTotal();
+        return ((int) (($this->itemTotal() + $this->workOrderTotals() - $this->paymentTotal()) * 100)) / 100;
     }
 }

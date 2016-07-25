@@ -3,7 +3,7 @@
 <head>
 	<title>WorkTop | Invoice</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="publishable-key" content="">
+    <meta name="publishable-key" content="{{ $user->settings->stripe_public }}">
 	<link rel="stylesheet" href="{{ asset('css/invoice.css') }}">
 </head>
 <body class="invoice">
@@ -14,6 +14,7 @@
         @endif
 
         <div id="invoice">
+            @include('laraform::alerts.default')
             @yield('content')
         </div>
     </div>

@@ -18,7 +18,12 @@
             <tbody>
             @foreach($invoice->payments as $payment)
                 <tr>
-                    <td>{{ $payment->created_at->toFormattedDateString() }}</td>
+                    <td>
+                        @if($user)
+                            <a href="{{ route('invoices.payments.edit', $payment->id) }}">Edit</a>
+                        @endif
+                        {{ $payment->created_at->toFormattedDateString() }}
+                    </td>
                     <td>{{ $payment->type->title }}</td>
                     <td>{{ $payment->note }}</td>
                     <td class="uk-text-right">{{ number_format($payment->amount, 2) }}</td>
