@@ -129,13 +129,17 @@ class InvoicesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy(Invoice $invoice)
 	{
-		$invoice = Invoice::restrict()->find($id);
-		
-		$invoice->delete();
-		
-		return Redirect::to('invoices?sort=unpaid');
+        $canDelete = true;
+
+        if($invoice->paid) $canDelete = false;
+
+        if($invoice->items->count() OR $invoice->workOrders->count() OR $invoice->payments->count()) $canDelete = false;
+
+        if($canDelete) return $this->deleteInvoice($invoice);
+
+        return response()->json(['status' => 'unauthorized']);
 	}
 	
 	public function view($clientId, $uniqueId)
@@ -195,5 +199,10 @@ class InvoicesController extends Controller {
         return $invoice;
     }
 
+    private function deleteInvoice(Invoice $invoice)
+    {
+        $invoice->delete();
 
+        return response()->json(['status' => 'deleted']);
+    }
 }

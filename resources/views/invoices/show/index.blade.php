@@ -13,6 +13,7 @@
         <div class="uk-panel-badge">
             <a href="{{ url(route('invoice.view', [$invoice->client_id, $invoice->unique_id])) }}">View</a>
             <a href="{{ url(route('invoices.edit', $invoice->id)) }}">Edit</a>
+            <a href="" id="delete-invoice" data-invoicing-invoice-id="{{ $invoice->id }}">Delete</a>
         </div>
 
         <div class="uk-grid">

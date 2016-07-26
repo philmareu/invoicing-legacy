@@ -76,8 +76,10 @@ class InvoiceItemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(InvoiceItem $invoiceItem)
     {
-        //
+        $invoiceItem->delete();
+
+        return redirect()->route('invoices.show', $invoiceItem->invoice_id)->with('success', 'Item Deleted.');
     }
 }

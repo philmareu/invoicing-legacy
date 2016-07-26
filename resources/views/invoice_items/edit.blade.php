@@ -26,6 +26,13 @@
                         </div>
                     </div>
                 </form>
+
+                <form action="{{ route('invoices.invoice-items.destroy', $invoiceItem->id) }}" method="POST">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="_method" value="DELETE">
+
+                    <input type="submit" name="submit" value="Delete" class="uk-button uk-button-danger uk-width-1-1">
+                </form>
             </div>
         </div>
     </div>

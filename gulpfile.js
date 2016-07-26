@@ -27,7 +27,8 @@ elixir(function(mix) {
         'notes.js'
     ], 'public/js/workorder.js');
     mix.scripts([
-        'notes.js'
+        'notes.js',
+        'invoice.js'
     ], 'public/js/invoice.js');
     mix.scripts([
         '../bower/jquery/dist/jquery.js',

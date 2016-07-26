@@ -82,20 +82,23 @@ $(function(){
             var workOrderId = button.attr('data-invoicing-work-order-id');
             button.html('<i class="uk-icon-refresh uk-icon-spin"></i>').prop('disabled', true);
 
-            $.ajax({
-                type: "POST",
-                url: SITE_URL + "/work-orders/" + workOrderId,
-                data: {_token: csrf, _method: 'DELETE'}
-            })
-                .done(function( response ) {
-                    if(response.status == 'deleted') {
-                        console.log('deleted');
-                    } else {
-                        console.log('unauthorized');
-                    }
-                });
+            if (confirm("Are you sure you want to delete this work order?"))
+            {
+                $.ajax({
+                    type: "POST",
+                    url: SITE_URL + "/work-orders/" + workOrderId,
+                    data: {_token: csrf, _method: 'DELETE'}
+                })
+                    .done(function( response ) {
+                        if(response.status == 'deleted') {
+                            console.log('deleted');
+                        } else {
+                            console.log('unauthorized');
+                        }
+                    });
 
-            deleteWorkOrderListener();
+                deleteWorkOrderListener();
+            }
 
         });
     }
