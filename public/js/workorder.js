@@ -73,7 +73,35 @@ $(function(){
 
     });
 
+    // Mark workorders complete
+    function deleteWorkOrderListener() {
+        $('a#delete-work-order').one('click', function( event ) {
+
+            event.preventDefault();
+            var button = $( this );
+            var workOrderId = button.attr('data-invoicing-work-order-id');
+            button.html('<i class="uk-icon-refresh uk-icon-spin"></i>').prop('disabled', true);
+
+            $.ajax({
+                type: "POST",
+                url: SITE_URL + "/work-orders/" + workOrderId,
+                data: {_token: csrf, _method: 'DELETE'}
+            })
+                .done(function( response ) {
+                    if(response.status == 'deleted') {
+                        console.log('deleted');
+                    } else {
+                        console.log('unauthorized');
+                    }
+                });
+
+            deleteWorkOrderListener();
+
+        });
+    }
+
     completionListener();
+    deleteWorkOrderListener();
 
 });
 

@@ -102,9 +102,17 @@ class WorkOrdersController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy(WorkOrder $workOrder)
 	{
-		//
+        $canDelete = true;
+
+        if($workOrder->invoice->paid) $canDelete = false;
+
+        if($workOrder->tasks->count() OR $workOrder->times->count()) $canDelete = false;
+        
+        if($canDelete) return $this->deleteWorkOrder($workOrder);
+
+		return response()->json(['status' => 'unauthorized']);
 	}
 
     public function toggleCompletion(ToggleCompletionRequest $request)
@@ -117,5 +125,12 @@ class WorkOrdersController extends Controller {
         $workorder->update(['completed' => ! $workorder->completed]);
 
         return response()->json(['workOrder' => $workorder]);
+    }
+
+    private function deleteWorkOrder(WorkOrder $workOrder)
+    {
+        $workOrder->delete();
+
+        return response()->json(['status' => 'deleted']);
     }
 }
