@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class WorkOrder extends Model
 {
     protected $fillable = [
+        'reference',
         'scheduled',
         'description',
         'rate',

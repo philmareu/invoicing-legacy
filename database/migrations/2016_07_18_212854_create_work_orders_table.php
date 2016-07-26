@@ -16,6 +16,7 @@ class CreateWorkOrdersTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('invoice_id');
             $table->date('scheduled')->nullable();
+            $table->string('reference');
             $table->text('description');
             $table->unsignedInteger('rate');
             $table->boolean('completed');

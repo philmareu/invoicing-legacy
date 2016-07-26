@@ -54,7 +54,7 @@
     </div>
 
     <h2>Total</h2>
-    <p class="uk-text-right uk-text-bold">${{ number_format($invoice->balance(), 2) }}</p>
+    <p class="uk-text-right uk-text-bold">${{ number_format($invoice->balance / 100, 2) }}</p>
 
     <div class="actions">
 

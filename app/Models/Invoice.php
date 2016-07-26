@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Invoice extends Model
 {
     protected $fillable = [
+        'balance',
         'client_id',
         'invoice_number',
         'unique_id',
@@ -69,5 +70,14 @@ class Invoice extends Model
     public function balance()
     {
         return ((int) (($this->itemTotal() + $this->workOrderTotals() - $this->paymentTotal()) * 100)) / 100;
+    }
+
+    public function updateBalance()
+    {
+        $balance = (int) (($this->itemTotal() + $this->workOrderTotals() - $this->paymentTotal()) * 100);
+
+        $this->update(['balance' => $balance]);
+
+        return $balance;
     }
 }

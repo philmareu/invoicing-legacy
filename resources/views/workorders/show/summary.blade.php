@@ -3,7 +3,13 @@
 <div class="uk-grid">
 	<div class="uk-width-1-1">
 
-        <h3>Scheduled: {{ $workOrder->scheduled->toFormattedDateString() }}</h3>
+        <h3>
+            @if(is_null($workOrder->scheduled))
+                Not Scheduled
+            @else
+                Scheduled {{ $workOrder->scheduled->toFormattedDateString() }}
+            @endif
+        </h3>
 
 		<ul class="uk-list">
 			<li>
@@ -12,6 +18,7 @@
 			</li>
 
 			<li>Rate: ${{ $workOrder->rate }}</li>
+            <li>Reference: {{ $workOrder->reference }}</li>
 		</ul>
 		
 		<hr>

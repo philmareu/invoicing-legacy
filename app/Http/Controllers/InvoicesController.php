@@ -38,7 +38,15 @@ class InvoicesController extends Controller {
 	 */
 	public function index()
 	{
-        $invoices = $this->invoice->orderBy('due', 'asc')->get();
+        $invoices = $this->invoice
+            ->has('items', '=', 0)
+            ->has('workOrders', '=', 0)
+            ->orderBy('due', 'asc')->get();
+
+        $invoices = $this->invoice
+            ->where('balance', '!=', 0)
+            ->orderBy('due', 'asc')
+            ->get();
 
 		return view('invoices.index.index')->with('invoices', $invoices);
 	}
