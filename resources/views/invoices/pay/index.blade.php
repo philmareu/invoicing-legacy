@@ -12,7 +12,7 @@
             <input type="hidden" name="unique_id" value="{{ $invoice->unique_id }}">
 
             <div class="uk-margin-bottom">
-                @include('laraform::elements.form.text', ['field' => ['name' => 'amount', 'value' => $invoice->balance / 100]])
+                @include('laraform::elements.form.text', ['field' => ['name' => 'amount', 'value' => number_format($invoice->balance / 100, 2, '.', '')]])
             </div>
 
             <div class="uk-text-danger alert-payment-error" id="payment-error-box"></div>
@@ -22,7 +22,7 @@
                     <div class="uk-form-row">
                         <label for="number" class="uk-form-label">Credit Card Number</label>
                         <div class="uk-form-controls">
-                            <input type="text" data-stripe="number" maxlength="19" value="4242424242424242" class="uk-width-1-1">
+                            <input type="text" data-stripe="number" maxlength="19" class="uk-width-1-1">
                         </div>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                     <div class="uk-form-row">
                         <label for="cvc" class="uk-form-label">CVC</label>
                         <div class="uk-form-controls">
-                            <input type="text" data-stripe="cvc" maxlength="3" value="234">
+                            <input type="text" data-stripe="cvc" maxlength="3">
                         </div>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                     <div class="uk-form-row">
                         <label for="month" class="uk-form-label">Exp. Month</label>
                         <div class="uk-form-controls">
-                            <input type="text" data-stripe="exp-month" maxlength="2" value="12">
+                            <input type="text" data-stripe="exp-month" maxlength="2">
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                     <div class="uk-form-row">
                         <label for="month" class="uk-form-label">Exp. Year</label>
                         <div class="uk-form-controls">
-                            <input type="text" data-stripe="exp-year" maxlength="4" value="2017">
+                            <input type="text" data-stripe="exp-year" maxlength="4">
                         </div>
                     </div>
                 </div>
