@@ -5,6 +5,7 @@
             <th>Client</th>
             <th>Reference</th>
             <th>Scheduled</th>
+            <th>Updated</th>
         </tr>
     </thead>
     <tbody>

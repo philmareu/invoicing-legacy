@@ -57,7 +57,7 @@ class WorkOrdersController extends Controller {
         $workOrders = $this->workOrder
             ->with('invoice.client')
             ->whereCompleted(1)
-            ->orderBy('scheduled', 'asc')
+            ->orderBy('updated_at', 'desc')
             ->paginate(50);
 
         return view('workorders.completed')->with('workOrders', $workOrders);

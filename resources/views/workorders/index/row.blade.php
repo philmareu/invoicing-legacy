@@ -7,4 +7,5 @@
     @else
         <td>{{ $workOrder->scheduled->format('M d, Y') }}</td>
     @endif
+    <td>{{ $workOrder->updated_at->format('M d, Y') }}</td>
 </tr>
