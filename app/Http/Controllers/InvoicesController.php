@@ -43,16 +43,16 @@ class InvoicesController extends Controller {
             ->orderBy('due', 'asc')->get();
 
         $pastDue = $invoices->filter(function($invoice) {
-            return $invoice->due->isPast() && $invoice->balance != 0;
-        });
-
-        $unpaid = $invoices->filter(function($invoice) {
-            return $invoice->due->isFuture() && $invoice->balance != 0;
+            return $invoice->due->isPast() && $invoice->balance != 0 && $invoice->sent;
         });
 
         $paid = $invoices->filter(function($invoice) {
-            return $invoice->balance == 0;
+            return $invoice->balance == 0 && $invoice->sent;
         })->sortByDesc('updated_at');
+
+        $unpaid = $invoices->filter(function($invoice) use ($pastDue, $paid) {
+            return ! ($pastDue->contains('id', $invoice->id) OR $paid->contains('id', $invoice->id));
+        });
 
 		return view('invoices.index.index')
             ->with('pastDue', $pastDue)
