@@ -10,8 +10,18 @@
         <div class="uk-grid">
             <div class="uk-width-1-1">
                 @include('workorders.index.table')
+
+                {{ $workOrders->render() }}
             </div>
         </div>
     </div>
 
+@endsection
+
+@section('scripts')
+    <script>
+        $(function() {
+            $('ul.pagination').addClass('uk-pagination');
+        });
+    </script>
 @endsection

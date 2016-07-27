@@ -60,7 +60,7 @@ class WorkOrdersController extends Controller {
             ->orderBy('scheduled', 'asc')
             ->paginate(50);
 
-        return view('workorders.index.index')->with('workOrders', $workOrders);
+        return view('workorders.completed')->with('workOrders', $workOrders);
     }
 
 	/**
