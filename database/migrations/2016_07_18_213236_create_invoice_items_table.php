@@ -16,7 +16,7 @@ class CreateInvoiceItemsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('invoice_id');
             $table->string('item', 200);
-            $table->unsignedInteger('amount');
+            $table->integer('amount');
             $table->timestamps();
 
             $table->index(['invoice_id']);
