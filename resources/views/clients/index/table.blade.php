@@ -2,6 +2,7 @@
     <thead>
         <tr>
             <th>Title</th>
+            <th>Updated</th>
         </tr>
     </thead>
     <tbody>

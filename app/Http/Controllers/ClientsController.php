@@ -22,8 +22,10 @@ class ClientsController extends Controller {
 	 */
 	public function index()
 	{
-        $clients = $this->client->all();
-		
+        $clients = $this->client
+            ->orderBy('updated_at', 'desc')
+            ->get();
+
  		return view('clients.index.index')->with('clients', $clients);
 	}
 
