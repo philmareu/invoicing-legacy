@@ -17,6 +17,10 @@ class Payment extends Model
         'date'
     ];
 
+    protected $touches = [
+        'invoice'
+    ];
+
     public function type()
     {
         return $this->belongsTo('Invoicing\Models\PaymentType', 'payment_type_id');

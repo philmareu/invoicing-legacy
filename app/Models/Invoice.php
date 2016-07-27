@@ -19,6 +19,10 @@ class Invoice extends Model
         'due'
     ];
 
+    protected $touches = [
+        'client'
+    ];
+
     public function workOrders()
     {
         return $this->hasMany('Invoicing\Models\WorkOrder');

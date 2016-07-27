@@ -3,7 +3,8 @@
         <tr>
             <th>ID</th>
             <th>Client</th>
-            <th>Date</th>
+            <th>Reference</th>
+            <th>Scheduled</th>
         </tr>
     </thead>
     <tbody>

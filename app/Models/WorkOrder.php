@@ -18,6 +18,10 @@ class WorkOrder extends Model
         'scheduled'
     ];
 
+    protected $touches = [
+        'invoice'
+    ];
+
     public function tasks()
     {
         return $this->hasMany('Invoicing\Models\Task');

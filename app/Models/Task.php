@@ -9,4 +9,8 @@ class Task extends Model
     protected $fillable = [
         'task'
     ];
+
+    protected $touches = [
+        'workOrder'
+    ];
 }

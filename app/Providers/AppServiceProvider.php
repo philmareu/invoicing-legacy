@@ -48,7 +48,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Time::saved(function ($time) {
-            $time->invoice->updateBalance();
+            $time->workOrder->invoice->updateBalance();
         });
 
         WorkOrder::saved(function ($workOrder) {
@@ -64,7 +64,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Time::deleted(function ($time) {
-            $time->invoice->updateBalance();
+            $time->workOrder->invoice->updateBalance();
         });
 
         WorkOrder::deleted(function ($workOrder) {

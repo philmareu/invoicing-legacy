@@ -12,6 +12,10 @@ class InvoiceItem extends Model
         'amount'
     ];
 
+    protected $touches = [
+        'invoice'
+    ];
+
     public function invoice()
     {
         return $this->belongsTo('Invoicing\Models\Invoice');

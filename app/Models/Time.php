@@ -16,6 +16,10 @@ class Time extends Model
         'start'
     ];
 
+    protected $touches = [
+        'workOrder'
+    ];
+
     public function workOrder()
     {
         return $this->belongsTo('Invoicing\Models\WorkOrder');

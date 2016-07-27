@@ -12,6 +12,7 @@
                     <input type="hidden" name="invoice_id" value="{{ $invoice->id }}">
 
                     @include('laraform::elements.form.date', ['field' => ['name' => 'scheduled', 'id' => 'date']])
+                    @include('laraform::elements.form.text', ['field' => ['name' => 'reference']])
                     @include('laraform::elements.form.textarea', ['field' => ['name' => 'description']])
                     @include('laraform::elements.form.text', ['field' => ['name' => 'rate', 'value' => $user->settings->rate]])
 

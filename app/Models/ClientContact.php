@@ -14,6 +14,10 @@ class ClientContact extends Model
         'note'
     ];
 
+    protected $touches = [
+        'client'
+    ];
+
     public function client()
     {
         return $this->belongsTo('Invoicing\Models\Client');

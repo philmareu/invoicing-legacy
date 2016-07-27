@@ -25,6 +25,7 @@ class CreateWorkOrderRequest extends Request
     {
         return [
             'scheduled' => 'date_format:Y-m-d',
+            'reference' => 'required|max:255',
             'description' => '',
             'rate' => 'required|integer'
         ];

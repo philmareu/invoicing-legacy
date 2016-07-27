@@ -18,4 +18,13 @@ class Setting extends Model
         'invoice_note',
         'stripe_public'
     ];
+
+    protected $touches = [
+        'user'
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo('Invoicing\Models\User');
+    }
 }

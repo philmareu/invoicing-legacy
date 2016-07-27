@@ -12,6 +12,7 @@
                     <input type="hidden" name="_method" value="PUT">
 
                     @include('laraform::elements.form.date', ['field' => ['name' => 'scheduled', 'id' => 'date', 'value' => $workOrder->scheduled]])
+                    @include('laraform::elements.form.textarea', ['field' => ['name' => 'reference', 'value' => $workOrder->reference]])
                     @include('laraform::elements.form.textarea', ['field' => ['name' => 'description', 'value' => $workOrder->description]])
                     @include('laraform::elements.form.text', ['field' => ['name' => 'rate', 'value' => $workOrder->rate]])
 

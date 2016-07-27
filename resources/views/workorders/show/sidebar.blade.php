@@ -17,9 +17,9 @@
 
 	<a href="#" class="toggle-completion uk-button {{ $workOrder->completed ? 'completed' : 'uncompleted' }} uk-width-1-5" id="{{ $workOrder->id}}">
         @if($workOrder->completed)
-            Completed
-        @else
             Open
+        @else
+            Close
         @endif
     </a>
 
