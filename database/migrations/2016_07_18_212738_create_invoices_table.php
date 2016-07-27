@@ -20,6 +20,7 @@ class CreateInvoicesTable extends Migration
             $table->text('description');
             $table->date('due');
             $table->integer('balance')->default(0);
+            $table->boolean('sent');
             $table->timestamps();
 
             $table->index(['unique_id', 'client_id']);
