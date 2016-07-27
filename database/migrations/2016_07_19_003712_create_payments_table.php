@@ -18,7 +18,7 @@ class CreatePaymentsTable extends Migration
             $table->unsignedInteger('payment_type_id');
             $table->date('date');
             $table->string('note');
-            $table->unsignedInteger('amount');
+            $table->integer('amount');
             $table->timestamps();
 
             $table->index(['invoice_id', 'payment_type_id']);

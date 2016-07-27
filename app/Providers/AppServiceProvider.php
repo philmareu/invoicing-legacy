@@ -4,6 +4,10 @@ namespace Invoicing\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Invoicing\Models\InvoiceItem;
+use Invoicing\Models\Payment;
+use Invoicing\Models\Time;
+use Invoicing\Models\WorkOrder;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,6 +21,8 @@ class AppServiceProvider extends ServiceProvider
         $this->setTimerActionViewComposers();
         view()->composer('partials.topbar', 'Invoicing\ViewComposers\NavigationComposer');
         view()->composer('*', 'Invoicing\ViewComposers\UserViewComposer');
+
+        $this->modelEvents();
     }
 
     /**
@@ -33,5 +39,40 @@ class AppServiceProvider extends ServiceProvider
     {
         view()->composer('partials.topbar', 'Invoicing\ViewComposers\TimerViewComposer');
         view()->composer('workorders.show.sidebar', 'Invoicing\ViewComposers\TimerViewComposer');
+    }
+
+    private function modelEvents()
+    {
+        InvoiceItem::saved(function ($invoiceItem) {
+            $invoiceItem->invoice->updateBalance();
+        });
+
+        Time::saved(function ($time) {
+            $time->invoice->updateBalance();
+        });
+
+        WorkOrder::saved(function ($workOrder) {
+            $workOrder->invoice->updateBalance();
+        });
+
+        Payment::saved(function ($payment) {
+            $payment->invoice->updateBalance();
+        });
+
+        InvoiceItem::deleted(function ($invoiceItem) {
+            $invoiceItem->invoice->updateBalance();
+        });
+
+        Time::deleted(function ($time) {
+            $time->invoice->updateBalance();
+        });
+
+        WorkOrder::deleted(function ($workOrder) {
+            $workOrder->invoice->updateBalance();
+        });
+
+        Payment::deleted(function ($payment) {
+            $payment->invoice->updateBalance();
+        });
     }
 }

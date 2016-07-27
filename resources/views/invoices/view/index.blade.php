@@ -8,7 +8,7 @@
         </div>
     @else
         <div class="uk-alert uk-alert-warning uk-margin-bottom-remove">
-            <p class="uk-text-center">Hello, this is your invoice with a balance of ${{ number_format($invoice->balance(), 2) }}</p>
+            <p class="uk-text-center">Hello, this is your invoice with a balance of ${{ number_format($invoice->balance / 100, 2) }}</p>
         </div>
     @endif
 
@@ -63,7 +63,7 @@
 
             <div class="uk-panel uk-panel-box">
                 <div class="balance-total">
-                    <p class="uk-text-right uk-text-large"><strong>Remaining balance: ${{ number_format($invoice->balance(), 2) }}</strong></p>
+                    <p class="uk-text-right uk-text-large"><strong>Remaining balance: ${{ number_format($invoice->balance / 100, 2) }}</strong></p>
                     <div class="uk-text-right">
                         <a href="{{ route('invoice.pay', [$invoice->client->id, $invoice->unique_id]) }}"
                            class="uk-button uk-button-primary"><i class="uk-icon-cc-visa"></i><i class="uk-icon-cc-mastercard"></i> Make Payment</a>
@@ -93,7 +93,7 @@
             <div class="col-xs-6">
                 <h3>Invoice #{{ $invoice->invoice_number }}</h3>
                 <ul class="list list-unstyled">
-                    <li>Balance: {{ $invoice->balance() }}</li>
+                    <li>Balance: {{ number_format($invoice->balance / 100, 2) }}</li>
                     <li>Due: {{ $invoice->due->format('M j, Y') }}</li>
                 </ul>
             </div>

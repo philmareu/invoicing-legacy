@@ -13,7 +13,7 @@
 
                     @include('laraform::elements.form.select', ['field' => ['name' => 'payment_type_id', 'label' => 'Payment Type',
                         'options' => $paymentTypes]])
-                    @include('laraform::elements.form.date', ['field' => ['name' => 'date']])
+                    @include('laraform::elements.form.date', ['field' => ['name' => 'date', 'id' => 'date', 'value' => \Carbon\Carbon::now()]])
                     @include('laraform::elements.form.text', ['field' => ['name' => 'note']])
                     @include('laraform::elements.form.text', ['field' => ['name' => 'amount']])
 
@@ -25,4 +25,10 @@
         </div>
     </div>
 
+@endsection
+
+@section('scripts')
+    <script>
+        var datepicker = UIkit.datepicker('#date', { weekstart:0, format:'YYYY-MM-DD' });
+    </script>
 @endsection

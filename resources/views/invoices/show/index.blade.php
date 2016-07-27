@@ -23,14 +23,14 @@
                     <div class="uk-alert uk-alert-danger uk-margin-bottom-remove">
                         <p class="uk-text-center">
                             This invoice is paid.
-                            @if($invoice->balance() != 0)
-                                There is a balance of ${{ number_format($invoice->balance(), 2) }}
+                            @if($invoice->balance != 0)
+                                There is a balance of ${{ number_format($invoice->balance / 100, 2) }}
                             @endif
                         </p>
                     </div>
                 @else
                     <div class="uk-alert uk-alert-warning uk-margin-bottom-remove">
-                        <p class="uk-text-center">This invoice has a balance of ${{ number_format($invoice->balance(), 2) }}</p>
+                        <p class="uk-text-center">This invoice has a balance of ${{ number_format($invoice->balance / 100, 2) }}</p>
                     </div>
                 @endif
 

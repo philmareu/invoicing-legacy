@@ -5,14 +5,14 @@
     <div class="uk-block uk-width-1-2 uk-container-center">
         <h2>Make payment for invoice #{{ $invoice->invoice_number }}</h2>
 
-        <h3>Invoice balance is ${{ $invoice->balance() }}</h3>
+        <h3>Invoice balance is ${{ number_format($invoice->balance / 100, 2) }}</h3>
 
         <form action="{{ route('invoice.process-payment') }}" method="POST" id="billing-form" class="uk-form uk-form-stacked">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <input type="hidden" name="unique_id" value="{{ $invoice->unique_id }}">
 
             <div class="uk-margin-bottom">
-                @include('laraform::elements.form.text', ['field' => ['name' => 'amount', 'value' => $invoice->balance()]])
+                @include('laraform::elements.form.text', ['field' => ['name' => 'amount', 'value' => $invoice->balance]])
             </div>
 
             <div class="uk-text-danger alert-payment-error" id="payment-error-box"></div>
