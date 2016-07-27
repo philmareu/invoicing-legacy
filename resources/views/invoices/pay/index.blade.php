@@ -12,7 +12,7 @@
             <input type="hidden" name="unique_id" value="{{ $invoice->unique_id }}">
 
             <div class="uk-margin-bottom">
-                @include('laraform::elements.form.text', ['field' => ['name' => 'amount', 'value' => $invoice->balance]])
+                @include('laraform::elements.form.text', ['field' => ['name' => 'amount', 'value' => $invoice->balance / 100]])
             </div>
 
             <div class="uk-text-danger alert-payment-error" id="payment-error-box"></div>

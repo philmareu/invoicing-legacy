@@ -190,19 +190,19 @@ class InvoicesController extends Controller {
 		
 		catch(Exception $e)
 		{
-			return redirect()->back()->with('error', $e->getMessage());
+			return redirect()->back()->with('failed', 'There was a problem charging your card.');
 		}
 
         $payment = $invoice->payments()->create([
-            'payment_type_id' => 1,
+            'payment_type_id' => 6,
             'amount' => $charge->amount / 100,
-            'note' => $charge->id,
+            'note' => 'Stripe - ' . $charge->id,
             'date' => Carbon::now()
         ]);
 
         $invoice->update(['idempotency_key' => str_random(50)]);
 		
-		return redirect()->route('invoice.view', [$invoice->client_id, $invoice->unique_id])->with('success', 'Your payment has been processed. Thank you!');
+		return redirect()->route('invoice.view', [$invoice->client_id, $invoice->unique_id])->with('success', 'Your payment of $' .  number_format($charge->amount / 100) . ' has been processed. Thank you!');
 	}
 
     /**

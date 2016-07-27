@@ -1,7 +1,7 @@
 <?php namespace Invoicing\ViewComposers; 
 
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Auth;
+use Invoicing\Models\User;
 
 class UserViewComposer {
 
@@ -13,7 +13,7 @@ class UserViewComposer {
      */
     public function compose(View $view)
     {
-        $user = Auth::user();
+        $user = User::find(1);
 
         $view->with(compact('user'));
     }

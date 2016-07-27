@@ -9,7 +9,7 @@
 <body class="invoice">
 
     <div class="uk-container uk-container-center">
-        @if($user)
+        @if(Auth::check())
             <p class="uk-margin-top"><a href="{{ route('invoices.show', $invoice->id) }}">Edit</a></p>
         @endif
 

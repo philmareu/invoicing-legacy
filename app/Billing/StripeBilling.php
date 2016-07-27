@@ -1,6 +1,7 @@
 <?php namespace Invoicing\Billing;
 
 use Illuminate\Support\Facades\Auth;
+use Invoicing\Models\User;
 use Stripe;
 use Exception;
 use Stripe\Error\RateLimit;
@@ -17,7 +18,7 @@ class StripeBilling {
     {
         try
         {
-            Stripe\Stripe::setApiKey(Auth::user()->settings->stripe_secret);
+            Stripe\Stripe::setApiKey(User::find(1)->settings->stripe_secret);
 
             return Stripe\Charge::create([
                 'amount' => $data['amount'],

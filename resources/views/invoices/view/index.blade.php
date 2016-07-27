@@ -2,15 +2,9 @@
 
 @section('content')
 
-    @if($invoice->paid)
-        <div class="uk-alert uk-alert-danger uk-margin-bottom-remove">
-            <p class="uk-text-center">This invoice is paid. Thank you!</p>
-        </div>
-    @else
-        <div class="uk-alert uk-alert-warning uk-margin-bottom-remove">
-            <p class="uk-text-center">Hello, this is your invoice with a balance of ${{ number_format($invoice->balance / 100, 2) }}</p>
-        </div>
-    @endif
+    <div class="uk-alert uk-alert-warning uk-margin-bottom-remove">
+        <p class="uk-text-center">Hello, this is your invoice with a balance of ${{ number_format($invoice->balance / 100, 2) }}</p>
+    </div>
 
     <div class="uk-block merchant-info">
         <div class="uk-container">
