@@ -17,13 +17,17 @@ class StripeBilling {
     {
         try
         {
+            Stripe\Stripe::setApiKey(Auth::user()->settings->stripe_secret);
+
             return Stripe\Charge::create([
                 'amount' => $data['amount'],
                 'currency' => $data['currency'],
                 'description' => $data['email'],
                 'source' => $data['token'],
             ],
-                Auth::user()->settings->stripe_secret
+                [
+                    "idempotency_key" => $data['idempotency_key']
+                ]
             );
         }
 

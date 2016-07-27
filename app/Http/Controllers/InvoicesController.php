@@ -82,6 +82,7 @@ class InvoicesController extends Controller {
 		$invoice = $this->invoice->create($request->all());
         $invoice->invoice_number = sprintf("%06d", $invoice->id);
         $invoice->unique_id = str_random(50);
+        $invoice->idempotency_key = str_random(50);
         $invoice->save();
 
 		return redirect('invoices/' . $invoice->id)->with('success', 'Invoice created.');
@@ -182,7 +183,8 @@ class InvoicesController extends Controller {
 				'token' => $request->get('stripe-token'),
 				'amount' => round($request->amount * 100),
 				'currency' => 'usd',
-				'email' => $invoice->client->invoicing_email
+				'email' => $invoice->client->invoicing_email,
+                'idempotency_key' => $invoice->idempotency_key
 			));
 		}
 		
@@ -197,6 +199,8 @@ class InvoicesController extends Controller {
             'note' => $charge->id,
             'date' => Carbon::now()
         ]);
+
+        $invoice->update(['idempotency_key' => str_random(50)]);
 		
 		return redirect()->route('invoice.view', [$invoice->client_id, $invoice->unique_id])->with('success', 'Your payment has been processed. Thank you!');
 	}

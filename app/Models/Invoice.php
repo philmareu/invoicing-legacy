@@ -12,7 +12,8 @@ class Invoice extends Model
         'invoice_number',
         'unique_id',
         'description',
-        'due'
+        'due',
+        'idempotency_key'
     ];
 
     protected $dates = [
