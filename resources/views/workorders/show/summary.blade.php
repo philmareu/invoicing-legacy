@@ -24,7 +24,7 @@
 		<hr>
 
 		@if($workOrder->description != '')
-		    <p>{{ $workOrder->description }}</p>
+		    <p>{!! $workOrder->description !!}</p>
 		@endif
 
 	</div>
