@@ -38,17 +38,20 @@ class InvoicesController extends Controller {
 	 */
 	public function index()
 	{
-        $invoices = $this->invoice
-            ->has('items', '=', 0)
-            ->has('workOrders', '=', 0)
+        $pastDue = $this->invoice
+            ->where('balance', '!=', 0)
+            ->where('due', '<=', Carbon::now())
             ->orderBy('due', 'asc')->get();
 
-        $invoices = $this->invoice
+        $unpaid = $this->invoice
             ->where('balance', '!=', 0)
+            ->where('due', '>', Carbon::now())
             ->orderBy('due', 'asc')
             ->get();
 
-		return view('invoices.index.index')->with('invoices', $invoices);
+		return view('invoices.index.index')
+            ->with('pastDue', $pastDue)
+            ->with('unpaid', $unpaid);
 	}
 
 	/**
