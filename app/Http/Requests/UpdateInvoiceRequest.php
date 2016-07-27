@@ -28,8 +28,7 @@ class UpdateInvoiceRequest extends Request
             'invoice_number' => 'required|unique:invoices,invoice_number,' . $this->segment(2),
             'description' => '',
             'due' => 'required|date_format:Y-m-d',
-            'reset_unique_id' => 'boolean',
-            'paid' => 'boolean'
+            'reset_unique_id' => 'boolean'
         ];
     }
 }

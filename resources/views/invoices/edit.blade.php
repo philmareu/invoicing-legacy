@@ -18,7 +18,6 @@
                     @include('laraform::elements.form.textarea', ['field' => ['name' => 'description', 'value' => $invoice->description]])
                     @include('laraform::elements.form.date', ['field' => ['name' => 'due', 'value' => $invoice->due, 'id' => 'date']])
                     @include('laraform::elements.form.checkbox', ['field' => ['name' => 'reset_unique_id', 'checked' => false]])
-                    @include('laraform::elements.form.checkbox', ['field' => ['name' => 'paid', 'checked' => $invoice->paid]])
 
                     <div class="uk-form-row">
                         <div class="uk-grid">

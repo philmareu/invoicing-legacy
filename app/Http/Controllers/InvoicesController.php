@@ -38,26 +38,21 @@ class InvoicesController extends Controller {
 	 */
 	public function index()
 	{
-        $pastDue = $this->invoice
+        $invoices = $this->invoice
             ->with('client')
-            ->where('balance', '!=', 0)
-            ->where('due', '<=', Carbon::now())
             ->orderBy('due', 'asc')->get();
 
-        $paid = $this->invoice
-            ->with('client')
-            ->has('payments')
-            ->where('balance', '=', 0)
-            ->orderBy('updated_at', 'desc')
-            ->get();
+        $pastDue = $invoices->filter(function($invoice) {
+            return $invoice->due->isPast() && $invoice->balance != 0;
+        });
 
-        $unpaid = $this->invoice
-            ->with('client')
-            ->whereNotIn('id', $paid->lists('id'))
-            ->where('balance', '!=', 0)
-            ->where('due', '>', Carbon::now())
-            ->orderBy('due', 'asc')
-            ->get();
+        $unpaid = $invoices->filter(function($invoice) {
+            return $invoice->due->isFuture() && $invoice->balance != 0;
+        });
+
+        $paid = $invoices->filter(function($invoice) {
+            return $invoice->balance == 0;
+        })->sortByDesc('updated_at');
 
 		return view('invoices.index.index')
             ->with('pastDue', $pastDue)
@@ -122,7 +117,6 @@ class InvoicesController extends Controller {
 	{
 		$attr = $request->all();
         if($request->has('reset_unique_id')) $attr['unique_id'] = str_random(50);
-        $attr['paid'] = $request->has('paid') ? 1 : 0;
 
         $invoice->update($attr);
 
