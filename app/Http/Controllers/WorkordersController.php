@@ -29,12 +29,39 @@ class WorkOrdersController extends Controller {
 	public function index()
 	{
         $workOrders = $this->workOrder
+            ->with('invoice.client')
             ->whereCompleted(0)
             ->orderBy('scheduled', 'asc')
             ->get();
 
-        return view('workorders.index.index')->with('workOrders', $workOrders);
+        $scheduled = $workOrders->filter(function($workOrder) {
+            return ! is_null($workOrder->scheduled);
+        });
+
+        $unscheduled = $workOrders->filter(function($workOrder) {
+            return is_null($workOrder->scheduled);
+        });
+
+        return view('workorders.index.index')
+            ->with('scheduled', $scheduled)
+            ->with('unscheduled', $unscheduled);
 	}
+
+    /**
+     * Display a listing of the completed work orders.
+     *
+     * @return Response
+     */
+    public function completed()
+    {
+        $workOrders = $this->workOrder
+            ->with('invoice.client')
+            ->whereCompleted(1)
+            ->orderBy('scheduled', 'asc')
+            ->paginate(50);
+
+        return view('workorders.index.index')->with('workOrders', $workOrders);
+    }
 
 	/**
 	 * Show the form for creating a new resource.

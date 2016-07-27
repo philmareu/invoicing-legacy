@@ -72,6 +72,7 @@ Route::group(['middleware' => 'auth'], function()
     |
     */
 
+    Route::get('work-orders/completed', ['as' => 'work-orders.completed', 'uses' => 'WorkOrdersController@completed']);
     Route::put('work-orders/toggle-completion', 'WorkOrdersController@toggleCompletion');
     Route::resource('invoices/work-orders', 'WorkOrdersController', ['except' => ['index', 'show', 'edit', 'update'], 'parameters' => [
         'work-orders' => 'workOrder']]);
