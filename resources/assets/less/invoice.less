@@ -1,0 +1,96 @@
+@import "../bower/uikit/less/uikit";
+
+body.invoice {
+    background-image: url(../img/bg-1.png);
+}
+
+#invoice {
+    margin-top: 40px;
+//    margin-bottom: 40px;
+    box-shadow: 2px -2px 4px rgba(0, 0, 0, .1), -2px 2px 4px rgba(0, 0, 0, .1);
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, .5);
+}
+//
+//.alert-payment-error {
+//  display: none;
+//}
+//
+//.payment {
+//
+//  margin-top: 40px;
+//  box-shadow: 2px -2px 4px rgba(0, 0, 0, .1), -2px 2px 4px rgba(0, 0, 0, .1);
+//  background: #fff;
+//  border: 2px solid #000;
+//  margin-bottom: 40px;
+//}
+//
+.merchant-info {
+  background: #333 url(../img/tweed.png) repeat scroll;
+  color: #CCC;
+  font-size: 20px;
+  line-height: 26px;
+
+  h2 {
+    color: #fff;
+    font-size: 36px;
+  }
+}
+
+h2.loud {
+  padding: 0 40px;
+  font-size: 3em;
+  text-transform: uppercase;
+}
+
+ul.info {
+  font-size: 20px;
+  line-height: 26px;
+
+  .invoice-number {
+    font-size: 28px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+}
+
+//p.description {
+//  padding: 0px 40px;
+//  font-size: 24px;
+//  line-height: 30px;
+//}
+//
+//.uk-panel-box {
+//  padding: 15px 40px;
+//  background: none;
+//
+//  .uk-panel-title {
+//    border-bottom: 1px solid #999;
+//    font-size: 20px;
+//    text-transform: uppercase;
+//  }
+//
+//  thead {
+//    background-color: #E6E6E6;
+//  }
+//}
+
+.payment {
+  padding: 20px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.visible-print {
+  display: none;
+}
+
+@media print {
+  .visible-print {
+    display: block;
+  }
+}

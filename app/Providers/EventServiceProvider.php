@@ -13,8 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'Invoicing\Events\SomeEvent' => [
-            'Invoicing\Listeners\EventListener',
+        'WorkTop\Events\TimeTic' => [
+
         ],
     ];
 
