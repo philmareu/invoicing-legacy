@@ -29,12 +29,15 @@
                         @include('laraform::elements.form.text', ['field' => ['name' => 'invoice_zip', 'value' => $user->settings->invoice_zip]])
                         @include('laraform::elements.form.text', ['field' => ['name' => 'invoice_phone', 'value' => $user->settings->invoice_phone]])
                         @include('laraform::elements.form.textarea', ['field' => ['name' => 'invoice_note', 'value' => $user->settings->invoice_note]])
-                        @include('laraform::elements.form.text', ['field' => ['name' => 'stripe_public', 'value' => $user->settings->stripe_public]])
                         @include('laraform::elements.form.password', ['field' => ['name' => 'stripe_secret']])
+                        @include('laraform::elements.form.text', ['field' => ['name' => 'stripe_public', 'value' => $user->settings->stripe_public]])
                         @if($user->settings->stripe_public)
                             <a href="{{ route('settings.remove-stripe') }}">Remove Stripe Keys</a>
                         @endif
-                        <button type="submit" class="uk-button uk-button-primary">Save</button>
+
+                        <div class="uk-form-row">
+                            <button type="submit" class="uk-button uk-button-primary">Save</button>
+                        </div>
                     </form>
                 </div>
             </div>
