@@ -62,8 +62,14 @@ class WorkOrder extends Model
         return $this->times->sum('time');
     }
 
+    public function totalTimeHours()
+    {
+        // round up to nearest tenth
+        return ceil(($this->totalTime() / 60) * 10) / 10;
+    }
+
     public function amount()
     {
-        return round($this->totalTime() / 60 * $this->rate, 2);
+        return $this->totalTimeHours() * ($this->rate * 100);
     }
 }

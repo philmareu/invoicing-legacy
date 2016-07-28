@@ -36,14 +36,14 @@
                             </ul>
                         @endif
                     </td>
-                    <td>{{ round($workOrder->times->sum('time') / 60, 3) }}</td>
+                    <td>{{ $workOrder->totalTimeHours() }}</td>
                     <td>{{ $workOrder->rate }}</td>
-                    <td class="uk-text-right">{{ number_format($workOrder->amount(), 2) }}</td>
+                    <td class="uk-text-right">{{ number_format($workOrder->amount() / 100, 2) }}</td>
                 </tr>
             @endforeach
 
             <tr>
-                <td colspan="4" class="uk-text-right"><strong>Work order total: ${{ number_format($invoice->workOrderTotals(), 2) }}</strong></td>
+                <td colspan="4" class="uk-text-right"><strong>Work order total: ${{ number_format($invoice->workOrderTotals() / 100, 2) }}</strong></td>
             </tr>
             </tbody>
         </table>

@@ -58,7 +58,7 @@ class Invoice extends Model
     {
         return $this->workOrders->reduce(function($total, $workOrder) {
             return $total + $workOrder->amount();
-        }, 0);
+        });
     }
 
     public function itemTotal()
@@ -71,14 +71,19 @@ class Invoice extends Model
         return $this->payments->sum('amount');
     }
 
+    public function billableTotal()
+    {
+        return $this->itemTotal() + $this->workOrderTotals();
+    }
+
     public function balance()
     {
-        return ((int) (($this->itemTotal() + $this->workOrderTotals() - $this->paymentTotal()) * 100)) / 100;
+        return (int) $this->billableTotal() - $this->paymentTotal();
     }
 
     public function updateBalance()
     {
-        $balance = (int) (($this->itemTotal() + $this->workOrderTotals() - $this->paymentTotal()) * 100);
+        $balance = $this->balance();
 
         $this->update(['balance' => $balance]);
 

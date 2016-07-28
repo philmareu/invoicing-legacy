@@ -26,12 +26,12 @@
                     </td>
                     <td>{{ $payment->type->title }}</td>
                     <td>{{ $payment->note }}</td>
-                    <td class="uk-text-right">{{ number_format($payment->amount, 2) }}</td>
+                    <td class="uk-text-right">{{ number_format($payment->amount / 100, 2) }}</td>
                 </tr>
             @endforeach
 
             <tr>
-                <td colspan="4" class="uk-text-right"><strong>Payment total: ${{ number_format($invoice->paymentTotal(), 2) }}</strong></td>
+                <td colspan="4" class="uk-text-right"><strong>Payment total: ${{ number_format($invoice->paymentTotal() / 100, 2) }}</strong></td>
             </tr>
             </tbody>
 
