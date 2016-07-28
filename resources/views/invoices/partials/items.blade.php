@@ -22,12 +22,12 @@
                         @endif
                         {{ $item->item }}
                     </td>
-                    <td class="uk-text-right">{{ number_format($item->amount, 2) }}</td>
+                    <td class="uk-text-right">{{ number_format($item->amount / 100, 2) }}</td>
                 </tr>
             @endforeach
 
             <tr>
-                <td colspan="3" class="uk-text-right"><strong>Item total: ${{ number_format($invoice->itemTotal(), 2) }}</strong></td>
+                <td colspan="3" class="uk-text-right"><strong>Item total: ${{ number_format($invoice->itemTotal() / 100, 2) }}</strong></td>
             </tr>
             </tbody>
         </table>

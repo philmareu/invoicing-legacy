@@ -21,18 +21,8 @@ class InvoiceItem extends Model
         return $this->belongsTo('Invoicing\Models\Invoice');
     }
 
-    public function getAmountAttribute($value)
-    {
-        return $this->converToDollars($value);
-    }
-
     public function setAmountAttribute($value)
     {
         $this->attributes['amount'] = (int) round($value * 100);
-    }
-
-    private function converToDollars($cents)
-    {
-        return $cents / 100;
     }
 }

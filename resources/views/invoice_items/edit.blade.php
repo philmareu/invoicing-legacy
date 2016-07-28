@@ -13,7 +13,7 @@
                     <input type="hidden" name="invoice_id" value="{{ $invoiceItem->invoice->id }}">
 
                     @include('laraform::elements.form.text', ['field' => ['name' => 'item', 'value' => $invoiceItem->item]])
-                    @include('laraform::elements.form.text', ['field' => ['name' => 'amount', 'value' => $invoiceItem->amount]])
+                    @include('laraform::elements.form.text', ['field' => ['name' => 'amount', 'value' => $invoiceItem->amount / 100]])
 
                     <div class="uk-form-row">
                         <div class="uk-grid">

@@ -16,7 +16,7 @@
                         'options' => $paymentTypes, 'value' => $payment->payment_type_id]])
                     @include('laraform::elements.form.date', ['field' => ['name' => 'date', 'value' => $payment->date, 'id' => 'date']])
                     @include('laraform::elements.form.text', ['field' => ['name' => 'note', 'value' => $payment->note]])
-                    @include('laraform::elements.form.text', ['field' => ['name' => 'amount', 'value' => $payment->amount]])
+                    @include('laraform::elements.form.text', ['field' => ['name' => 'amount', 'value' => $payment->amount / 100]])
 
                     <div class="uk-form-row">
                         @include('laraform::elements.form.submit')
