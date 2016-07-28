@@ -22,7 +22,7 @@
                         @if($user)
                             <a href="{{ route('work-orders.show', $workOrder->id) }}">View</a>
                         @endif
-                        <span class="uk-text-bold">WO# {{ $workOrder->id }} - {{ $workOrder->scheduled->format('M d, Y') }}</span><br>
+                        <span class="uk-text-bold">WO# {{ $workOrder->id }} - {{ is_null($workOrder->scheduled) ? 'Not scheduled' : $workOrder->scheduled->format('M d, Y') }}</span><br>
 
                         <p class="services">{{ $workOrder->description }}</p>
 
