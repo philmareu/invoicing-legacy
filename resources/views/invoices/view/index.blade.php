@@ -45,7 +45,7 @@
 
             <div class="uk-panel uk-panel-box uk-margin-bottom">
                 <div class="invoice-total">
-                    <p class="uk-text-right uk-text-large"><strong>Total cost: ${{ number_format($invoice->itemTotal() + $invoice->workOrderTotals(), 2) }}</strong></p>
+                    <p class="uk-text-right uk-text-large"><strong>Total cost: ${{ number_format($invoice->itemTotal() + $invoice->workOrderTotals() / 100, 2) }}</strong></p>
                 </div>
             </div>
 
