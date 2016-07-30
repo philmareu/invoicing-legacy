@@ -1,14 +1,13 @@
 <?php
 
-namespace Invoicing\Events\WorkTop\Events;
+namespace Invoicing\Events;
 
-use Carbon\Carbon;
 use Invoicing\Events\Event;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Invoicing\Models\Time;
 
-class TimeTic extends Event
+class TimeTic extends Event implements ShouldBroadcast
 {
     use SerializesModels;
 
@@ -38,15 +37,15 @@ class TimeTic extends Event
     {
         return [
             'timer' => $this->getFormattedTimer($this->time),
-            'workId' => $this->time->work_id
+            'workOrderId' => $this->time->work_order_id
         ];
     }
 
     private function getFormattedTimer(Time $time)
     {
-        $totalMinutes = Carbon::createFromFormat('Y-m-d H:i:s', $time->start)->diffInMinutes();
-        $hours = intval($totalMinutes / 60);
-        $minutes = intval($totalMinutes - ($hours * 60));
+        $timeInMinutes = $time->elapsed();
+        $hours = floor($timeInMinutes / 60);
+        $minutes = $timeInMinutes - ($hours * 60);
 
         return sprintf('%1d:%02d', $hours, $minutes);
     }

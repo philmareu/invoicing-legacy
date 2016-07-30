@@ -3,10 +3,10 @@
 namespace Invoicing\Console\Commands;
 
 use Illuminate\Console\Command;
-use Invoicing\Events\WorkTop\Events\TimeTic;
+use Invoicing\Events\TimeTic;
 use Invoicing\Models\Time;
 
-class CheckForTimers extends Command
+class CheckForTimer extends Command
 {
     /**
      * The name and signature of the console command.
@@ -42,11 +42,8 @@ class CheckForTimers extends Command
      */
     public function handle()
     {
-        $timers = $this->time->whereNull('time')->first()->load('workOrder');
+        $time = $this->time->whereNull('time')->first()->load('workOrder');
 
-        foreach($timers as $time)
-        {
-            event(new TimeTic($time));
-        }
+        if(! is_null($time)) event(new TimeTic($time));
     }
 }

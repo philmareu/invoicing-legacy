@@ -7,12 +7,30 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
 	<link href="{{ asset('css/styles.css') }}" rel="stylesheet" media="screen">
 
+    <script src="https://js.pusher.com/3.1/pusher.min.js"></script>
     <script type="text/javascript" charset="utf-8">
         var SITE_URL = "{{ url('/') }}";
         var csrf = "{{ csrf_token() }}";
-        {{--var pusher = new Pusher('{{ env('PUSHER_KEY') }}');--}}
-        {{--var channel = pusher.subscribe('invoicing');--}}
     </script>
+
+    @if(env('APP_ENV') == 'production')
+        <script>
+            var pusher = new Pusher('{{ env('PUSHER_KEY') }}', {
+                encrypted: true
+            });
+            var channel = pusher.subscribe('invoicing');
+        </script>
+    @elseif(env('APP_ENV') == 'local')
+        <script>
+            Pusher.logToConsole = true;
+
+            var pusher = new Pusher('{{ env('PUSHER_KEY') }}', {
+                encrypted: true
+            });
+
+            var channel = pusher.subscribe('invoicing');
+        </script>
+    @endif
 
 	@yield('head')
 </head>
