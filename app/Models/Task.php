@@ -13,4 +13,9 @@ class Task extends Model
     protected $touches = [
         'workOrder'
     ];
+
+    public function workOrder()
+    {
+        return $this->belongsTo('Invoicing\Models\WorkOrder');
+    }
 }
