@@ -8,7 +8,7 @@
  */
 html {
   /* 1 */
-  font: normal 17px / 22px "futura-pt", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: normal 17px / 22px "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
   /* 2 */
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -226,7 +226,7 @@ h4,
 h5,
 h6 {
   margin: 0 0 15px 0;
-  font-family: "futura-pt", adelle, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Raleway", adelle, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 700;
   color: #4C4C4C;
   text-transform: none;
