@@ -88,7 +88,11 @@
                 <h3>Invoice #{{ $invoice->invoice_number }}</h3>
                 <ul class="list list-unstyled">
                     <li>Balance: {{ number_format($invoice->balance / 100, 2) }}</li>
-                    <li>Due: {{ $invoice->due->format('M j, Y') }}</li>
+                    @if(is_null($invoice->due))
+                        <li><span>Due:</span> N/A</li>
+                    @else
+                        <li><span>Due:</span> {{ $invoice->due->toFormattedDateString() }}</li>
+                    @endif
                 </ul>
             </div>
         </div>

@@ -35,7 +35,11 @@
                 @endif
 
                 <h3>{{ $invoice->client->title }}</h3>
-                <p>{{ $invoice->due->format('M d, Y') }}</p>
+                @if(is_null($invoice->due))
+                    <p>No due date</p>
+                @else
+                    <p>{{ $invoice->due->format('M d, Y') }}</p>
+                @endif
                 <p>{{ $invoice->description }}</p>
             </div>
         </div>

@@ -18,7 +18,7 @@ class CreateInvoicesTable extends Migration
             $table->string('invoice_number', 50)->unique();
             $table->string('unique_id', 50)->unique();
             $table->text('description');
-            $table->date('due');
+            $table->date('due')->nullable();
             $table->integer('balance')->default(0);
             $table->boolean('sent');
             $table->string('idempotency_key');

@@ -13,7 +13,7 @@
 
 		<ul class="uk-list">
 			<li>
-				Client: {{ $workOrder->client->title }}
+				Client: <a href="{{ route('clients.show', $workOrder->client->id) }}">{{ $workOrder->client->title }}</a>
 
 			</li>
 

@@ -17133,10 +17133,10 @@ return jQuery;
     return UI.datepicker;
 });
 
-//channel.bind('WorkTop\\Events\\TimeTic', function(data) {
-//    $('.timer').text(data.timer);
-//    document.title = 'WorkTop | Timer: ' + data.timer;
-//});
+channel.bind('Invoicing\\Events\\TimeTic', function(data) {
+    $('.timer').text(data.timer);
+    document.title = 'WorkTop | Timer: ' + data.timer;
+});
 var modal = $('#modal');
 
 function updateModal(html) {

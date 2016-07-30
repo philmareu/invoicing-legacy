@@ -131,7 +131,12 @@ class TimesController extends Controller {
         $this->stopCurrentTimer($time);
         if($this->isNotCurrentTimer($time, $workOrder)) return $this->createTimer($workOrder);
 
-        return response()->json(['status' => 'stopped']);
+        $output = [
+            'html' => view('times.partials.row')->with('time', $time)->render(),
+            'status' => 'stopped'
+        ];
+
+        return response()->json($output);
 	}
 
     private function belowMinTimeLimit($time)

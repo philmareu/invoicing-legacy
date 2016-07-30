@@ -23,7 +23,7 @@ class ClientsController extends Controller {
 	public function index()
 	{
         $clients = $this->client
-            ->orderBy('updated_at', 'desc')
+            ->orderBy('title', 'asc')
             ->get();
 
  		return view('clients.index.index')->with('clients', $clients);

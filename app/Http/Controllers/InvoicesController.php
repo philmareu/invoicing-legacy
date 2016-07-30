@@ -42,22 +42,22 @@ class InvoicesController extends Controller {
             ->with('client')
             ->orderBy('due', 'asc')->get();
 
-        $pastDue = $invoices->filter(function($invoice) {
-            return $invoice->due->isPast() && $invoice->balance != 0 && $invoice->sent;
-        });
+        $due = $invoices->filter(function($invoice) {
+            return ! is_null($invoice->due) && $invoice->balance != 0;
+        })->sortBy('due');
 
         $paid = $invoices->filter(function($invoice) {
-            return $invoice->balance == 0 && $invoice->sent;
+            return ! is_null($invoice->due) && $invoice->balance == 0;
         })->sortByDesc('updated_at');
 
-        $unpaid = $invoices->filter(function($invoice) use ($pastDue, $paid) {
-            return ! ($pastDue->contains('id', $invoice->id) OR $paid->contains('id', $invoice->id));
-        });
-
+        $notReady = $invoices->filter(function($invoice) {
+            return is_null($invoice->due);
+        })->sortByDesc('updated_at');
+        
 		return view('invoices.index.index')
-            ->with('pastDue', $pastDue)
+            ->with('due', $due)
             ->with('paid', $paid)
-            ->with('unpaid', $unpaid);
+            ->with('notReady', $notReady);
 	}
 
 	/**
@@ -83,6 +83,7 @@ class InvoicesController extends Controller {
         $invoice->invoice_number = sprintf("%06d", $invoice->id);
         $invoice->unique_id = str_random(50);
         $invoice->idempotency_key = str_random(50);
+        if(! $request->has('due')) $invoice->due = null;
         $invoice->save();
 
 		return redirect('invoices/' . $invoice->id)->with('success', 'Invoice created.');
@@ -118,7 +119,7 @@ class InvoicesController extends Controller {
 	{
 		$attr = $request->all();
         if($request->has('reset_unique_id')) $attr['unique_id'] = str_random(50);
-
+        if(! $request->has('due')) $attr['due'] = null;
         $invoice->update($attr);
 
 		return redirect()->route('invoices.show', $invoice->id);

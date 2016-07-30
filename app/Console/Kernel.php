@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
          Commands\UpdateBalances::class,
+         Commands\CheckForTimer::class
     ];
 
     /**

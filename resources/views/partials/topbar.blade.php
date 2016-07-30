@@ -20,8 +20,8 @@
                 <!-- This is the nav item toggling the dropdown -->
                 <a href="">
                     @if(! is_null($timer))
-                        <span class="timer" data-invoicing-work-order-id="{{ $timer->work_order_id }}">
-                            {{ $timer->elapsedFormatted() }}
+                        <span class="timer"
+                              data-invoicing-work-order-id="{{ $timer->work_order_id }}"><i class="uk-icon-clock-o uk-icon-spin"></i> {{ $timer->elapsedFormatted() }}
                         </span>
                     @else
                         <span class="timer" data-invoicing-work-order-id="">
@@ -36,7 +36,7 @@
                     <ul class="uk-nav uk-nav-dropdown">
                         @foreach($workOrders as $workOrder)
                             @if(! is_null($timer) && $timer->work_order_id == $workOrder->id)
-                                <li><a href="{{ route('work-orders.show', $timer->work_order_id) }}" class="uk-text-danger">{{ $timer->workOrder->id }} - {{ $timer->workOrder->client->title }} - {{ $timer->workOrder->reference }}</a></li>
+                                <li><a href="{{ route('work-orders.show', $timer->work_order_id) }}" class="uk-text-danger"><i class="uk-icon-clock-o uk-icon-spin"></i> - {{ $timer->workOrder->client->title }} - {{ $timer->workOrder->reference }}</a></li>
                             @else
                                 <li><a href="{{ route('work-orders.show', $workOrder->id) }}">{{ $workOrder->id }} - {{ $workOrder->client->title }} - {{ $workOrder->reference }}</a></li>
                             @endif
