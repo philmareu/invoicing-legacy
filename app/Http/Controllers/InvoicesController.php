@@ -42,22 +42,22 @@ class InvoicesController extends Controller {
             ->with('client')
             ->orderBy('due', 'asc')->get();
 
-        $pastDue = $invoices->filter(function($invoice) {
-            return $invoice->due->isPast() && $invoice->balance != 0 && $invoice->sent;
-        });
+        $due = $invoices->filter(function($invoice) {
+            return ! is_null($invoice->due) && $invoice->balance != 0;
+        })->sortBy('due');
 
         $paid = $invoices->filter(function($invoice) {
-            return $invoice->balance == 0 && $invoice->sent;
+            return ! is_null($invoice->due) && $invoice->balance == 0;
         })->sortByDesc('updated_at');
 
-        $unpaid = $invoices->filter(function($invoice) use ($pastDue, $paid) {
-            return ! ($pastDue->contains('id', $invoice->id) OR $paid->contains('id', $invoice->id));
-        });
-
+        $notReady = $invoices->filter(function($invoice) {
+            return is_null($invoice->due);
+        })->sortByDesc('updated_at');
+        
 		return view('invoices.index.index')
-            ->with('pastDue', $pastDue)
+            ->with('due', $due)
             ->with('paid', $paid)
-            ->with('unpaid', $unpaid);
+            ->with('notReady', $notReady);
 	}
 
 	/**

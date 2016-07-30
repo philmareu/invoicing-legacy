@@ -14,7 +14,7 @@ class InvoiceLogoImageFilter implements FilterInterface {
      */
     public function applyFilter(\Intervention\Image\Image $image)
     {
-        return $image->resize(300, null, function($constraint) {
+        return $image->resize(null, 200, function($constraint) {
             $constraint->aspectRatio();
         });
     }
