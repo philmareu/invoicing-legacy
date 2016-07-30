@@ -56,7 +56,7 @@
 					@include('partials.topbar')
 				</header>
 		
-				<div class="uk-container uk-height-viewport">
+				<div class="uk-container">
 					@include('laraform::alerts.default')
 					
 					@yield('content')
