@@ -67,7 +67,9 @@ class InvoicesController extends Controller {
 	 */
 	public function create()
 	{
-		$clients = $this->client->lists('title', 'id');
+		$clients = $this->client
+            ->orderBy('title')
+            ->lists('title', 'id');
 
         return view('invoices.create')->with('clients', $clients);
 	}
@@ -102,7 +104,9 @@ class InvoicesController extends Controller {
 	 */
 	public function edit(Invoice $invoice)
 	{
-        $clients = $this->client->lists('title', 'id');
+        $clients = $this->client
+            ->orderBy('title')
+            ->lists('title', 'id');
 
         return view('invoices.edit')
             ->with('invoice', $invoice)
