@@ -4,6 +4,7 @@
 	<title>Invoicing | @yield('title', 'Invoicing app by Phil Mareu')</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
 	<link href="{{ asset('css/styles.css') }}" rel="stylesheet" media="screen">
 
     <script type="text/javascript" charset="utf-8">
@@ -37,7 +38,7 @@
 					@include('partials.topbar')
 				</header>
 		
-				<div class="uk-container">
+				<div class="uk-container uk-height-viewport">
 					@include('laraform::alerts.default')
 					
 					@yield('content')

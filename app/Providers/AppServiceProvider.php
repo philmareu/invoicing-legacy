@@ -20,7 +20,10 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->setTimerActionViewComposers();
         view()->composer('partials.topbar', 'Invoicing\ViewComposers\NavigationComposer');
+        view()->composer('partials.navigation.*', 'Invoicing\ViewComposers\NavigationComposer');
         view()->composer('*', 'Invoicing\ViewComposers\UserViewComposer');
+        view()->composer('partials.navigation.workorders.sub', 'Invoicing\ViewComposers\DropDownLists\WorkingInvoicesComposer');
+        view()->composer('partials.topbar', 'Invoicing\ViewComposers\DropDownLists\OpenWorkOrdersComposer');
 
         $this->modelEvents();
     }
