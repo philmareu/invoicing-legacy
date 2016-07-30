@@ -20,7 +20,6 @@ class NavigationComposer {
      */
     public function compose(View $view)
     {
-        $segment = $this->request->segment(1);
-        $view->with(compact('segment'));
+        $view->with('request', $this->request);
     }
 }

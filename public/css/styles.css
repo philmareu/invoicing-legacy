@@ -8,13 +8,13 @@
  */
 html {
   /* 1 */
-  font: normal 17px / 22px "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: normal 16px / 20px "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
   /* 2 */
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   /* 3 */
   background: #fff;
-  color: #4C4C4C;
+  color: #444;
 }
 /*
  * Removes default margin.
@@ -1714,7 +1714,7 @@ iframe {
   text-decoration: none;
 }
 .uk-nav > li > a {
-  padding: 10px 15px;
+  padding: 5px 15px;
 }
 /*
  * Nested items

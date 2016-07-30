@@ -12,26 +12,52 @@
 	</div>
 
 	<div class="uk-width-1-2">
-		<ul class="uk-subnav uk-subnav-line uk-float-right">
+        <ul class="uk-subnav uk-subnav-pill">
+
+            <!-- This is the container enabling the JavaScript -->
+            <li data-uk-dropdown="{mode:'click'}">
+
+                <!-- This is the nav item toggling the dropdown -->
+                <a href="">
                     @if(! is_null($timer))
                         <span class="timer" data-invoicing-work-order-id="{{ $timer->work_order_id }}">
-                            <a href="{{ route('work-orders.show', $timer->work_order_id) }}">{{ $timer->elapsedFormatted() }}</a>
+                            {{ $timer->elapsedFormatted() }}
                         </span>
                     @else
                         <span class="timer" data-invoicing-work-order-id="">
+                            Work Orders
                         </span>
                     @endif
+                        <i class="uk-icon-chevron-down"></i>
+                </a>
 
-                <li data-uk-dropdown="{mode:'click'}">
+                <!-- This is the dropdown -->
+                <div class="uk-dropdown uk-dropdown-small">
+                    <ul class="uk-nav uk-nav-dropdown">
+                        @if(! is_null($timer))
+                            <a href="{{ route('work-orders.show', $timer->work_order_id) }}">Going</a>
+                        @endif
 
-				<a href="#">{{ Auth::user()->name }} <i class="uk-icon-toggle-down"></i></a>
+                        @foreach($workOrders as $workOrder)
+                            <li><a href="{{ route('work-orders.show', $workOrder->id) }}">{{ $workOrder->id }} - {{ $workOrder->client->title }} - {{ $workOrder->reference }}</a></li>
+                        @endforeach
+                    </ul>
+                </div>
+            </li>
 
-				<div class="uk-dropdown uk-dropdown-small">
-					<ul class="uk-nav uk-nav-dropdown">
-						<li><a href="{{ url('logout') }}"><i class="uk-icon-sign-out"></i> Logout</a></li>
-					</ul>
-				</div>
-			</li>
-		</ul>
+            <!-- This is the container enabling the JavaScript -->
+            <li data-uk-dropdown="{mode:'click'}">
+
+                <!-- This is the nav item toggling the dropdown -->
+                <a href="">{{ Auth::user()->name }} <i class="uk-icon-chevron-down"></i></a>
+
+                <!-- This is the dropdown -->
+                <div class="uk-dropdown uk-dropdown-small">
+                    <ul class="uk-nav uk-nav-dropdown">
+                        <li><a href="{{ url('logout') }}"><i class="uk-icon-sign-out"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
 	</div>
 </div>

@@ -9,6 +9,6 @@
         </tr>
     </thead>
     <tbody>
-        @each('workorders.index.row', $workOrders, 'workOrder', 'workorders.index.none')
+        @each('workorders.index.row', $workOrders, 'workOrder')
     </tbody>
 </table>
