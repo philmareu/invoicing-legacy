@@ -83,6 +83,7 @@ class InvoicesController extends Controller {
         $invoice->invoice_number = sprintf("%06d", $invoice->id);
         $invoice->unique_id = str_random(50);
         $invoice->idempotency_key = str_random(50);
+        if(! $request->has('due')) $invoice->due = null;
         $invoice->save();
 
 		return redirect('invoices/' . $invoice->id)->with('success', 'Invoice created.');
@@ -118,7 +119,7 @@ class InvoicesController extends Controller {
 	{
 		$attr = $request->all();
         if($request->has('reset_unique_id')) $attr['unique_id'] = str_random(50);
-
+        if(! $request->has('due')) $attr['due'] = null;
         $invoice->update($attr);
 
 		return redirect()->route('invoices.show', $invoice->id);

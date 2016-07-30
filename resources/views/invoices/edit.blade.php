@@ -16,7 +16,7 @@
                     @include('laraform::elements.form.select', ['field' => ['name' => 'client_id', 'label' => 'Client', 'options' => $clients, 'value' => $invoice->client_id]])
                     @include('laraform::elements.form.text', ['field' => ['name' => 'invoice_number', 'value' => $invoice->invoice_number]])
                     @include('laraform::elements.form.textarea', ['field' => ['name' => 'description', 'value' => $invoice->description]])
-                    @include('laraform::elements.form.date', ['field' => ['name' => 'due', 'value' => $invoice->due, 'id' => 'date']])
+                    @include('laraform::elements.form.date', ['field' => ['name' => 'due', 'value' => $invoice->due, 'id' => 'date', 'label' => 'Due (Leave blank if not ready to bill client)']])
                     @include('laraform::elements.form.checkbox', ['field' => ['name' => 'reset_unique_id', 'checked' => false]])
 
                     <div class="uk-form-row">

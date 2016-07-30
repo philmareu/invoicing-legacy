@@ -14,7 +14,7 @@
 
                     @include('laraform::elements.form.select', ['field' => ['name' => 'client_id', 'label' => 'Client', 'options' => $clients]])
                     @include('laraform::elements.form.textarea', ['field' => ['name' => 'description']])
-                    @include('laraform::elements.form.date', ['field' => ['name' => 'due', 'id' => 'date', 'value' => \Carbon\Carbon::now()->addWeeks(2)]])
+                    @include('laraform::elements.form.date', ['field' => ['name' => 'due', 'id' => 'date', 'label' => 'Due (Leave blank if not ready to bill client)']])
 
                     <div class="uk-form-row">
                         @include('laraform::elements.form.submit')

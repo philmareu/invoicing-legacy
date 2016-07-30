@@ -26,7 +26,7 @@ class CreateInvoiceRequest extends Request
         return [
             'client_id' => 'required|exists:clients,id',
             'description' => '',
-            'due' => 'required|date_format:Y-m-d'
+            'due' => 'date_format:Y-m-d'
         ];
     }
 }
