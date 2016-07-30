@@ -42,7 +42,7 @@ class CheckForTimer extends Command
      */
     public function handle()
     {
-        $time = $this->time->whereNull('time')->first()->load('workOrder');
+        $time = $this->time->with('workOrder')->whereNull('time')->first();
 
         if(! is_null($time)) event(new TimeTic($time));
     }
