@@ -34,12 +34,12 @@
                 <!-- This is the dropdown -->
                 <div class="uk-dropdown uk-dropdown-small">
                     <ul class="uk-nav uk-nav-dropdown">
-                        @if(! is_null($timer))
-                            <a href="{{ route('work-orders.show', $timer->work_order_id) }}">Going</a>
-                        @endif
-
                         @foreach($workOrders as $workOrder)
-                            <li><a href="{{ route('work-orders.show', $workOrder->id) }}">{{ $workOrder->id }} - {{ $workOrder->client->title }} - {{ $workOrder->reference }}</a></li>
+                            @if(! is_null($timer) && $timer->work_order_id == $workOrder->id)
+                                <li><a href="{{ route('work-orders.show', $timer->work_order_id) }}" class="uk-text-danger">{{ $timer->workOrder->id }} - {{ $timer->workOrder->client->title }} - {{ $timer->workOrder->reference }}</a></li>
+                            @else
+                                <li><a href="{{ route('work-orders.show', $workOrder->id) }}">{{ $workOrder->id }} - {{ $workOrder->client->title }} - {{ $workOrder->reference }}</a></li>
+                            @endif
                         @endforeach
                     </ul>
                 </div>

@@ -20,7 +20,9 @@ class TimerViewComposer {
      */
     public function compose(View $view)
     {
-        $timer = $this->time->whereNull('time')->first();
+        $timer = $this->time
+            ->with('workOrder.invoice.client')
+            ->whereNull('time')->first();
 
         $view->with(compact('timer'));
     }
