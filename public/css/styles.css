@@ -7797,9 +7797,9 @@ a.uk-thumbnail:focus {
  */
 .uk-scrollable-box {
   box-sizing: border-box;
-  height: 170px;
-  padding: 10px;
-  border: 1px solid #ddd;
+  height: 200px;
+  padding: 0;
+  border: 0 solid #ddd;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   resize: both;
