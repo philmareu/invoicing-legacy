@@ -1,4 +1,5 @@
 <h3 class="uk-panel-title">Work Order Information</h3>
+<div class="uk-panel-badge"><a href="{{ route('work-orders.edit', $workOrder->id) }}">Edit</a></div>
 
 <div class="uk-grid">
 	<div class="uk-width-1-1">

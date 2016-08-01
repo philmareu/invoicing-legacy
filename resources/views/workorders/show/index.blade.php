@@ -13,11 +13,7 @@
         </div>
         <div class="uk-width-1-2">
             <div class="uk-button-group uk-margin-bottom">
-                <a href="{{ route('work-orders.edit', $workOrder->id) }}" class="uk-button uk-width-1-4">
-                    <i class="uk-icon-pencil-square-o"></i> Edit
-                </a>
-
-                <a href="#" class="toggle-completion uk-button {{ $workOrder->completed ? 'completed' : 'uncompleted' }} uk-width-1-4" id="{{ $workOrder->id}}">
+                <a href="#" class="toggle-completion uk-button {{ $workOrder->completed ? 'completed' : 'uncompleted' }} uk-width-1-3" id="{{ $workOrder->id}}">
                     @if($workOrder->completed)
                         <i class="uk-icon-checked-square-o"></i> Closed
                     @else
@@ -25,8 +21,8 @@
                     @endif
                 </a>
 
-                <a href="{{ route('invoices.show', $workOrder->invoice_id) }}" class="uk-button uk-width-1-4"><i class="uk-icon-dollar"></i> Invoice</a>
-                <a href="" id="delete-work-order" data-invoicing-work-order-id="{{ $workOrder->id }}" class="uk-button uk-width-1-4"><i class="uk-icon-trash"></i> Delete</a>
+                <a href="{{ route('invoices.show', $workOrder->invoice_id) }}" class="uk-button uk-width-1-3"><i class="uk-icon-dollar"></i> Invoice</a>
+                <a href="" id="delete-work-order" data-invoicing-work-order-id="{{ $workOrder->id }}" class="uk-button uk-width-1-3"><i class="uk-icon-trash"></i> Delete</a>
 
             </div>
         </div>
