@@ -24,12 +24,16 @@ class DashboardController extends Controller {
                 ->whereBetween('start', [Carbon::now()->subDays($days)->startOfDay(), Carbon::now()->subDays($days)->endOfDay()])
                 ->get();
 
+            $totalTime = round($times->sum('time') / 60, 1);
+            $totalAmount = $times->reduce(function($total, $time) {
+                return $total + (($time->time / 60) * $time->workOrder->rate);
+            }, 0);
+
             $report->push([
                 'date' => Carbon::now()->subDays($days),
-                'time' => $times->sum('time') / 60,
-                'amount' => $times->reduce(function($total, $time) {
-                    return $total + (($time->time / 60) * $time->workOrder->rate);
-                }, 0)
+                'time' => $totalTime,
+                'amount' => $totalAmount,
+                'rate' => $totalTime ? round($totalAmount / $totalTime, 2) : 0
             ]);
         }
 
