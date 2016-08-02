@@ -15,6 +15,7 @@
                         <th>Date</th>
                         <th>Time</th>
                         <th>Amount</th>
+                        <th>Rate</th>
                     </tr>
                     </thead>
 
@@ -24,6 +25,7 @@
                             <td>{{ $row['date']->format('M d, Y') }}</td>
                             <td>{{ $row['time'] }}</td>
                             <td>{{ $row['amount'] }}</td>
+                            <td>{{ $row['rate'] }}</td>
                         </tr>
                     @endforeach
                     </tbody>
