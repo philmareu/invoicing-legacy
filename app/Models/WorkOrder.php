@@ -72,4 +72,14 @@ class WorkOrder extends Model
     {
         return $this->totalTimeHours() * ($this->rate * 100);
     }
+
+    public function from()
+    {
+        return $this->times->sortBy('start')->first()->start;
+    }
+
+    public function to()
+    {
+        return $this->times->sortBy('start')->last()->start;
+    }
 }

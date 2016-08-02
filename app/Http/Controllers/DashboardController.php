@@ -21,7 +21,7 @@ class DashboardController extends Controller {
         {
             $times = $this->time
                 ->with('workOrder')
-                ->whereBetween('start', [Carbon::now()->subDays($days)->startOfDay(), Carbon::now()->subDays($days)->endOfDay()])
+                ->whereBetween('start', [Carbon::now('America/Chicago')->subDays($days)->startOfDay(), Carbon::now('America/Chicago')->subDays($days)->endOfDay()])
                 ->get();
 
             $totalTime = round($times->sum('time') / 60, 1);
@@ -30,7 +30,7 @@ class DashboardController extends Controller {
             }, 0);
 
             $report->push([
-                'date' => Carbon::now()->subDays($days),
+                'date' => Carbon::now('America/Chicago')->subDays($days),
                 'time' => $totalTime,
                 'amount' => $totalAmount,
                 'rate' => $totalTime ? round($totalAmount / $totalTime, 2) : 0
