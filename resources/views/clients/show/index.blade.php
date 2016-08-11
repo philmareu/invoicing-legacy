@@ -20,7 +20,9 @@
 
                 <div class="uk-grid">
                     <div class="uk-width-1-1">
-                        @include('invoices.index.table', ['invoices' => $client->invoices])
+                        <div class="uk-scrollable-box">
+                            @include('invoices.index.table', ['invoices' => $client->invoices])
+                        </div>
                     </div>
                 </div>
             </div>
@@ -30,7 +32,9 @@
 
                 <div class="uk-grid">
                     <div class="uk-width-1-1">
-                        @include('workorders.index.table', ['workOrders' => $client->workOrders])
+                        <div class="uk-scrollable-box">
+                            @include('workorders.index.table', ['workOrders' => $client->workOrders])
+                        </div>
                     </div>
                 </div>
             </div>
