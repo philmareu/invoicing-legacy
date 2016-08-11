@@ -8615,6 +8615,9 @@ body {
 .sidebar .uk-nav-side .uk-icon-justify {
   width: 1.5em;
 }
+.sidebar .uk-nav-side li a {
+  padding: 10px 15px;
+}
 .sidebar .uk-nav-side li li {
   text-transform: none;
 }
