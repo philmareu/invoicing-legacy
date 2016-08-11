@@ -8648,9 +8648,7 @@ section#primary table.tasks td.actions {
 }
 .uk-grid.topbar {
   width: 80%;
-}
-.topbar .uk-badge {
-  background-color: #e74c3c;
+  height: 50px;
 }
 .uk-button-group {
   border: 1px solid #999;
@@ -8666,24 +8664,11 @@ header {
   margin-bottom: 0px;
 }
 header .uk-subnav {
-  padding: 14px 0 0 0;
+  padding: 0;
 }
 header h1 {
   margin: 0;
   padding: 0;
-}
-.search {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-.search .uk-search:before {
-  left: 10px;
-}
-.search input {
-  padding-left: 50px;
-  font-size: 24px;
-}
-.search .uk-search {
-  width: 100%;
 }
 td .uk-progress {
   margin: 6px 0 0 0;
