@@ -3,6 +3,7 @@
 namespace Invoicing\Http\Controllers;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Invoicing\Models\Time;
 
 class DashboardController extends Controller {
@@ -19,9 +20,17 @@ class DashboardController extends Controller {
         $report = collect();
         foreach(range(0, 30) as $days)
         {
+            $from = Carbon::now(Auth::user()->settings->timezone)->subDays($days)->startOfDay();
+            $to = Carbon::now(Auth::user()->settings->timezone)->subDays($days)->endOfDay();
+            
+            $range = [
+                $from->subSeconds($from->getOffset()),
+                $to->subSeconds($to->getOffset())
+            ];
+
             $times = $this->time
                 ->with('workOrder')
-                ->whereBetween('start', [Carbon::now('America/Chicago')->subDays($days)->startOfDay(), Carbon::now('America/Chicago')->subDays($days)->endOfDay()])
+                ->whereBetween('start', $range)
                 ->get();
 
             $totalTime = round($times->sum('time') / 60, 1);
