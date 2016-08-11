@@ -22,9 +22,17 @@
                         @if($user)
                             <a href="{{ route('work-orders.show', $workOrder->id) }}">View</a>
                         @endif
-                        <span class="uk-text-bold">WO# {{ $workOrder->id }} - {{ $workOrder->reference }}</span><br>
+                        <span class="uk-text-bold">WO# {{ $workOrder->id }} - {{ $workOrder->reference }}
 
-                        <p>{{ $workOrder->from()->format('M d, Y') }} - {{ $workOrder->to()->format('M d, Y') }}</p>
+                            @if(! $workOrder->completed)
+                                <span class="uk-text-danger">[Open]</span>
+                            @endif
+                        </span><br>
+
+                        @if($workOrder->times->count())
+                            <p>{{ $workOrder->from()->format('M d, Y') }} - {{ $workOrder->to()->format('M d, Y') }}</p>
+                        @endif
+
                         <p class="services">{{ $workOrder->description }}</p>
 
                         @if(count($workOrder->tasks))
