@@ -30,6 +30,7 @@
                         @include('laraform::elements.form.text', ['field' => ['name' => 'invoice_phone', 'value' => $user->settings->invoice_phone]])
                         @include('laraform::elements.form.textarea', ['field' => ['name' => 'invoice_note', 'value' => $user->settings->invoice_note]])
                         @include('laraform::elements.form.password', ['field' => ['name' => 'stripe_secret']])
+                        @include('laraform::elements.form.select', ['field' => ['name' => 'timezone', 'options' => $timezones, 'value' => $user->settings->timezone]])
                         @include('laraform::elements.form.text', ['field' => ['name' => 'stripe_public', 'value' => $user->settings->stripe_public]])
                         @if($user->settings->stripe_public)
                             <a href="{{ route('settings.remove-stripe') }}">Remove Stripe Keys</a>
