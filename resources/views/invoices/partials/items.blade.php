@@ -1,4 +1,5 @@
 <h3 class="uk-panel-title">Items</h3>
+
 @if($user)
     <div class="uk-panel-badge"><a href="{{ route('invoices.invoice-items.create', ['invoice_id' => $invoice->id]) }}">Add</a></div>
 @endif

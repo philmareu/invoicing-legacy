@@ -24,7 +24,7 @@ class WorkingInvoicesComposer {
     {
         $invoices = $this->invoice
             ->with('client')
-            ->whereSent(0)
+            ->whereNull('due')
             ->get();
 
         $view->with('invoices', $invoices);

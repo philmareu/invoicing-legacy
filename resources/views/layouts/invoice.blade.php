@@ -3,7 +3,9 @@
 <head>
 	<title>WorkTop | Invoice</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="publishable-key" content="{{ $user->settings->stripe_public }}">
+    <meta name="publishable-key" content="{{ $merchant->settings->stripe_public }}">
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
 	<link rel="stylesheet" href="{{ asset('css/invoice.css') }}">
 </head>
 <body class="invoice">

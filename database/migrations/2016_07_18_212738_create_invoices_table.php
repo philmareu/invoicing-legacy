@@ -20,7 +20,6 @@ class CreateInvoicesTable extends Migration
             $table->text('description');
             $table->date('due')->nullable();
             $table->integer('balance')->default(0);
-            $table->boolean('sent');
             $table->string('idempotency_key');
             $table->timestamps();
 

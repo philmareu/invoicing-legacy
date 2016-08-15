@@ -8,10 +8,10 @@
         <table class="uk-table">
             <thead>
             <tr>
-                <th class="uk-width-5-6">Work Order</th>
+                <th class="uk-width-5-6">Details</th>
                 <th>Hours</th>
                 <th width="80">Rate</th>
-                <th width="120" class="uk-text-right">Total</th>
+                <th width="120" class="uk-text-right">Amount</th>
             </tr>
             </thead>
 
@@ -33,7 +33,7 @@
                             <p>{{ $workOrder->from()->format('M d, Y') }} - {{ $workOrder->to()->format('M d, Y') }}</p>
                         @endif
 
-                        <p class="services">{{ $workOrder->description }}</p>
+                        <p class="services">{!! $workOrder->description !!}</p>
 
                         @if(count($workOrder->tasks))
 
