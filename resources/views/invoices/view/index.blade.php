@@ -3,6 +3,9 @@
 @section('content')
 
     <div class="uk-alert uk-alert-warning uk-margin-bottom-remove">
+        @if(is_null($invoice->due))
+            <p class="uk-text-center">Warning: No due date is set which means there might be open work yet to be performed towards this invoice.</p>
+        @endif
         <p class="uk-text-center">Hello, this is your invoice with a balance of ${{ number_format($invoice->balance / 100, 2) }}</p>
     </div>
 
