@@ -16,21 +16,25 @@
         </div>
         <div class="uk-width-medium-2-3">
             <div class="uk-panel uk-panel-box">
-                <h3 class="uk-panel-title"><i class="uk-icon-info"></i> Invoices</h3>
+                <h3 class="uk-panel-title"><i class="uk-icon-dollar"></i> Invoices</h3>
 
                 <div class="uk-grid">
                     <div class="uk-width-1-1">
-                        @include('invoices.index.table', ['invoices' => $client->invoices])
+                        <div class="uk-scrollable-box">
+                            @include('invoices.index.table', ['invoices' => $client->invoices])
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="uk-panel uk-panel-box">
-                <h3 class="uk-panel-title"><i class="uk-icon-info"></i> Work Orders</h3>
+                <h3 class="uk-panel-title"><i class="uk-icon-file-text-o"></i> Work Orders</h3>
 
                 <div class="uk-grid">
                     <div class="uk-width-1-1">
-                        @include('workorders.index.table', ['workOrders' => $client->workOrders])
+                        <div class="uk-scrollable-box">
+                            @include('workorders.index.table', ['workOrders' => $client->workOrders])
+                        </div>
                     </div>
                 </div>
             </div>

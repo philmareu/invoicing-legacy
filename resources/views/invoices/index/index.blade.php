@@ -17,7 +17,7 @@
     </div>
 
     <div class="uk-panel uk-panel-box uk-margin-bottom">
-        <h3 class="uk-panel-title"><i class="uk-icon-dollar"></i> Due (${{ number_format($due->reduce(function($total, $invoice) {return $total + $invoice->balance;}, 0) / 100, 2) }})</h3>
+        <h3 class="uk-panel-title">Due (${{ number_format($due->reduce(function($total, $invoice) {return $total + $invoice->balance;}, 0) / 100, 2) }})</h3>
 
         <div class="uk-grid">
             <div class="uk-width-1-1">
@@ -29,7 +29,7 @@
     </div>
 
     <div class="uk-panel uk-panel-box">
-        <h3 class="uk-panel-title"><i class="uk-icon-dollar"></i> Paid</h3>
+        <h3 class="uk-panel-title">Paid</h3>
 
         <div class="uk-grid">
             <div class="uk-width-1-1">

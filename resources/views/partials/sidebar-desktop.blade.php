@@ -1,5 +1,5 @@
 <div class="top-panel">
-    <img src="{{ url('images/original/' . $user->image) }}" class="uk-width-1-2">
+    <img src="{{ url('images/original/' . $user->image) }}" class="uk-width-1-3">
     <h2>{{ $user->name }}</h2>
 </div>
 

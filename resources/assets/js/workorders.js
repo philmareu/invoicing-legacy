@@ -68,12 +68,14 @@ $(function(){
                     $('.toggle-time').addClass('uk-text-success');
                     //$('.toggle-time').attr('class', 'uk-button toggle-time uk-text-success');
                     $('table.times tbody').append(response.html);
+                    document.title = 'Invoicing | Invoicing by Phil Mareu';
                 } else {
                     button.html('<i class="uk-icon-stop"></i><span class="timer"> 0:00</span>').prop('disabled', false);
                     $('.toggle-time').removeClass('uk-text-success');
                     $('.toggle-time').addClass('uk-text-danger');
                     //$('.toggle-time').attr('class', 'uk-button toggle-time uk-text-danger');
                     $('i.uk-icon-play').attr('class', 'uk-icon-stop');
+                    document.title = 'Timer | 0:00';
                 }
             }
         });

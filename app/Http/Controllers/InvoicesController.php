@@ -15,6 +15,7 @@ use Invoicing\Http\Requests\ProcessStripePaymentRequest;
 use Invoicing\Http\Requests\UpdateInvoiceRequest;
 use Invoicing\Models\Client;
 use Invoicing\Models\Invoice;
+use Invoicing\Models\User;
 
 class InvoicesController extends Controller {
 	
@@ -167,15 +168,21 @@ class InvoicesController extends Controller {
 	public function view($clientId, $uniqueId)
 	{
         $invoice = $this->getInvoiceOrFail($clientId, $uniqueId);
+        $merchant = User::find(1);
 
-		return view('invoices.view.index')->with('invoice', $invoice);
+		return view('invoices.view.index')
+            ->with('invoice', $invoice)
+            ->with('merchant', $merchant);
 	}
 	
 	public function pay($clientId, $uniqueId)
 	{
         $invoice = $this->getInvoiceOrFail($clientId, $uniqueId);
+        $merchant = User::find(1);
 
-		return view('invoices.pay.index')->with('invoice', $invoice);
+		return view('invoices.pay.index')
+            ->with('invoice', $invoice)
+            ->with('merchant', $merchant);
 	}
 	
 	public function processPayment(ProcessStripePaymentRequest $request)

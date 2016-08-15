@@ -3,6 +3,9 @@
 @section('content')
 
     <div class="uk-alert uk-alert-warning uk-margin-bottom-remove">
+        @if(is_null($invoice->due))
+            <p class="uk-text-center">Warning: No due date is set which means there might be open work yet to be performed towards this invoice.</p>
+        @endif
         <p class="uk-text-center">Hello, this is your invoice with a balance of ${{ number_format($invoice->balance / 100, 2) }}</p>
     </div>
 
@@ -43,9 +46,10 @@
 
             @endif
 
-            <div class="uk-panel uk-panel-box uk-margin-bottom">
-                <div class="invoice-total">
-                    <p class="uk-text-right uk-text-large"><strong>Total cost: ${{ number_format($invoice->itemTotal() + $invoice->workOrderTotals() / 100, 2) }}</strong></p>
+            <div class="uk-alert uk-margin-bottom uk-text-bold">
+                <div class="uk-grid">
+                    <div class="uk-width-1-2">Total Cost</div>
+                    <div class="uk-width-1-2 uk-text-right">${{ number_format($invoice->itemTotal() + $invoice->workOrderTotals() / 100, 2) }}</div>
                 </div>
             </div>
 
@@ -55,20 +59,22 @@
                 </div>
             @endif
 
-            <div class="uk-panel uk-panel-box">
-                <div class="balance-total">
-                    <p class="uk-text-right uk-text-large"><strong>Remaining balance: ${{ number_format($invoice->balance / 100, 2) }}</strong></p>
-                    <div class="uk-text-right">
-                        <a href="{{ route('invoice.pay', [$invoice->client->id, $invoice->unique_id]) }}"
-                           class="uk-button uk-button-primary"><i class="uk-icon-cc-visa"></i><i class="uk-icon-cc-mastercard"></i> Make Payment</a>
-                        <a href="#" id="print" class="uk-button"><i class="uk-icon-print"></i> Print Invoice</a>
-                    </div>
+            <div class="uk-alert uk-alert-warning uk-margin-bottom uk-text-bold uk-text-large">
+                <div class="uk-grid">
+                    <div class="uk-width-1-2">Remaining Balance</div>
+                    <div class="uk-width-1-2 uk-text-right">${{ number_format($invoice->balance / 100, 2) }}</div>
                 </div>
+            </div>
+
+            <div class="uk-text-right">
+                <a href="{{ route('invoice.pay', [$invoice->client->id, $invoice->unique_id]) }}"
+                   class="uk-button uk-button-primary"><i class="uk-icon-cc-visa"></i><i class="uk-icon-cc-mastercard"></i> Make Payment</a>
+                <a href="#" id="print" class="uk-button"><i class="uk-icon-print"></i> Print Invoice</a>
             </div>
         </div>
     </div>
 
-    <p class="uk-text-center">{{ $user->settings->invoice_note }}</p>
+    <p class="uk-text-center">{{ $merchant->settings->invoice_note }}</p>
 
     <div class="visible-print">
         <hr>

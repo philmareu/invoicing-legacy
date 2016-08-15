@@ -9,7 +9,7 @@
 
     <div class="uk-grid">
         <div class="uk-width-1-2">
-            <h1>WO# {{ $workOrder->id }}</h1>
+            <h1><i class="uk-icon-file-text-o"></i> WO# {{ $workOrder->id }}</h1>
         </div>
         <div class="uk-width-1-2">
             <div class="uk-button-group uk-margin-bottom">

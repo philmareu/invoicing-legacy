@@ -2,6 +2,7 @@
 
 namespace Invoicing\Http\Controllers;
 
+use DateTimeZone;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Invoicing\Http\Requests\UpdateSettingsRequest;
@@ -10,7 +11,10 @@ class SettingsController extends Controller {
 
 	public function edit()
 	{
-		return view('settings.edit')->with('user', Auth::user());
+        $timezones = array_combine(array_values(DateTimeZone::listIdentifiers()), array_values(DateTimeZone::listIdentifiers()));
+		return view('settings.edit')
+            ->with('user', Auth::user())
+            ->with('timezones', $timezones);
 	}
 	
 	public function update(UpdateSettingsRequest $request)

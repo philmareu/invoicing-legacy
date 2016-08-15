@@ -8,7 +8,7 @@
  */
 html {
   /* 1 */
-  font: normal 14px / 20px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: normal 16px / 20px "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
   /* 2 */
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -226,9 +226,9 @@ h4,
 h5,
 h6 {
   margin: 0 0 15px 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: normal;
-  color: #444;
+  font-family: "Raleway", adelle, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  color: #4C4C4C;
   text-transform: none;
 }
 /*
@@ -1324,13 +1324,13 @@ iframe {
 /* Sub-object: `uk-panel-body`
  ========================================================================== */
 .uk-panel-body {
-  padding: 15px;
+  padding: 0;
 }
 /* Modifier: `uk-panel-box`
  ========================================================================== */
 .uk-panel-box {
-  padding: 15px;
-  background: #f5f5f5;
+  padding: 0;
+  background: #FFF;
   color: #444;
 }
 .uk-panel-box-hover:hover {
@@ -1344,15 +1344,15 @@ iframe {
   right: 10px;
 }
 .uk-panel-box > .uk-panel-teaser {
-  margin-top: -15px;
-  margin-left: -15px;
-  margin-right: -15px;
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
 }
 /*
  * Nav in panel
  */
 .uk-panel-box > .uk-nav-side {
-  margin: 0 -15px;
+  margin: 0 0;
 }
 /*
  * Sub-modifier: `uk-panel-box-primary`
@@ -8426,6 +8426,10 @@ a.uk-thumbnail:focus {
   h3 {
     page-break-after: avoid;
   }
+}
+h3.uk-panel-title {
+  border-bottom: 1px solid #000;
+  padding-bottom: 10px;
 }
 body.invoice {
   background-image: url(../img/bg-1.png);

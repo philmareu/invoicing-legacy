@@ -16,7 +16,8 @@ class Setting extends Model
         'invoice_zip',
         'invoice_phone',
         'invoice_note',
-        'stripe_public'
+        'stripe_public',
+        'timezone'
     ];
 
     protected $touches = [

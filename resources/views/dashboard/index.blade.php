@@ -5,7 +5,7 @@
     <h1><i class="uk-icon-dashboard"></i> Dashboard</h1>
 
     <div class="uk-panel uk-panel-box uk-margin-bottom">
-        <h3 class="uk-panel-title">Report</h3>
+        <h3 class="uk-panel-title">Last 30 days</h3>
 
         <div class="uk-grid">
             <div class="uk-width-1-1">
@@ -15,7 +15,7 @@
                         <th>Date</th>
                         <th>Time</th>
                         <th>Amount</th>
-                        <th>Rate</th>
+                        <th>Rate ($/hr)</th>
                     </tr>
                     </thead>
 
