@@ -9,7 +9,7 @@
 
     <h1>Invoice #{{ $invoice->invoice_number }}</h1>
     <div class="uk-panel uk-panel-box uk-margin-bottom">
-        <h3 class="uk-panel-title"><i class="uk-icon-info"></i> Info</h3>
+        <h3 class="uk-panel-title">Info</h3>
         <div class="uk-panel-badge">
             <a href="{{ url(route('invoice.view', [$invoice->client_id, $invoice->unique_id])) }}">View</a>
             <a href="{{ url(route('invoices.edit', $invoice->id)) }}">Edit</a>

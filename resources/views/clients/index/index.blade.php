@@ -7,7 +7,7 @@
     <div class="uk-panel-badge"><a href="{{ route('clients.create') }}">Add</a></div>
 
     <div class="uk-panel uk-panel-box uk-margin-bottom">
-        <h3 class="uk-panel-title"><i class="uk-icon-info"></i> Recently Updated</h3>
+        <h3 class="uk-panel-title">Recently Updated</h3>
 
         <div class="uk-grid">
             <div class="uk-width-1-1">
@@ -19,7 +19,7 @@
     </div>
 
     <div class="uk-panel uk-panel-box">
-        <h3 class="uk-panel-title"><i class="uk-icon-info"></i> All</h3>
+        <h3 class="uk-panel-title">All</h3>
 
         <div class="uk-grid">
             <div class="uk-width-1-1">

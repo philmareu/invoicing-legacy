@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1>Account > Settings</h1>
+<h1><i class="uk-icon-gear"></i> Settings</h1>
 
 <div class="uk-grid">
 	<div class="uk-width-1-1">
