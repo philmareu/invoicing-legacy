@@ -47,7 +47,7 @@
                 </div>
                 <div class="uk-width-small-1-3">
                     <div class="uk-form-row">
-                        <label for="month" class="uk-form-label">Exp. Year</label>
+                        <label for="month" class="uk-form-label">Exp. Year (ex. 2019)</label>
                         <div class="uk-form-controls">
                             <input type="text" data-stripe="exp-year" maxlength="4">
                         </div>
