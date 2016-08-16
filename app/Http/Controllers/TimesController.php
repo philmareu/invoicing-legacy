@@ -89,8 +89,10 @@ class TimesController extends Controller {
 	 */
 	public function update(UpdateTimeRequest $request, Time $time)
 	{
+        $start = Carbon::createFromFormat('Y-m-d', $request->start, Auth::user()->settings->timezone)->startOfDay();
+
         $time->update([
-            'start' => $request->start,
+            'start' => $start->subSeconds($start->getOffset()),
             'time' => $request->hours * 60 + $request->minutes,
             'note' => $request->note
         ]);
