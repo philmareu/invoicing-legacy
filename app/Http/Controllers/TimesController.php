@@ -3,6 +3,7 @@
 namespace Invoicing\Http\Controllers;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Invoicing\Http\Requests\CreateTimeRequest;
 use Invoicing\Http\Requests\ToggleTimeRequest;
 use Invoicing\Http\Requests\UpdateTimeRequest;
@@ -41,8 +42,11 @@ class TimesController extends Controller {
 	public function store(CreateTimeRequest $request)
 	{
         $workOrder = $this->workOrder->findOrFail($request->work_order_id);
+
+        $start = Carbon::createFromFormat('Y-m-d', $request->start, Auth::user()->settings->timezone)->startOfDay();
+
         $time = $workOrder->times()->create([
-            'start' => $request->start,
+            'start' => $start->subSeconds($start->getOffset()),
             'time' => $request->hours * 60 + $request->minutes,
             'note' => $request->note
         ]);
