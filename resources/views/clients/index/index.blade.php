@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <h1><i class="uk-icon-users"></i> Clients</h1>
+    <h1><i class="uk-icon-users"></i> Clients <a href="{{ route('clients.create') }}" class="uk-align-right uk-button uk-button-primary">Add</a></h1>
 
     <div class="uk-panel-badge"><a href="{{ route('clients.create') }}">Add</a></div>
 
