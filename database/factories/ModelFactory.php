@@ -39,8 +39,7 @@ $factory->define(Invoicing\Models\Invoice::class, function (Faker\Generator $fak
         'invoice_number' => $faker->unique()->numberBetween(1, 10000),
         'unique_id' => $faker->unique()->word,
         'description' => $faker->paragraph,
-        'due' => $faker->date(),
-        'paid' => $faker->numberBetween(0, 1)
+        'due' => $faker->date()
     ];
 });
 

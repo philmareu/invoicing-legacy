@@ -24,7 +24,7 @@ class CreateSettingsTable extends Migration
             $table->string('invoice_zip');
             $table->string('invoice_phone');
             $table->text('invoice_note');
-            $table->text('timezone', 50)->default('America/Chicago');
+            $table->string('timezone', 50)->default('America/Chicago');
             $table->string('stripe_public')->nullable();
             $table->string('stripe_secret')->nullable();
             $table->timestamps();
