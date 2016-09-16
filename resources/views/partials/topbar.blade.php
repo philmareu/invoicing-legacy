@@ -21,7 +21,7 @@
                 </div>
             </li>
             <li>
-                <a href="{{ url('auth/logout') }}"><i class="uk-icon-power-off uk-icon-justify"></i> Logout</a>
+                <a href="{{ url('logout') }}" id="logout"><i class="uk-icon-power-off uk-icon-justify"></i> Logout</a>
             </li>
         </ul>
     </div>
