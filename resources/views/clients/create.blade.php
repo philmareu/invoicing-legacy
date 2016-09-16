@@ -16,7 +16,7 @@
                     @include('laraform::elements.form.text', ['field' => ['name' => 'address_1']])
                     @include('laraform::elements.form.text', ['field' => ['name' => 'address_2']])
                     @include('laraform::elements.form.text', ['field' => ['name' => 'city']])
-                    @include('laraform::elements.form.text', ['field' => ['name' => 'state']])
+                    @include('laraform::elements.form.text', ['field' => ['name' => 'state', 'label' => 'State Code (ex. KS)']])
                     @include('laraform::elements.form.text', ['field' => ['name' => 'zip']])
                     @include('laraform::elements.form.text', ['field' => ['name' => 'phone']])
                     @include('laraform::elements.form.text', ['field' => ['name' => 'invoicing_email']])
