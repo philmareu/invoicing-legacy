@@ -5,7 +5,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Invoicing\Models\User;
 
-class ClientTest extends TestCase
+class FormTest extends TestCase
 {
     use DatabaseMigrations;
 

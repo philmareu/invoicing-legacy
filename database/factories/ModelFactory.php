@@ -107,6 +107,7 @@ $factory->define(Invoicing\Models\Payment::class, function (Faker\Generator $fak
 
 $factory->define(Invoicing\Models\Setting::class, function (Faker\Generator $faker) {
     return [
-        'rate' => 85
+        'rate' => 85,
+        'timezone' => 'America/Chicago'
     ];
 });
