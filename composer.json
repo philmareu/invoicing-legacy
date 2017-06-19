@@ -19,11 +19,14 @@
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~5.7",
         "symfony/css-selector": "2.8.*|3.1.*",
-        "symfony/dom-crawler": "2.8.*|3.1.*"
+        "symfony/dom-crawler": "2.8.*|3.1.*",
+        "laravel/browser-kit-testing": "^2.0"
     },
     "autoload": {
         "classmap": [
-            "database"
+            "database",
+            "tests/TestCase.php",
+            "tests/BrowserKitTestCase.php"
         ],
         "psr-4": {
             "Invoicing\\": "app/",

@@ -5,7 +5,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Invoicing\Models\User;
 
-class PageLoadTest extends TestCase
+class PageLoadTest extends Tests\BrowserKitTestCase
 {
     use DatabaseMigrations;
 
