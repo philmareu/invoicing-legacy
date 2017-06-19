@@ -6,17 +6,18 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "5.3.*",
+        "laravel/framework": "5.4.*",
         "philsquare/laraform": "^1.2",
         "intervention/image": "^2.3",
         "intervention/imagecache": "^2.3",
         "stripe/stripe-php": "^3.17",
-        "pusher/pusher-php-server": "^2.4"
+        "pusher/pusher-php-server": "^2.4",
+        "laravel/dusk": "^1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~4.0",
+        "phpunit/phpunit": "~5.7",
         "symfony/css-selector": "2.8.*|3.1.*",
         "symfony/dom-crawler": "2.8.*|3.1.*"
     },
@@ -25,7 +26,8 @@
             "database"
         ],
         "psr-4": {
-            "Invoicing\\": "app/"
+            "Invoicing\\": "app/",
+            "Tests\\": "tests/"
         }
     },
     "autoload-dev": {
