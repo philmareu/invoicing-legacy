@@ -27,7 +27,7 @@ class PageLoadTest extends TestCase
         $user = $this->createAndGetUser();
 
         $response = $this->actingAs($user)
-            ->call('GET', 'logout');
+            ->call('POST', 'logout');
 
         $this->assertEquals(302, $response->getStatusCode());
     }
