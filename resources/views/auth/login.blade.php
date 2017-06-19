@@ -1,66 +1,48 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
-                        {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+    <div class="uk-width-medium-1-5 uk-vertical-align-middle">
+        <div id="login-box">
+            <div class="title-bar"><i class="uk-icon-sign-in"></i> Invoicing</div>
+            <form class="uk-form uk-text-left" method="POST" action="{{ url('login') }}">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                <div class="uk-form-row">
+                    <div class="uk-form-controls">
+                        <span class="errors uk-text-danger">{{ $errors->first('email') }}</span>
+                        <div class="uk-form-icon uk-form-controls">
+                            <i class="uk-icon-envelope"></i>
+                            <input type="text" placeholder="Email" name="email" class="uk-form-width-large" value="{{ old('email') }}">
                         </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password">
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember"> Remember Me
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-sign-in"></i> Login
-                                </button>
-
-                                <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
+
+                <div class="uk-form-row">
+                    <div class="uk-form-controls">
+                        <span class="errors uk-text-danger">{{ $errors->first('password') }}</span>
+                        <div class="uk-form-icon uk-form-controls">
+                            <i class="uk-icon-lock"></i>
+                            <input type="password" placeholder="Password" name="password" class="uk-form-width-large">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="uk-form-row">
+                    <input type="checkbox" value="1" name="remember"> Remember
+                </div>
+
+                <div class="uk-form-row">
+                    <div class="uk-grid uk-grid-collapse uk-flex-middle">
+                        <div class="uk-width-medium-1-2">
+                            <button type="submit" class="uk-button uk-button-primary">Login</button>
+                        </div>
+                        <div class="uk-width-medium-1-2">
+                            <a href="{{ url('password/reset') }}" class="forgot-password">Forgot Password?</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-</div>
 @endsection

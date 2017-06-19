@@ -202,7 +202,7 @@ class InvoicesController extends Controller {
 		
 		catch(Exception $e)
 		{
-			return redirect()->back()->with('failed', 'There was a problem charging your card.');
+			return redirect()->back()->with('failed', $e->getMessage());
 		}
 
         $payment = $invoice->payments()->create([
