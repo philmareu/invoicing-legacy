@@ -4,17 +4,23 @@ namespace Invoicing\Http\Controllers;
 
 use Invoicing\Http\Requests;
 use Illuminate\Http\Request;
+use Invoicing\Repositories\SetupRepository;
 
 class HomeController extends Controller
 {
+    /**
+     * @var SetupRepository
+     */
+    protected $setupRepository;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(SetupRepository $setupRepository)
     {
-        $this->middleware('auth');
+        $this->setupRepository = $setupRepository;
     }
 
     /**
@@ -24,6 +30,13 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if($this->setupRequired()) return redirect('setup');
+
         return redirect('dashboard');
+    }
+
+    private function setupRequired()
+    {
+        return $this->setupRepository->isNotSetup();
     }
 }
