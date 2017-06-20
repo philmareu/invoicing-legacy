@@ -61,7 +61,7 @@ class SetupTest extends BrowserKitTestCase
         $this->createUser();
 
         $response = $this->call('GET', 'setup');
-        
+
         $this->assertTrue($response->isRedirect('http://localhost'));
     }
 

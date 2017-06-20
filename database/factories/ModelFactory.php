@@ -16,8 +16,7 @@ $factory->define(Invoicing\Models\User::class, function (Faker\Generator $faker)
         'name' => $faker->name,
         'email' => $faker->safeEmail,
         'password' => bcrypt(str_random(10)),
-        'remember_token' => str_random(10),
-        'image' => 'default.jpg'
+        'remember_token' => str_random(10)
     ];
 });
 

@@ -4,7 +4,8 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index');
 
-Route::get('setup', 'SetupController@setup');
+Route::get('setup', 'SetupController@setup')->name('setup');
+Route::post('setup', 'SetupController@store')->name('setup.store');
 
 Route::get('invoice/view/{client_id}/{unique_id}', [
     'as' => 'invoice.view',

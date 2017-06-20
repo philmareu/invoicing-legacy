@@ -7,6 +7,13 @@ use Invoicing\Models\User;
 
 class SetupRepository
 {
+    protected $user;
+
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+
     public function isNotSetup()
     {
         $users = User::all();
@@ -16,5 +23,10 @@ class SetupRepository
     public function isSetup()
     {
         return ! $this->isNotSetup();
+    }
+
+    public function saveSetup($settings)
+    {
+        return $this->user->create($settings);
     }
 }

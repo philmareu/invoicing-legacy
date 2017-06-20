@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use Invoicing\Models\User;
 use Invoicing\Repositories\SetupRepository;
 use Tests\BrowserKitTestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -10,6 +11,13 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class SetupRepositoryTest extends BrowserKitTestCase
 {
     use DatabaseMigrations;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->user = new User;
+    }
 
     protected function setUp()
     {
@@ -26,7 +34,7 @@ class SetupRepositoryTest extends BrowserKitTestCase
      */
     public function testIsNotSetup()
     {
-        $setupRepository = new SetupRepository;
+        $setupRepository = new SetupRepository($this->user);
         $settings = $this->getSettings();
 
         $this->assertEquals(true, $setupRepository->isNotSetup());
@@ -39,9 +47,27 @@ class SetupRepositoryTest extends BrowserKitTestCase
     {
         $this->createUser();
 
-        $setupRepository = new SetupRepository;
+        $setupRepository = new SetupRepository($this->user);
         $settings = $this->getSettings();
 
         $this->assertEquals(true, $setupRepository->isSetup());
+    }
+
+    /**
+     * @group setup
+     */
+    public function testSaveSetup()
+    {
+        $setupRepository = new SetupRepository($this->user);
+        $user = $setupRepository->saveSetup([
+            'name' => 'User',
+            'email' => 'user@user.com',
+            'password' => bcrypt('password')
+        ]);
+
+        $this->assertInstanceOf(\Invoicing\Models\User::class, $user);
+        $this->assertEquals('User', $user->name);
+        $this->assertEquals('user@user.com', $user->email);
+        $this->assertTrue(password_verify('password', $user->password));
     }
 }
